@@ -1,0 +1,442 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #2563eb;
+  --primary-deep: #1d4ed8;
+  --ink: #0f172a;
+  --muted: #475569;
+  --line: #dbe2ef;
+  --bg: #f8fafc;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Manrope", sans-serif;
+  background: radial-gradient(circle at top right, #dbeafe 0%, #f8fafc 42%, #f8fafc 100%);
+  color: var(--ink);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+.page-container {
+  width: min(1120px, 92%);
+  margin-inline: auto;
+}
+
+.navbar-wrap {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+  background: rgba(248, 250, 252, 0.88);
+  backdrop-filter: blur(10px);
+}
+
+.navbar {
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.brand {
+  font-weight: 800;
+  font-size: 1.08rem;
+  letter-spacing: 0.2px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.nav-link {
+  padding: 0.45rem 0.8rem;
+  border-radius: 999px;
+  color: #1e293b;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.nav-link:hover {
+  background: #dbeafe;
+  color: var(--primary-deep);
+}
+
+.hero-section {
+  padding: 4rem 0 2.5rem;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  background: #dbeafe;
+  color: var(--primary-deep);
+  font-weight: 700;
+  font-size: 0.8rem;
+  margin-bottom: 0.9rem;
+}
+
+.hero-title {
+  margin: 0;
+  font-size: clamp(2rem, 6vw, 3.1rem);
+  line-height: 1.1;
+  max-width: 14ch;
+}
+
+.hero-subtitle {
+  margin-top: 1rem;
+  max-width: 58ch;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.search-bar {
+  margin-top: 1.5rem;
+  width: 100%;
+  max-width: 680px;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 0.45rem;
+  box-shadow: 0 10px 40px rgba(37, 99, 235, 0.08);
+}
+
+.search-bar input {
+  flex: 1;
+  border: 0;
+  outline: none;
+  font-size: 0.95rem;
+  color: #0f172a;
+  padding: 0.6rem 0.65rem;
+  min-width: 0;
+}
+
+.search-bar button {
+  border: 0;
+  background: var(--primary);
+  color: #ffffff;
+  font-weight: 700;
+  border-radius: 10px;
+  padding: 0.7rem 1rem;
+  cursor: pointer;
+  transition: background-color 180ms ease;
+}
+
+.search-bar button:hover {
+  background: var(--primary-deep);
+}
+
+.hero-visual {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.hero-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 1rem;
+  box-shadow: 0 16px 28px rgba(148, 163, 184, 0.14);
+}
+
+.hero-card-title {
+  margin: 0;
+  color: #0f172a;
+  font-weight: 800;
+}
+
+.hero-card-text {
+  margin-top: 0.4rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.section-block {
+  padding: 2rem 0 3.5rem;
+}
+
+.section-head h2,
+.section-about h2 {
+  margin: 0;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+}
+
+.section-head p {
+  margin-top: 0.6rem;
+  color: var(--muted);
+}
+
+.house-grid {
+  margin-top: 1.3rem;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.house-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 16px 40px rgba(148, 163, 184, 0.12);
+}
+
+.house-media img {
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+  display: block;
+}
+
+.house-content {
+  padding: 1rem;
+}
+
+.house-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.house-price {
+  margin: 0;
+  color: var(--primary-deep);
+  font-weight: 800;
+}
+
+.house-location {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #1e293b;
+  font-weight: 600;
+}
+
+.house-description {
+  margin: 0.65rem 0 0;
+  color: var(--muted);
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.empty-state {
+  margin-top: 1rem;
+  border-radius: 14px;
+  border: 1px dashed #cbd5e1;
+  background: #fff;
+  padding: 1.2rem;
+}
+
+.empty-state h3 {
+  margin: 0;
+}
+
+.empty-state p {
+  margin-top: 0.35rem;
+  color: var(--muted);
+}
+
+.section-about {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(219, 234, 254, 0.45) 100%);
+}
+
+.about-wrap {
+  display: grid;
+  gap: 1.2rem;
+}
+
+.about-wrap p {
+  margin-top: 0.75rem;
+  color: var(--muted);
+  line-height: 1.75;
+  max-width: 70ch;
+}
+
+.about-points {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.about-point {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  font-weight: 600;
+}
+
+.auth-section {
+  padding-top: 3rem;
+}
+
+.auth-container {
+  max-width: 560px;
+}
+
+.auth-container h1 {
+  margin: 0;
+  font-size: 1.9rem;
+}
+
+.auth-container p {
+  margin-top: 0.65rem;
+  color: var(--muted);
+}
+
+.auth-form {
+  margin-top: 1.2rem;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 1rem;
+  display: grid;
+  gap: 0.8rem;
+}
+
+.auth-form label {
+  display: grid;
+  gap: 0.45rem;
+  color: #0f172a;
+  font-weight: 600;
+}
+
+.auth-form input,
+.auth-form select {
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 0.65rem 0.7rem;
+  font-size: 0.95rem;
+}
+
+.auth-form button {
+  margin-top: 0.2rem;
+  border: 0;
+  border-radius: 10px;
+  background: var(--primary);
+  color: #fff;
+  font-weight: 700;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+}
+
+.footer-wrap {
+  border-top: 1px solid rgba(148, 163, 184, 0.3);
+  background: #f1f5f9;
+}
+
+.footer-inner {
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  color: #334155;
+  font-size: 0.92rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (min-width: 768px) {
+  .hero-grid {
+    grid-template-columns: 1.25fr 0.75fr;
+    gap: 2rem;
+  }
+
+  .house-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .about-wrap {
+    grid-template-columns: 1.15fr 0.85fr;
+    align-items: center;
+  }
+}
+
+@media (min-width: 1024px) {
+  .house-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .navbar {
+    flex-direction: column;
+    justify-content: center;
+    padding: 0.8rem 0;
+  }
+
+  .brand {
+    font-size: 1rem;
+  }
+
+  .nav-links {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .search-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-bar button {
+    width: 100%;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding: 0.8rem 0;
+  }
+}
