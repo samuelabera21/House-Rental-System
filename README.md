@@ -1,5 +1,391 @@
 # House Rental Management System (Frontend)
 
+## Guide Documents
+
+Use these links to open the shared team docs directly:
+
+- [Team Workflow Guide](Guide%20documents/Guied.md)
+- [Team Structure](Guide%20documents/Structure.md)
+- [UI Structure & Functional Design](Guide%20documents/UI%20structure.md)
+
+## 🚨 TEAM WORKFLOW GUIDE (MANDATORY)
+
+## 🎯 Goal
+
+Every task in Jira must be linked to GitHub work:
+
+➡ Branch → Commit → Push → Pull Request → Review → Merge
+
+---
+
+## 🔁 1. BEFORE STARTING WORK
+
+✅ Step 1: Pick a Jira Task
+
+• Go to Jira backlog
+• Select your assigned task (e.g. HOR-4)
+• Click “Start Progress”
+
+---
+
+## 🌿 2. CREATE BRANCH (VERY IMPORTANT)
+
+🔹 Rule:
+Branch name MUST include Jira ID
+
+✅ Format:
+feature/JIRA-ID-short-description
+
+✅ Examples:
+feature/HOR-1-navbar
+feature/HOR-4-renter-dashboard
+feature/HOR-6-house-list
+
+✅ Commands:
+```bash
+git checkout dev
+git pull origin dev
+git checkout -b feature/HOR-4-renter-dashboard
+```
+
+## 💻 3. DO YOUR WORK
+
+✅ Follow project rules:
+
+• Use Tailwind only
+• Use components/ for reusable UI
+• Use app/ for pages
+• DO NOT create random folders
+
+## 🧾 4. COMMIT (STRICT RULE)
+
+🔹 Every commit MUST include Jira ID
+
+✅ Format:
+HOR-ID: short message
+
+✅ Examples:
+```bash
+git add .
+git commit -m "HOR-4: create renter dashboard UI layout"
+```
+
+🚨 WRONG:
+```bash
+git commit -m "dashboard done"
+```
+
+---
+
+## 🚀 5. PUSH YOUR CODE
+
+```bash
+git push origin feature/HOR-4-renter-dashboard
+```
+
+## 🔁 6. CREATE PULL REQUEST (PR)
+
+Go to GitHub → Click Compare & Pull Request
+
+## 🏷 PR TITLE FORMAT (MANDATORY)
+
+[HOR-ID] Feature Name
+
+✅ Example:
+[HOR-4] Renter Dashboard UI Implementation
+
+## 📝 PR DESCRIPTION TEMPLATE (COPY THIS)
+
+```md
+## ✅ What was done
+- Created renter dashboard layout
+- Added cards for listings
+- Responsive design applied
+
+## 📸 Screenshots
+(Add screenshots here)
+
+## 📝 Notes
+- UI only (no backend)
+- Uses reusable components
+```
+
+## 👑 7. TEAM LEAD REVIEW
+
+Before merge, you MUST check:
+
+✅ Checklist:
+
+• ✔ Correct branch name
+• ✔ Jira ID in commits
+• ✔ UI follows design (#2563eb, cards, responsive)
+• ✔ No duplicate components
+• ✔ Clean code
+
+## 🔀 8. MERGE RULE
+
+🚨 NEVER merge to main directly
+
+✅ Flow:
+feature → dev → main
+
+Commands (after PR approved):
+
+Merge PR → dev
+
+## 🔄 9. AFTER MERGE (VERY IMPORTANT)
+
+Every member MUST update code:
+
+```bash
+git checkout dev
+git pull origin dev
+```
+
+## ⚠️ STRICT TEAM RULES
+
+❌ No direct push to main
+❌ No commit without Jira ID
+❌ No large PRs (1 feature only)
+❌ No duplicate components
+
+✅ Always use:
+
+• Jira ID
+• Correct branch naming
+• Clean UI rules
+
+## 📦 EXAMPLE FULL FLOW (REAL)
+
+Task:
+HOR-5 Search Page UI
+
+Steps:
+
+```bash
+git checkout dev
+git pull origin dev
+git checkout -b feature/HOR-5-search-page
+
+# do work
+
+git add .
+git commit -m "HOR-5: create search page UI with filters"
+git push origin feature/HOR-5-search-page
+```
+
+Then:
+
+• Create PR:
+[HOR-5] Search Page UI Implementation
+
+## 🎯 FINAL NOTE (VERY IMPORTANT)
+
+This workflow ensures:
+
+• 🔗 Jira ↔ GitHub connection
+• 👥 Team collaboration
+• 🧼 Clean codebase
+• 🚀 Real-world engineering practice
+
+## Team Structure
+
+The team structure guide is included below for quick reference and also available as [Structure.md](Structure.md).
+
+### 🧱 TEAM STRUCTURE (4 PEOPLE TOTAL)
+
+• 👑 You (Lead + Core Features)
+• 👤 Member 1 (Auth + Landing UI support)
+• 👤 Member 2 (Renter Module)
+• 👤 Member 3 (Owner + Admin Module)
+
+### 🌿 BRANCHING STRATEGY (STRICT RULE)
+
+#### 🔹 Branch Types
+
+Every branch must follow this format:
+
+feature/JIRA-ID-short-description
+
+Examples:
+
+• feature/HOR-1-navbar
+• feature/HOR-2-login-ui
+• feature/HOR-7-renter-dashboard
+• feature/HOR-12-owner-listings
+
+#### 🔹 Main Branch Rules
+
+• main → stable only
+• dev → integration branch (optional but recommended)
+
+👉 Flow:
+
+feature → dev → main
+
+### 🧾 COMMIT RULE (MANDATORY)
+
+Every commit MUST include JIRA ID:
+
+• HOR-2: create login form UI
+• HOR-7: add renter dashboard layout
+
+### 🔁 PULL REQUEST RULE
+
+Title format:
+
+[HOR-2] Login Page UI Implementation
+
+Description must include:
+
+• What was done
+• Screenshots (if UI)
+• Any notes
+
+### 🎨 UI RULES (VERY IMPORTANT)
+
+Everyone MUST follow:
+
+#### Colors:
+
+• Primary → #2563eb
+• Success → Green
+• Error → Red
+
+#### UI:
+
+• Tailwind only
+• Card-based layout
+• Mobile responsive
+• Reusable components
+
+### 📦 TASK DISTRIBUTION
+
+#### 👤 MEMBER 1 — AUTH + LANDING SUPPORT
+
+Branches:
+
+• feature/HOR-1-navbar
+• feature/HOR-2-login-page
+• feature/HOR-3-register-page
+
+Tasks:
+
+• Improve Navbar
+• Login UI (form, validation UI only)
+• Register UI (with role select)
+• Connect navigation (Login/Register buttons)
+
+👉 Small + safe + foundational
+
+#### 👤 MEMBER 2 — RENTER MODULE
+
+Branches:
+
+• feature/HOR-4-renter-dashboard
+• feature/HOR-5-search-page
+• feature/HOR-6-house-list
+
+Tasks:
+
+• Renter Dashboard UI
+• Search page with filters UI
+• House listing cards page
+
+👉 Reuse HouseCard component
+
+#### 👤 MEMBER 3 — OWNER + ADMIN (LIGHT VERSION)
+
+Branches:
+
+• feature/HOR-7-owner-dashboard
+• feature/HOR-8-add-listing
+• feature/HOR-9-admin-dashboard
+
+Tasks:
+
+• Owner dashboard UI
+• Add listing form UI
+• Simple admin dashboard (stats cards only)
+
+#### 👑 TEAM LEAD
+
+Branches:
+
+• feature/HOR-10-layout-system
+• feature/HOR-11-routing-structure
+• feature/HOR-12-ui-consistency
+
+Tasks:
+
+• Fix layout (Navbar + Footer global)
+• Ensure routing structure is clean
+• Review PRs
+• Maintain UI consistency
+• Merge branches
+
+### 📁 FOLDER RULE (NO MESS)
+
+Everyone MUST follow:
+
+```text
+app/
+  (routes only)
+
+components/
+  (reusable UI only)
+
+lib/
+  (data / helpers)
+
+styles/
+  (global styles)
+```
+
+• No random folders
+• No duplicate components
+
+### ⚠️ DAILY WORKFLOW (VERY IMPORTANT)
+
+Each member MUST:
+
+1. Pull latest code
+
+```bash
+git pull origin dev
+```
+
+2. Create branch
+
+```bash
+git checkout -b feature/HOR-4-renter-dashboard
+```
+
+3. Work → Commit
+
+```bash
+git add .
+git commit -m "HOR-4: create renter dashboard UI"
+```
+
+4. Push
+
+```bash
+git push origin feature/HOR-4-renter-dashboard
+```
+
+5. Create Pull Request → dev
+
+### 🚨 STRICT RULES (WRITE THIS IN README)
+
+• No direct push to main
+• No large PRs (max 1 feature per PR)
+• Always use JIRA ID
+• UI must follow design system
+• Reuse components — don’t duplicate
+• PR must be reviewed before merge
+
+
 A production-ready frontend foundation for a role-based rental platform built with Next.js App Router, React, and Tailwind CSS.
 
 ## 1. Project Overview
