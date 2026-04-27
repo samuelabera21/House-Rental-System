@@ -6,7 +6,7 @@ export default function RegisterPage() {
   return (
     <section className="section-block auth-section">
       <div className="page-container auth-container">
-        <h1>Create your account</h1>
+        <h1>Create account</h1>
         <p>Register as a renter or house owner to access your dashboard.</p>
         <form className="auth-form" action="#">
           <label>
