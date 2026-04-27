@@ -13,7 +13,7 @@ Every task in Jira must be linked to GitHub work:
 ✅ Step 1: Pick a Jira Task
 
 • Go to Jira backlog
-• Select your assigned task (e.g. HOR-4)
+• Select your assigned task (e.g. HS-4)
 • Click “Start Progress”
 
 ---
@@ -27,15 +27,15 @@ Branch name MUST include Jira ID
 feature/JIRA-ID-short-description
 
 ✅ Examples:
-feature/HOR-1-navbar
-feature/HOR-4-renter-dashboard
-feature/HOR-6-house-list
+feature/HS-1-navbar
+feature/HS-4-renter-dashboard
+feature/HS-6-house-list
 
 ✅ Commands:
 ```bash
 git checkout dev
 git pull origin dev
-git checkout -b feature/HOR-4-renter-dashboard
+git checkout -b feature/HS-4-renter-dashboard
 ```
 
 ## 💻 3. DO YOUR WORK
@@ -52,12 +52,12 @@ git checkout -b feature/HOR-4-renter-dashboard
 🔹 Every commit MUST include Jira ID
 
 ✅ Format:
-HOR-ID: short message
+HS-ID: short message
 
 ✅ Examples:
 ```bash
 git add .
-git commit -m "HOR-4: create renter dashboard UI layout"
+git commit -m "HS-4: create renter dashboard UI layout"
 ```
 
 🚨 WRONG:
@@ -70,7 +70,7 @@ git commit -m "dashboard done"
 ## 🚀 5. PUSH YOUR CODE
 
 ```bash
-git push origin feature/HOR-4-renter-dashboard
+git push origin feature/HS-4-renter-dashboard
 ```
 
 ## 🔁 6. CREATE PULL REQUEST (PR)
@@ -79,10 +79,10 @@ Go to GitHub → Click Compare & Pull Request
 
 ## 🏷 PR TITLE FORMAT (MANDATORY)
 
-[HOR-ID] Feature Name
+[HS-ID] Feature Name
 
 ✅ Example:
-[HOR-4] Renter Dashboard UI Implementation
+[HS-4] Renter Dashboard UI Implementation
 
 ## 📝 PR DESCRIPTION TEMPLATE (COPY THIS)
 
@@ -148,26 +148,26 @@ git pull origin dev
 ## 📦 EXAMPLE FULL FLOW (REAL)
 
 Task:
-HOR-5 Search Page UI
+HS-5 Search Page UI
 
 Steps:
 
 ```bash
 git checkout dev
 git pull origin dev
-git checkout -b feature/HOR-5-search-page
+git checkout -b feature/HS-5-search-page
 
 # do work
 
 git add .
-git commit -m "HOR-5: create search page UI with filters"
-git push origin feature/HOR-5-search-page
+git commit -m "HS-5: create search page UI with filters"
+git push origin feature/HS-5-search-page
 ```
 
 Then:
 
 • Create PR:
-[HOR-5] Search Page UI Implementation
+[HS-5] Search Page UI Implementation
 
 ## 🎯 FINAL NOTE (VERY IMPORTANT)
 
