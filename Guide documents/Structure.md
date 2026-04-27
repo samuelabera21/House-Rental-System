@@ -15,10 +15,10 @@ feature/JIRA-ID-short-description
 
 Examples:
 
-• feature/HOR-1-navbar
-• feature/HOR-2-login-ui
-• feature/HOR-7-renter-dashboard
-• feature/HOR-12-owner-listings
+• feature/HS-1-navbar
+• feature/HS-2-login-ui
+• feature/HS-7-renter-dashboard
+• feature/HS-12-owner-listings
 
 ### 🔹 Main Branch Rules
 
@@ -33,14 +33,14 @@ feature → dev → main
 
 Every commit MUST include JIRA ID:
 
-• HOR-2: create login form UI
-• HOR-7: add renter dashboard layout
+• HS-2: create login form UI
+• HS-7: add renter dashboard layout
 
 ## 🔁 PULL REQUEST RULE
 
 Title format:
 
-[HOR-2] Login Page UI Implementation
+[HS-2] Login Page UI Implementation
 
 Description must include:
 
@@ -71,9 +71,9 @@ Everyone MUST follow:
 
 Branches:
 
-• feature/HOR-1-navbar
-• feature/HOR-2-login-page
-• feature/HOR-3-register-page
+• feature/HS-1-navbar
+• feature/HS-2-login-page
+• feature/HS-3-register-page
 
 Tasks:
 
@@ -88,9 +88,9 @@ Tasks:
 
 Branches:
 
-• feature/HOR-4-renter-dashboard
-• feature/HOR-5-search-page
-• feature/HOR-6-house-list
+• feature/HS-4-renter-dashboard
+• feature/HS-5-search-page
+• feature/HS-6-house-list
 
 Tasks:
 
@@ -104,9 +104,9 @@ Tasks:
 
 Branches:
 
-• feature/HOR-7-owner-dashboard
-• feature/HOR-8-add-listing
-• feature/HOR-9-admin-dashboard
+• feature/HS-7-owner-dashboard
+• feature/HS-8-add-listing
+• feature/HS-9-admin-dashboard
 
 Tasks:
 
@@ -118,9 +118,9 @@ Tasks:
 
 Branches:
 
-• feature/HOR-10-layout-system
-• feature/HOR-11-routing-structure
-• feature/HOR-12-ui-consistency
+• feature/HS-10-layout-system
+• feature/HS-11-routing-structure
+• feature/HS-12-ui-consistency
 
 Tasks:
 
@@ -164,20 +164,20 @@ git pull origin dev
 2. Create branch
 
 ```bash
-git checkout -b feature/HOR-4-renter-dashboard
+git checkout -b feature/HS-4-renter-dashboard
 ```
 
 3. Work → Commit
 
 ```bash
 git add .
-git commit -m "HOR-4: create renter dashboard UI"
+git commit -m "HS-4: create renter dashboard UI"
 ```
 
 4. Push
 
 ```bash
-git push origin feature/HOR-4-renter-dashboard
+git push origin feature/HS-4-renter-dashboard
 ```
 
 5. Create Pull Request → dev
