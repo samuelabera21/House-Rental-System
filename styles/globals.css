@@ -348,6 +348,42 @@ main {
   font-size: 0.95rem;
 }
 
+.auth-form input[aria-invalid="true"],
+.auth-form select[aria-invalid="true"] {
+  border-color: #ef4444;
+  background: #fef2f2;
+}
+
+.field-error {
+  margin: -0.35rem 0 0;
+  color: #b91c1c;
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+
+.terms-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  color: #334155;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.terms-row input {
+  margin-top: 0.18rem;
+}
+
+.success-message {
+  margin: 0.15rem 0 0;
+  padding: 0.8rem 0.85rem;
+  border-radius: 10px;
+  background: #ecfdf5;
+  color: #047857;
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
 .auth-form button {
   margin-top: 0.2rem;
   border: 0;
