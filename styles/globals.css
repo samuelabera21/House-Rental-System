@@ -22,7 +22,12 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Manrope", sans-serif;
-  background: radial-gradient(circle at top right, #dbeafe 0%, #f8fafc 42%, #f8fafc 100%);
+  background: radial-gradient(
+    circle at top right,
+    #dbeafe 0%,
+    #f8fafc 42%,
+    #f8fafc 100%
+  );
   color: var(--ink);
 }
 
@@ -81,7 +86,9 @@ main {
   color: #1e293b;
   font-weight: 600;
   font-size: 0.95rem;
-  transition: background-color 180ms ease, color 180ms ease;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease;
 }
 
 .nav-link:hover {
@@ -277,7 +284,11 @@ main {
 }
 
 .section-about {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(219, 234, 254, 0.45) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(219, 234, 254, 0.45) 100%
+  );
 }
 
 .about-wrap {
@@ -357,6 +368,160 @@ main {
   font-weight: 700;
   padding: 0.75rem 1rem;
   cursor: pointer;
+}
+
+.auth-error {
+  margin: 0;
+  color: #b91c1c;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.renter-section {
+  padding-top: 3rem;
+}
+
+.renter-dashboard-wrap {
+  display: grid;
+  gap: 1.2rem;
+}
+
+.renter-head h1 {
+  margin: 0;
+  font-size: clamp(1.8rem, 5vw, 2.7rem);
+  max-width: 18ch;
+}
+
+.renter-head p {
+  margin-top: 0.65rem;
+  color: var(--muted);
+  max-width: 65ch;
+}
+
+.renter-stats-grid {
+  display: grid;
+  gap: 0.9rem;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.renter-stat-card {
+  border: 1px solid #dbe2ef;
+  border-radius: 14px;
+  background: #ffffff;
+  padding: 1rem;
+}
+
+.renter-stat-card p {
+  margin: 0;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.renter-stat-card strong {
+  display: block;
+  margin-top: 0.45rem;
+  color: var(--primary-deep);
+  font-size: 1.55rem;
+}
+
+.renter-panel {
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 1rem;
+}
+
+.renter-search-panel p {
+  margin-top: 0.55rem;
+  color: var(--muted);
+}
+
+.renter-search-grid {
+  margin-top: 0.9rem;
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.renter-search-grid label {
+  display: grid;
+  gap: 0.45rem;
+  color: #0f172a;
+  font-weight: 600;
+}
+
+.renter-search-grid input,
+.renter-search-grid select {
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 0.62rem 0.7rem;
+  font-size: 0.95rem;
+}
+
+.renter-house-grid {
+  margin-top: 0.9rem;
+}
+
+.renter-card-footer {
+  margin-top: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.7rem;
+}
+
+.renter-card-footer span {
+  color: #334155;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.renter-card-footer button {
+  border: 0;
+  border-radius: 10px;
+  background: var(--primary);
+  color: #ffffff;
+  font-weight: 700;
+  padding: 0.55rem 0.8rem;
+  cursor: pointer;
+}
+
+.renter-notification-list {
+  margin-top: 0.9rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.renter-note {
+  border-radius: 12px;
+  border: 1px solid #dbe2ef;
+  padding: 0.9rem 1rem;
+  background: #f8fafc;
+}
+
+.renter-note h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.renter-note p {
+  margin: 0.35rem 0 0;
+  color: #475569;
+}
+
+.renter-note-success {
+  border-color: #bbf7d0;
+  background: #f0fdf4;
+}
+
+.renter-note-warning {
+  border-color: #fde68a;
+  background: #fffbeb;
+}
+
+.renter-note-info {
+  border-color: #bfdbfe;
+  background: #eff6ff;
 }
 
 .owner-section {
@@ -597,6 +762,14 @@ main {
   .about-wrap {
     grid-template-columns: 1.15fr 0.85fr;
     align-items: center;
+  }
+
+  .renter-stats-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .renter-search-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .owner-summary-grid {

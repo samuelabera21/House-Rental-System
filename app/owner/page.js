@@ -34,87 +34,73 @@ const incomingRequests = [
     id: "REQ-201",
     renter: "Abel Tadesse",
     listing: "Modern Family Apartment",
-<<<<<<< HEAD
-=======
     moveInDate: "May 15, 2026",
->>>>>>> origin/main
     status: "Pending",
   },
   {
     id: "REQ-202",
     renter: "Hana Bekele",
     listing: "Garden View Villa",
-<<<<<<< HEAD
-=======
     moveInDate: "May 22, 2026",
->>>>>>> origin/main
     status: "Pending",
   },
   {
     id: "REQ-203",
     renter: "Liya Solomon",
     listing: "Compact City Studio",
-<<<<<<< HEAD
-=======
     moveInDate: "June 02, 2026",
->>>>>>> origin/main
     status: "Reviewed",
   },
 ];
 
 export default function OwnerDashboardPage() {
-<<<<<<< HEAD
+  const totalListings = ownerListings.length;
+  const totalRequests = incomingRequests.length;
 
+  return (
     <section className="section-block owner-section">
-      <div className="page-container owner-container">
-        <header className="owner-header">
-          <span className="owner-badge">House Owner Panel</span>
-          <h1>Owner Dashboard</h1>
-          <p>Track your portfolio and incoming renter demand at a glance.</p>
-        <section className="owner-summary-grid" aria-label="Owner summary cards">
+      <div className="page-container">
+        <div className="owner-header">
+          <div>
+            <span className="owner-badge">House Owner Dashboard</span>
+            <h1>Manage Your Listings and Rental Requests</h1>
+            <p>
+              View your property listings, monitor renter interest, and take
+              action on incoming requests from one place.
+            </p>
+          </div>
+          <button type="button" className="owner-action-btn">
+            + Add New Listing
+          </button>
+        </div>
+
+        <section
+          className="owner-summary-grid"
+          aria-label="Owner summary cards"
+        >
+          <article className="owner-summary-card">
             <p className="owner-summary-label">Total Listings</p>
             <p className="owner-summary-value">{totalListings}</p>
           </article>
           <article className="owner-summary-card">
             <p className="owner-summary-label">Requests</p>
             <p className="owner-summary-value">{totalRequests}</p>
+          </article>
+        </section>
 
-          <article className="owner-preview-panel">
-            <h2>Listings Preview</h2>
-            {ownerListings.map((listing) => (
-              <div key={listing.id} className="owner-preview-item">
-                <p>{listing.title}</p>
-              </div>
-            ))}
-
-    return (
-      <section className="section-block owner-section">
-        <div className="page-container">
-          <div className="owner-header">
-            <div>
-              <span className="owner-badge">House Owner Dashboard</span>
-              <h1>Manage Your Listings and Rental Requests</h1>
-              <p>
-                View your property listings, monitor renter interest, and take action on
-                incoming requests from one place.
-              </p>
+        <div className="owner-panel-wrap">
+          <article className="owner-panel">
+            <div className="owner-panel-head">
+              <h2>Listings Preview</h2>
+              <p>{ownerListings.length} active listings</p>
             </div>
-            <button type="button" className="owner-action-btn">
-              + Add New Listing
-            </button>
-          </div>
-
-          <section className="owner-summary-grid" aria-label="Owner summary cards">
-            <article className="owner-summary-card">
-              <p className="owner-summary-label">Total Listings</p>
-              <p className="owner-summary-value">{totalListings}</p>
-            </article>
-            <article className="owner-summary-card">
-              <p className="owner-summary-label">Requests</p>
-              <p className="owner-summary-value">{totalRequests}</p>
-            </article>
-          </section>
-
+            <div className="owner-list-grid">
+              {ownerListings.map((listing) => (
+                <div key={listing.id} className="owner-list-card">
+                  <div className="owner-list-row">
+                    <h3>{listing.title}</h3>
+                    <span className="owner-status-chip">{listing.status}</span>
+                  </div>
                   <p className="owner-location">{listing.location}</p>
                   <div className="owner-list-meta">
                     <span>{listing.price}</span>
@@ -139,12 +125,16 @@ export default function OwnerDashboardPage() {
                 <div key={request.id} className="owner-request-card">
                   <div className="owner-list-row">
                     <h3>{request.renter}</h3>
-                    <span className="owner-request-state">{request.status}</span>
+                    <span className="owner-request-state">
+                      {request.status}
+                    </span>
                   </div>
                   <p className="owner-request-text">
                     Requested: <strong>{request.listing}</strong>
                   </p>
-                  <p className="owner-request-text">Preferred move-in: {request.moveInDate}</p>
+                  <p className="owner-request-text">
+                    Preferred move-in: {request.moveInDate}
+                  </p>
                   <div className="owner-list-actions">
                     <button type="button" className="approve-btn">
                       Accept
