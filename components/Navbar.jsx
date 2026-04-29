@@ -4,6 +4,7 @@ const navLinks = [
   { href: "/", label: "Home" },
   { href: "/login", label: "Login" },
   { href: "/register", label: "Register" },
+  { href: "/admin", label: "Admin" },
 ];
 
 export default function Navbar() {
