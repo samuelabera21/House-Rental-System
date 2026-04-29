@@ -1,7 +1,7 @@
 export const metadata = {
   title: "Register | House Rental Management System",
 };
-
+// add function
 export default function RegisterPage() {
   return (
     <section className="section-block auth-section">
