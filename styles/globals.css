@@ -359,6 +359,109 @@ main {
   cursor: pointer;
 }
 
+.owner-section {
+  padding-top: 2.8rem;
+}
+
+.owner-container {
+  display: grid;
+  gap: 1rem;
+}
+
+.owner-header {
+  border: 1px solid #dbe2ef;
+  border-radius: 14px;
+  background: #ffffff;
+  padding: 1rem;
+}
+
+.owner-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  background: #dbeafe;
+  color: var(--primary-deep);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.owner-header h1 {
+  margin: 0.6rem 0 0;
+}
+
+.owner-header p {
+  margin: 0.5rem 0 0;
+  color: var(--muted);
+}
+
+.owner-summary-grid {
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.owner-summary-card {
+  border: 1px solid #dbe2ef;
+  border-radius: 14px;
+  background: #ffffff;
+  padding: 1rem;
+  box-shadow: 0 14px 28px rgba(148, 163, 184, 0.1);
+}
+
+.owner-summary-label {
+  margin: 0;
+  color: #334155;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.owner-summary-value {
+  margin: 0.5rem 0 0;
+  color: var(--primary-deep);
+  font-size: 2rem;
+  line-height: 1;
+  font-weight: 800;
+}
+
+.owner-preview-grid {
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.owner-preview-panel {
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  background: #ffffff;
+  padding: 1rem;
+}
+
+.owner-preview-panel h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.owner-preview-item {
+  margin-top: 0.7rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #f8fafc;
+  padding: 0.65rem;
+}
+
+.owner-preview-item p {
+  margin: 0;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.owner-preview-item small {
+  display: inline-block;
+  margin-top: 0.35rem;
+  color: #475569;
+}
+
 .footer-wrap {
   border-top: 1px solid rgba(148, 163, 184, 0.3);
   background: #f1f5f9;
@@ -399,6 +502,14 @@ main {
   .about-wrap {
     grid-template-columns: 1.15fr 0.85fr;
     align-items: center;
+  }
+
+  .owner-summary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .owner-preview-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
