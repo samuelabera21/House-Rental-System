@@ -527,6 +527,36 @@ main {
   color: #b91c1c;
 }
 
+.owner-summary-grid {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.owner-summary-card {
+  border: 1px solid #dbe2ef;
+  border-radius: 14px;
+  background: #ffffff;
+  padding: 1rem;
+  box-shadow: 0 14px 28px rgba(148, 163, 184, 0.1);
+}
+
+.owner-summary-label {
+  margin: 0;
+  color: #334155;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.owner-summary-value {
+  margin: 0.5rem 0 0;
+  color: var(--primary-deep);
+  font-size: 2rem;
+  line-height: 1;
+  font-weight: 800;
+}
+
 .footer-wrap {
   border-top: 1px solid rgba(148, 163, 184, 0.3);
   background: #f1f5f9;
@@ -567,6 +597,10 @@ main {
   .about-wrap {
     grid-template-columns: 1.15fr 0.85fr;
     align-items: center;
+  }
+
+  .owner-summary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
