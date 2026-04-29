@@ -74,6 +74,27 @@ export default function AdminPage() {
                         </ul>
                         <button className="admin-action-btn">Review listings</button>
                     </section>
+                    <section className="admin-card">
+                        <div className="admin-card-header">
+                            <h3>Review Requests</h3>
+                            <p>Track rental requests, confirm status updates, and keep renters informed.</p>
+                        </div>
+                        <ul className="admin-list">
+                            <li>
+                                <span>Request from Meron for 3-bed apartment</span>
+                                <span className="admin-status admin-status-pending">Pending</span>
+                            </li>
+                            <li>
+                                <span>Request from Daniel for studio flat</span>
+                                <span className="admin-status admin-status-approved">Accepted</span>
+                            </li>
+                            <li>
+                                <span>Request from Selam for lakeside house</span>
+                                <span className="admin-status admin-status-flagged">Flagged</span>
+                            </li>
+                        </ul>
+                        <button className="admin-action-btn">Manage requests</button>
+                    </section>
                 </div>
             </div>
         </section>
