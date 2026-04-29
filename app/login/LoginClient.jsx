@@ -5,7 +5,7 @@ import { useState } from "react";
 
 const ROLE_REDIRECT = {
   renter: "/Renter_ui",
-  owner: "/",
+  owner: "/owner",
   admin: "/",
 };
 
