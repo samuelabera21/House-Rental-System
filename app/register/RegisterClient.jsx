@@ -18,6 +18,39 @@ export default function RegisterClient() {
   const handleSubmit = (event) => {
     event.preventDefault();
     setMessage("");
+    // validations
+    const trimmedName = fullName.trim();
+    const trimmedEmail = email.trim().toLowerCase();
+    const trimmedPhone = phone.trim();
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passwordRegex = /(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z0-9])/; // letter, number, symbol
+    const phoneRegex = /^09\d{8}$/; // starts with 09 and total 10 digits
+
+    if (trimmedName.length < 6) {
+      setMessage("Full name must be at least 6 characters.");
+      return;
+    }
+
+    if (!emailRegex.test(trimmedEmail)) {
+      setMessage("Please enter a valid email address.");
+      return;
+    }
+
+    if (!phoneRegex.test(trimmedPhone)) {
+      setMessage("Phone must be 10 digits and start with 09.");
+      return;
+    }
+
+    if (password.length < 8) {
+      setMessage("Password must be at least 8 characters long.");
+      return;
+    }
+
+    if (!passwordRegex.test(password)) {
+      setMessage("Password must include a letter, a number, and a symbol.");
+      return;
+    }
 
     if (password !== confirmPassword) {
       setMessage("Passwords do not match.");
@@ -31,7 +64,7 @@ export default function RegisterClient() {
 
     const savedUsers = JSON.parse(localStorage.getItem("hrms_users") || "[]");
     const isExistingUser = savedUsers.some(
-      (user) => user.email.toLowerCase() === email.trim().toLowerCase(),
+      (user) => user.email.toLowerCase() === trimmedEmail,
     );
 
     if (isExistingUser) {
@@ -42,9 +75,9 @@ export default function RegisterClient() {
     const nextUsers = [
       ...savedUsers,
       {
-        fullName: fullName.trim(),
-        email: email.trim(),
-        phone: phone.trim(),
+        fullName: trimmedName,
+        email: trimmedEmail,
+        phone: trimmedPhone,
         address: address.trim(),
         password,
         role,
