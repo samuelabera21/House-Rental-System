@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -13,30 +14,40 @@ export default function LoginClient() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [selectedRole, setSelectedRole] = useState("renter");
   const [error, setError] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
     setError("");
 
-    const savedUsers = JSON.parse(localStorage.getItem("hrms_users") || "[]");
-    const matchedUser = savedUsers.find(
-      (user) =>
-        user.email.toLowerCase() === email.trim().toLowerCase() &&
-        user.password === password,
-    );
+    const trimmedEmail = email.trim().toLowerCase();
+    const trimmedPassword = password.trim();
 
-    const role = matchedUser?.role || selectedRole;
-
-    if (!email.trim() || !password.trim()) {
+    if (!trimmedEmail || !trimmedPassword) {
       setError("Please provide email and password.");
       return;
     }
 
+    const savedUsers = JSON.parse(localStorage.getItem("hrms_users") || "[]");
+    const matchedUser = savedUsers.find(
+      (user) =>
+        user.email.toLowerCase() === trimmedEmail && user.password === trimmedPassword,
+    );
+
+    if (!matchedUser) {
+      setError("No account found for these credentials. Please register first.");
+      return;
+    }
+
+    const role = matchedUser.role;
+
     localStorage.setItem(
       "hrms_active_user",
-      JSON.stringify({ email: email.trim(), role }),
+      JSON.stringify({
+        email: matchedUser.email,
+        role,
+        fullName: matchedUser.fullName,
+      }),
     );
 
     router.push(ROLE_REDIRECT[role] || "/");
@@ -46,7 +57,7 @@ export default function LoginClient() {
     <section className="section-block auth-section">
       <div className="page-container auth-container">
         <h1>Login</h1>
-        <p>Sign in to continue to your role-based dashboard.</p>
+        <p>Sign in with your registered email and password.</p>
         <form className="auth-form" onSubmit={handleSubmit}>
           <label>
             Email
@@ -68,19 +79,12 @@ export default function LoginClient() {
               required
             />
           </label>
-          <label>
-            Role (fallback if account is not registered in demo storage)
-            <select
-              value={selectedRole}
-              onChange={(event) => setSelectedRole(event.target.value)}
-            >
-              <option value="renter">Renter</option>
-              <option value="owner">House Owner</option>
-            </select>
-          </label>
           {error ? <p className="auth-error">{error}</p> : null}
           <button type="submit">Login</button>
         </form>
+        <p className="auth-switch">
+          Don&apos;t have an account? <Link href="/register">Register here</Link>
+        </p>
       </div>
     </section>
   );

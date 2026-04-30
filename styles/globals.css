@@ -344,6 +344,11 @@ main {
   gap: 0.8rem;
 }
 
+.auth-form-grid {
+  display: grid;
+  gap: 0.8rem;
+}
+
 .auth-form label {
   display: grid;
   gap: 0.45rem;
@@ -375,6 +380,21 @@ main {
   color: #b91c1c;
   font-size: 0.9rem;
   font-weight: 600;
+}
+
+.auth-switch {
+  margin-top: 0.85rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.auth-switch a {
+  color: var(--primary-deep);
+  font-weight: 700;
+}
+
+.auth-switch a:hover {
+  text-decoration: underline;
 }
 
 .renter-section {
