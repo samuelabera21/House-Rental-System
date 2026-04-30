@@ -23,15 +23,21 @@ export default function LoginClient() {
     const trimmedEmail = email.trim().toLowerCase();
     const trimmedPassword = password.trim();
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     if (!trimmedEmail || !trimmedPassword) {
       setError("Please provide email and password.");
       return;
     }
 
+    if (!emailRegex.test(trimmedEmail)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
     const savedUsers = JSON.parse(localStorage.getItem("hrms_users") || "[]");
     const matchedUser = savedUsers.find(
-      (user) =>
-        user.email.toLowerCase() === trimmedEmail && user.password === trimmedPassword,
+      (user) => user.email.toLowerCase() === trimmedEmail && user.password === trimmedPassword,
     );
 
     if (!matchedUser) {
@@ -43,11 +49,7 @@ export default function LoginClient() {
 
     localStorage.setItem(
       "hrms_active_user",
-      JSON.stringify({
-        email: matchedUser.email,
-        role,
-        fullName: matchedUser.fullName,
-      }),
+      JSON.stringify({ email: matchedUser.email, role, fullName: matchedUser.fullName }),
     );
 
     router.push(ROLE_REDIRECT[role] || "/");
