@@ -17,7 +17,8 @@ export default function Navbar() {
   useEffect(() => {
     try {
       const savedUser = JSON.parse(localStorage.getItem("hrms_active_user") || "null");
-      setActiveRole(savedUser?.role || null);
+      const isLoggedIn = localStorage.getItem("hrms_is_logged_in") === "true";
+      setActiveRole(isLoggedIn ? savedUser?.role || null : null);
     } catch {
       setActiveRole(null);
     }
@@ -39,6 +40,7 @@ export default function Navbar() {
 
   const handleLogout = () => {
     localStorage.removeItem("hrms_active_user");
+    localStorage.removeItem("hrms_is_logged_in");
     setActiveRole(null);
     router.push("/");
   };

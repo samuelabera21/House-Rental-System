@@ -49,6 +49,7 @@ export default function LoginClient() {
         fullName: matchedUser.fullName,
       }),
     );
+    localStorage.setItem("hrms_is_logged_in", "true");
 
     router.push(ROLE_REDIRECT[role] || "/");
   };

@@ -52,10 +52,6 @@ export default function RegisterClient() {
     ];
 
     localStorage.setItem("hrms_users", JSON.stringify(nextUsers));
-    localStorage.setItem(
-      "hrms_active_user",
-      JSON.stringify({ email: email.trim(), role }),
-    );
 
     router.push("/login");
   };
