@@ -43,7 +43,11 @@ export default function LoginClient() {
 
     localStorage.setItem(
       "hrms_active_user",
-      JSON.stringify({ email: matchedUser.email, role, fullName: matchedUser.fullName }),
+      JSON.stringify({
+        email: matchedUser.email,
+        role,
+        fullName: matchedUser.fullName,
+      }),
     );
 
     router.push(ROLE_REDIRECT[role] || "/");
@@ -79,7 +83,7 @@ export default function LoginClient() {
           <button type="submit">Login</button>
         </form>
         <p className="auth-switch">
-          Don't have an account? <Link href="/register">Register here</Link>
+          Don&apos;t have an account? <Link href="/register">Register here</Link>
         </p>
       </div>
     </section>
