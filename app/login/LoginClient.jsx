@@ -1,0 +1,87 @@
+"use client";
+
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+
+const ROLE_REDIRECT = {
+  renter: "/Renter_ui",
+  owner: "/owner",
+  admin: "/",
+};
+
+export default function LoginClient() {
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setError("");
+
+    const trimmedEmail = email.trim().toLowerCase();
+    const trimmedPassword = password.trim();
+
+    if (!trimmedEmail || !trimmedPassword) {
+      setError("Please provide email and password.");
+      return;
+    }
+
+    const savedUsers = JSON.parse(localStorage.getItem("hrms_users") || "[]");
+    const matchedUser = savedUsers.find(
+      (user) =>
+        user.email.toLowerCase() === trimmedEmail && user.password === trimmedPassword,
+    );
+
+    if (!matchedUser) {
+      setError("No account found for these credentials. Please register first.");
+      return;
+    }
+
+    const role = matchedUser.role;
+
+    localStorage.setItem(
+      "hrms_active_user",
+      JSON.stringify({ email: matchedUser.email, role, fullName: matchedUser.fullName }),
+    );
+
+    router.push(ROLE_REDIRECT[role] || "/");
+  };
+
+  return (
+    <section className="section-block auth-section">
+      <div className="page-container auth-container">
+        <h1>Login</h1>
+        <p>Sign in with your registered email and password.</p>
+        <form className="auth-form" onSubmit={handleSubmit}>
+          <label>
+            Email
+            <input
+              type="email"
+              placeholder="you@example.com"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              required
+            />
+          </label>
+          <label>
+            Password
+            <input
+              type="password"
+              placeholder="********"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              required
+            />
+          </label>
+          {error ? <p className="auth-error">{error}</p> : null}
+          <button type="submit">Login</button>
+        </form>
+        <p className="auth-switch">
+          Don't have an account? <Link href="/register">Register here</Link>
+        </p>
+      </div>
+    </section>
+  );
+}
