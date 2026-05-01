@@ -397,6 +397,302 @@ main {
   text-decoration: underline;
 }
 
+.login-section {
+  padding-top: 2.4rem;
+}
+
+.login-container {
+  max-width: 980px;
+}
+
+.login-shell {
+  display: grid;
+  gap: 1rem;
+  border: 1px solid #dbe2ef;
+  border-radius: 22px;
+  background: linear-gradient(140deg, #f8fbff 0%, #ffffff 62%, #f1f7ff 100%);
+  overflow: hidden;
+  box-shadow: 0 26px 50px rgba(15, 23, 42, 0.08);
+  animation: login-rise 420ms ease;
+}
+
+.login-aside {
+  position: relative;
+  padding: 1.45rem;
+  background: linear-gradient(155deg, #1d4ed8 0%, #2563eb 42%, #0ea5e9 100%);
+  color: #eff6ff;
+}
+
+.login-aside::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.25), transparent 44%),
+    radial-gradient(circle at 82% 72%, rgba(255, 255, 255, 0.2), transparent 38%);
+  pointer-events: none;
+}
+
+.login-badge {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  background: rgba(255, 255, 255, 0.14);
+  padding: 0.35rem 0.7rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.24px;
+  text-transform: uppercase;
+}
+
+.login-aside h2 {
+  position: relative;
+  z-index: 1;
+  margin: 0.95rem 0 0;
+  font-size: clamp(1.45rem, 3.4vw, 2rem);
+  line-height: 1.2;
+  max-width: 16ch;
+}
+
+.login-aside p {
+  position: relative;
+  z-index: 1;
+  margin: 0.8rem 0 0;
+  max-width: 36ch;
+  color: rgba(239, 246, 255, 0.94);
+  line-height: 1.65;
+}
+
+.login-form-wrap {
+  padding: 1.2rem;
+}
+
+.login-form-wrap h1 {
+  margin: 0;
+  font-size: clamp(1.65rem, 3vw, 2rem);
+}
+
+.login-form {
+  margin-top: 1rem;
+  border: 1px solid #dbe7fa;
+  box-shadow: 0 18px 32px rgba(30, 64, 175, 0.08);
+}
+
+.login-form input {
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease;
+}
+
+.login-form input:focus-visible {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  background: #ffffff;
+}
+
+.login-form button {
+  border-radius: 11px;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  box-shadow: 0 14px 26px rgba(37, 99, 235, 0.24);
+  transition:
+    transform 160ms ease,
+    box-shadow 180ms ease,
+    filter 180ms ease;
+}
+
+.login-form button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 30px rgba(29, 78, 216, 0.32);
+  filter: saturate(1.06);
+}
+
+.login-form button:active {
+  transform: translateY(0);
+}
+
+.login-switch {
+  margin-top: 0.9rem;
+}
+
+.register-section {
+  padding-top: 2.4rem;
+}
+
+.register-container {
+  max-width: 1060px;
+}
+
+.register-shell {
+  display: grid;
+  gap: 1rem;
+  border: 1px solid #dbe2ef;
+  border-radius: 22px;
+  background: linear-gradient(140deg, #f8fbff 0%, #ffffff 62%, #f1f7ff 100%);
+  overflow: hidden;
+  box-shadow: 0 26px 50px rgba(15, 23, 42, 0.08);
+  animation: login-rise 420ms ease;
+}
+
+.register-aside {
+  position: relative;
+  padding: 1.45rem;
+  background: linear-gradient(155deg, #0f766e 0%, #0e7490 45%, #0284c7 100%);
+  color: #ecfeff;
+}
+
+.register-aside::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 14% 18%, rgba(255, 255, 255, 0.21), transparent 42%),
+    radial-gradient(circle at 88% 76%, rgba(255, 255, 255, 0.17), transparent 36%);
+  pointer-events: none;
+}
+
+.register-badge {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  background: rgba(255, 255, 255, 0.12);
+  padding: 0.35rem 0.7rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.24px;
+  text-transform: uppercase;
+}
+
+.register-aside h2 {
+  position: relative;
+  z-index: 1;
+  margin: 0.95rem 0 0;
+  font-size: clamp(1.45rem, 3.4vw, 2rem);
+  line-height: 1.2;
+  max-width: 17ch;
+}
+
+.register-aside p {
+  position: relative;
+  z-index: 1;
+  margin: 0.8rem 0 0;
+  max-width: 36ch;
+  color: rgba(236, 254, 255, 0.94);
+  line-height: 1.65;
+}
+
+.register-form-wrap {
+  padding: 1.2rem;
+}
+
+.register-form-wrap h1 {
+  margin: 0;
+  font-size: clamp(1.65rem, 3vw, 2rem);
+}
+
+.register-form {
+  margin-top: 1rem;
+  border: 1px solid #dbe7fa;
+  box-shadow: 0 18px 32px rgba(30, 64, 175, 0.08);
+}
+
+.register-grid {
+  gap: 0.75rem;
+}
+
+.register-form input,
+.register-form select {
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease;
+}
+
+.register-form input:focus-visible,
+.register-form select:focus-visible {
+  outline: none;
+  border-color: #0e7490;
+  box-shadow: 0 0 0 3px rgba(14, 116, 144, 0.14);
+  background: #ffffff;
+}
+
+.register-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  color: #334155;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.register-consent input {
+  margin-top: 0.22rem;
+}
+
+.register-form button {
+  border-radius: 11px;
+  background: linear-gradient(135deg, #0e7490 0%, #0284c7 100%);
+  box-shadow: 0 14px 26px rgba(2, 132, 199, 0.22);
+  transition:
+    transform 160ms ease,
+    box-shadow 180ms ease,
+    filter 180ms ease;
+}
+
+.register-form button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 30px rgba(2, 132, 199, 0.3);
+  filter: saturate(1.05);
+}
+
+.register-form button:active {
+  transform: translateY(0);
+}
+
+.register-switch {
+  margin-top: 0.9rem;
+}
+
+@keyframes login-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 900px) {
+  .login-shell {
+    grid-template-columns: 1.02fr 1fr;
+  }
+
+  .register-shell {
+    grid-template-columns: 1fr 1.15fr;
+  }
+
+  .login-aside,
+  .login-form-wrap,
+  .register-aside,
+  .register-form-wrap {
+    padding: 1.8rem;
+  }
+
+  .register-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 .renter-section {
   padding-top: 3rem;
 }
