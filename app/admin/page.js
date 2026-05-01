@@ -13,20 +13,12 @@ export default function AdminPage() {
 
                 <div className="admin-overview">
                     <article className="admin-stat-card">
-                        <span className="stat-label">Total Users</span>
+                        <span className="stat-label">Users</span>
                         <strong>1,254</strong>
                     </article>
                     <article className="admin-stat-card">
-                        <span className="stat-label">Active Listings</span>
+                        <span className="stat-label">Listings</span>
                         <strong>812</strong>
-                    </article>
-                    <article className="admin-stat-card">
-                        <span className="stat-label">Pending Requests</span>
-                        <strong>34</strong>
-                    </article>
-                    <article className="admin-stat-card">
-                        <span className="stat-label">Flagged Content</span>
-                        <strong>7</strong>
                     </article>
                 </div>
 
