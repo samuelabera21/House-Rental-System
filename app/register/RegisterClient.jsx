@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { clearActiveUser, getSavedUsers, STORAGE_KEYS } from "../../lib/auth";
 import { mergeUsersWithSystemAdmins } from "../../lib/systemAdmins";
 
 export default function RegisterClient() {
@@ -63,7 +64,7 @@ export default function RegisterClient() {
       return;
     }
 
-    const savedUsers = JSON.parse(localStorage.getItem("hrms_users") || "[]");
+    const savedUsers = getSavedUsers();
     const usersWithAdmins = mergeUsersWithSystemAdmins(savedUsers);
     const isExistingUser = usersWithAdmins.some(
       (user) => user.email.toLowerCase() === trimmedEmail,
@@ -86,7 +87,9 @@ export default function RegisterClient() {
       },
     ];
 
-    localStorage.setItem("hrms_users", JSON.stringify(nextUsers));
+    localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(nextUsers));
+    // Registration stores account data only; login creates authenticated session state.
+    clearActiveUser();
 
     router.push("/login");
   };

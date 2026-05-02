@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import { getActiveUser } from "../../lib/auth";
 
 const userRecords = [
   {
@@ -53,23 +54,17 @@ const listingRecords = [
 
 export default function AdminDashboardClient() {
   const router = useRouter();
-  const [accessChecked, setAccessChecked] = useState(false);
+  const [isAuthorizing, setIsAuthorizing] = useState(true);
 
   useEffect(() => {
-    try {
-      const activeSession = JSON.parse(localStorage.getItem("hrms_active_user") || "null");
-      const isLoggedIn = localStorage.getItem("hrms_is_logged_in") === "true";
+    const activeUser = getActiveUser();
 
-      if (!isLoggedIn || activeSession?.role !== "admin") {
-        router.replace("/login");
-        return;
-      }
-    } catch {
+    if (!activeUser || activeUser.role !== "admin") {
       router.replace("/login");
       return;
     }
 
-    setAccessChecked(true);
+    setIsAuthorizing(false);
   }, [router]);
 
   const stats = useMemo(() => {
@@ -82,11 +77,11 @@ export default function AdminDashboardClient() {
     return { usersCount, listingsCount, flaggedListings };
   }, []);
 
-  if (!accessChecked) {
+  if (isAuthorizing) {
     return (
       <section className="section-block admin-section">
         <div className="page-container">
-          <p>Checking admin access...</p>
+          <p>Checking authentication...</p>
         </div>
       </section>
     );

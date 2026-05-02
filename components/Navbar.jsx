@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import { clearActiveUser, getActiveUser } from "../lib/auth";
 
 const DASHBOARD_BY_ROLE = {
   renter: { href: "/Renter_ui", label: "Renter Dashboard" },
@@ -16,13 +17,8 @@ export default function Navbar() {
   const [activeRole, setActiveRole] = useState(null);
 
   useEffect(() => {
-    try {
-      const savedUser = JSON.parse(localStorage.getItem("hrms_active_user") || "null");
-      const isLoggedIn = localStorage.getItem("hrms_is_logged_in") === "true";
-      setActiveRole(isLoggedIn ? savedUser?.role || null : null);
-    } catch {
-      setActiveRole(null);
-    }
+    const savedUser = getActiveUser();
+    setActiveRole(savedUser?.role || null);
   }, [pathname]);
 
   const navLinks = useMemo(() => {
@@ -40,8 +36,7 @@ export default function Navbar() {
   }, [activeRole]);
 
   const handleLogout = () => {
-    localStorage.removeItem("hrms_active_user");
-    localStorage.removeItem("hrms_is_logged_in");
+    clearActiveUser();
     setActiveRole(null);
     router.push("/");
   };

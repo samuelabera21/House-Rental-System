@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { getSavedUsers, setActiveUser } from "../../lib/auth";
 import { mergeUsersWithSystemAdmins } from "../../lib/systemAdmins";
 
 const ROLE_REDIRECT = {
@@ -36,7 +37,7 @@ export default function LoginClient() {
       return;
     }
 
-    const savedUsers = JSON.parse(localStorage.getItem("hrms_users") || "[]");
+    const savedUsers = getSavedUsers();
     const usersWithAdmins = mergeUsersWithSystemAdmins(savedUsers);
     const matchedUser = usersWithAdmins.find(
       (user) => user.email.toLowerCase() === trimmedEmail && user.password === trimmedPassword,
@@ -49,11 +50,7 @@ export default function LoginClient() {
 
     const role = matchedUser.role;
 
-    localStorage.setItem(
-      "hrms_active_user",
-      JSON.stringify({ email: matchedUser.email, role, fullName: matchedUser.fullName }),
-    );
-    localStorage.setItem("hrms_is_logged_in", "true");
+    setActiveUser(matchedUser);
 
     router.push(ROLE_REDIRECT[role] || "/");
   };
