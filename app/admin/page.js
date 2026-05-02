@@ -87,8 +87,26 @@ export default function AdminPage() {
                         </ul>
                         <button className="admin-action-btn">Manage requests</button>
                     </section>
+                    <section className="admin-card">
+                        <div className="admin-card-header">
+                            <h3>System Reports</h3>
+                            <p>Generate reports on user activity, listing performance, and system health.</p>
+                        </div>
+                        <ul className="admin-list">
+                            <li>
+                                <span>Monthly User Registration Report</span>
+                                <span className="admin-status admin-status-active">Available</span>
+                            </li>
+                            <li>
+                                <span>Listing Engagement Analytics</span>
+                                <span className="admin-status admin-status-active">Available</span>
+                            </li>
+                            <li>
+                                <span>System Performance Metrics</span>
+                                <span className="admin-status admin-status-muted">Pending</span>
+                            </li>
+                        </ul>
+                        <button className="admin-action-btn">View reports</button>
+                    </section>
                 </div>
-            </div>
-        </section>
-    );
-}
+
