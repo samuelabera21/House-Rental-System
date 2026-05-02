@@ -85,6 +85,7 @@ export default function RenterDashboardPage() {
           ))}
         </div>
 
+        {/* searchin house use location ,prices and number of room */}
         <RenterQuickSearch
           location={location}
           setLocation={setLocation}
