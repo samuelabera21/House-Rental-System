@@ -1,6 +1,4 @@
-export const metadata = {
-  title: "Register | House Rental Management System",
-};
+"use client";
 
 import RegisterClient from "./RegisterClient";
 

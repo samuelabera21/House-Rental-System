@@ -10,6 +10,11 @@ const DASHBOARD_BY_ROLE = {
   owner: { href: "/owner", label: "Owner Dashboard" },
 };
 
+const BASE_LINKS = [
+  { href: "/", label: "Home" },
+  { href: "/admin", label: "Admin" },
+];
+
 export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
@@ -21,7 +26,7 @@ export default function Navbar() {
   }, [pathname]);
 
   const navLinks = useMemo(() => {
-    const baseLinks = [{ href: "/", label: "Home" }];
+    const baseLinks = [...BASE_LINKS];
 
     if (activeRole && DASHBOARD_BY_ROLE[activeRole]) {
       return [...baseLinks, DASHBOARD_BY_ROLE[activeRole]];
