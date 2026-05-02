@@ -65,9 +65,7 @@ export default function RegisterClient() {
 
     const savedUsers = JSON.parse(localStorage.getItem("hrms_users") || "[]");
     const usersWithAdmins = mergeUsersWithSystemAdmins(savedUsers);
-    const isExistingUser = savedUsers.some(
-      (user) => user.email.toLowerCase() === trimmedEmail,
-    ) || usersWithAdmins.some(
+    const isExistingUser = usersWithAdmins.some(
       (user) => user.email.toLowerCase() === trimmedEmail,
     );
 
@@ -77,7 +75,7 @@ export default function RegisterClient() {
     }
 
     const nextUsers = [
-      ...usersWithAdmins,
+      ...savedUsers,
       {
         fullName: trimmedName,
         email: trimmedEmail,
