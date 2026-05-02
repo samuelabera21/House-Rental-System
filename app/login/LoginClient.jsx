@@ -3,11 +3,12 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { mergeUsersWithSystemAdmins } from "../../lib/systemAdmins";
 
 const ROLE_REDIRECT = {
   renter: "/Renter_ui",
   owner: "/owner",
-  admin: "/",
+  admin: "/admin",
 };
 
 export default function LoginClient() {
@@ -36,7 +37,11 @@ export default function LoginClient() {
     }
 
     const savedUsers = JSON.parse(localStorage.getItem("hrms_users") || "[]");
+    const usersWithAdmins = mergeUsersWithSystemAdmins(savedUsers);
+    localStorage.setItem("hrms_users", JSON.stringify(usersWithAdmins));
     const matchedUser = savedUsers.find(
+      (user) => user.email.toLowerCase() === trimmedEmail && user.password === trimmedPassword,
+    ) || usersWithAdmins.find(
       (user) => user.email.toLowerCase() === trimmedEmail && user.password === trimmedPassword,
     );
 
