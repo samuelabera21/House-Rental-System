@@ -486,6 +486,12 @@ main {
   cursor: pointer;
 }
 
+.request-btn:disabled,
+.request-btn-sent {
+  background: #16a34a;
+  cursor: not-allowed;
+}
+
 .renter-notification-list {
   margin-top: 0.9rem;
   display: grid;
