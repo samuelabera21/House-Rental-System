@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { clearActiveUser, getSavedUsers, STORAGE_KEYS } from "../../lib/auth";
 
 export default function RegisterClient() {
   const router = useRouter();
@@ -62,7 +63,7 @@ export default function RegisterClient() {
       return;
     }
 
-    const savedUsers = JSON.parse(localStorage.getItem("hrms_users") || "[]");
+    const savedUsers = getSavedUsers();
     const isExistingUser = savedUsers.some(
       (user) => user.email.toLowerCase() === trimmedEmail,
     );
@@ -84,11 +85,9 @@ export default function RegisterClient() {
       },
     ];
 
-    localStorage.setItem("hrms_users", JSON.stringify(nextUsers));
-    localStorage.setItem(
-      "hrms_active_user",
-      JSON.stringify({ email: email.trim(), role }),
-    );
+    localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(nextUsers));
+    // Registration stores account data only; login creates authenticated session state.
+    clearActiveUser();
 
     router.push("/login");
   };

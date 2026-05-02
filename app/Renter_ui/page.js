@@ -1,9 +1,11 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
 import RenterNotifications from "../../components/RenterNotifications";
 import RenterQuickSearch from "../../components/RenterQuickSearch";
 import RenterRecommendations from "../../components/RenterRecommendations";
+import { getActiveUser } from "../../lib/auth";
 import {
   renterListings,
   renterNotifications,
@@ -11,9 +13,22 @@ import {
 } from "../../lib/renterData";
 
 export default function RenterDashboardPage() {
+  const router = useRouter();
+  const [isAuthorizing, setIsAuthorizing] = useState(true);
   const [location, setLocation] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [rooms, setRooms] = useState("all");
+
+  useEffect(() => {
+    const activeUser = getActiveUser();
+
+    if (!activeUser || activeUser.role !== "renter") {
+      router.replace("/login");
+      return;
+    }
+
+    setIsAuthorizing(false);
+  }, [router]);
 
   const visibleListings = useMemo(() => {
     return renterListings.filter((house) => {
@@ -32,6 +47,16 @@ export default function RenterDashboardPage() {
       return matchLocation && matchPrice && matchRooms;
     });
   }, [location, maxPrice, rooms]);
+
+  if (isAuthorizing) {
+    return (
+      <section className="section-block renter-section">
+        <div className="page-container renter-dashboard-wrap">
+          <p>Checking authentication...</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="section-block renter-section">

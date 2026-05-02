@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { getSavedUsers, setActiveUser } from "../../lib/auth";
 
 const ROLE_REDIRECT = {
   renter: "/Renter_ui",
@@ -35,7 +36,7 @@ export default function LoginClient() {
       return;
     }
 
-    const savedUsers = JSON.parse(localStorage.getItem("hrms_users") || "[]");
+    const savedUsers = getSavedUsers();
     const matchedUser = savedUsers.find(
       (user) => user.email.toLowerCase() === trimmedEmail && user.password === trimmedPassword,
     );
@@ -47,10 +48,7 @@ export default function LoginClient() {
 
     const role = matchedUser.role;
 
-    localStorage.setItem(
-      "hrms_active_user",
-      JSON.stringify({ email: matchedUser.email, role, fullName: matchedUser.fullName }),
-    );
+    setActiveUser(matchedUser);
 
     router.push(ROLE_REDIRECT[role] || "/");
   };
