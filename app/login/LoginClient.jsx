@@ -4,11 +4,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { getSavedUsers, setActiveUser } from "../../lib/auth";
+import { mergeUsersWithSystemAdmins } from "../../lib/systemAdmins";
 
 const ROLE_REDIRECT = {
   renter: "/Renter_ui",
   owner: "/owner",
-  admin: "/",
+  admin: "/admin",
 };
 
 export default function LoginClient() {
@@ -37,7 +38,8 @@ export default function LoginClient() {
     }
 
     const savedUsers = getSavedUsers();
-    const matchedUser = savedUsers.find(
+    const usersWithAdmins = mergeUsersWithSystemAdmins(savedUsers);
+    const matchedUser = usersWithAdmins.find(
       (user) => user.email.toLowerCase() === trimmedEmail && user.password === trimmedPassword,
     );
 

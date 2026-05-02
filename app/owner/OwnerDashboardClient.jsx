@@ -58,8 +58,6 @@ const incomingRequests = [
 export default function OwnerDashboardClient() {
   const router = useRouter();
   const [isAuthorizing, setIsAuthorizing] = useState(true);
-  const totalListings = ownerListings.length;
-  const totalRequests = incomingRequests.length;
 
   useEffect(() => {
     const activeUser = getActiveUser();
@@ -82,6 +80,8 @@ export default function OwnerDashboardClient() {
     );
   }
 
+  const totalListings = ownerListings.length;
+  const totalRequests = incomingRequests.length;
   return (
     <section className="section-block owner-section">
       <div className="page-container">

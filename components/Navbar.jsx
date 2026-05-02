@@ -8,6 +8,7 @@ import { clearActiveUser, getActiveUser } from "../lib/auth";
 const DASHBOARD_BY_ROLE = {
   renter: { href: "/Renter_ui", label: "Renter Dashboard" },
   owner: { href: "/owner", label: "Owner Dashboard" },
+  admin: { href: "/admin", label: "Admin Dashboard" },
 };
 
 export default function Navbar() {

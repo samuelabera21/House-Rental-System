@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { clearActiveUser, getSavedUsers, STORAGE_KEYS } from "../../lib/auth";
+import { mergeUsersWithSystemAdmins } from "../../lib/systemAdmins";
 
 export default function RegisterClient() {
   const router = useRouter();
@@ -64,7 +65,8 @@ export default function RegisterClient() {
     }
 
     const savedUsers = getSavedUsers();
-    const isExistingUser = savedUsers.some(
+    const usersWithAdmins = mergeUsersWithSystemAdmins(savedUsers);
+    const isExistingUser = usersWithAdmins.some(
       (user) => user.email.toLowerCase() === trimmedEmail,
     );
 
