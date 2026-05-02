@@ -348,6 +348,42 @@ main {
   font-size: 0.95rem;
 }
 
+.auth-form input[aria-invalid="true"],
+.auth-form select[aria-invalid="true"] {
+  border-color: #ef4444;
+  background: #fef2f2;
+}
+
+.field-error {
+  margin: -0.35rem 0 0;
+  color: #b91c1c;
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+
+.terms-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  color: #334155;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.terms-row input {
+  margin-top: 0.18rem;
+}
+
+.success-message {
+  margin: 0.15rem 0 0;
+  padding: 0.8rem 0.85rem;
+  border-radius: 10px;
+  background: #ecfdf5;
+  color: #047857;
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
 .auth-form button {
   margin-top: 0.2rem;
   border: 0;
@@ -359,7 +395,6 @@ main {
   cursor: pointer;
 }
 
-<<<<<<< HEAD
 .admin-overview {
   display: grid;
   gap: 1rem;
@@ -433,7 +468,46 @@ main {
 }
 
 .admin-status-active {
-=======
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.admin-status-muted {
+  background: #e2e8f0;
+  color: #475569;
+}
+
+.admin-status-pending {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.admin-status-approved {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.admin-status-flagged {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.admin-action-btn {
+  width: fit-content;
+  border: 0;
+  border-radius: 10px;
+  background: var(--primary);
+  color: #fff;
+  padding: 0.85rem 1.15rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 180ms ease;
+}
+
+.admin-action-btn:hover {
+  background: #1d4ed8;
+}
+
 .owner-section {
   padding-top: 2.8rem;
 }
@@ -549,51 +623,15 @@ main {
 }
 
 .owner-status-chip {
->>>>>>> origin/dev
   background: #dbeafe;
   color: #1d4ed8;
 }
 
-<<<<<<< HEAD
-.admin-status-muted {
-  background: #e2e8f0;
-  color: #475569;
-}
-
-.admin-status-pending {
-  background: #fef3c7;
-  color: #b45309;
-}
-
-.admin-status-approved {
-=======
 .owner-request-state {
->>>>>>> origin/dev
   background: #dcfce7;
   color: #166534;
 }
 
-<<<<<<< HEAD
-.admin-status-flagged {
-  background: #fee2e2;
-  color: #991b1b;
-}
-
-.admin-action-btn {
-  width: fit-content;
-  border: 0;
-  border-radius: 10px;
-  background: var(--primary);
-  color: #fff;
-  padding: 0.85rem 1.15rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background-color 180ms ease;
-}
-
-.admin-action-btn:hover {
-  background: #1d4ed8;
-=======
 .owner-location,
 .owner-request-text {
   margin: 0.5rem 0 0;
@@ -666,7 +704,6 @@ main {
   font-size: 2rem;
   line-height: 1;
   font-weight: 800;
->>>>>>> origin/dev
 }
 
 .footer-wrap {
@@ -758,9 +795,6 @@ main {
     text-align: center;
     padding: 0.8rem 0;
   }
-<<<<<<< HEAD
-}
-=======
 
   .owner-list-row {
     flex-direction: column;
@@ -772,4 +806,3 @@ main {
     align-items: flex-start;
   }
 }
->>>>>>> origin/dev
