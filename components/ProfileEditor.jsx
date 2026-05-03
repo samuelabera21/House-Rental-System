@@ -33,7 +33,7 @@ export default function ProfileEditor() {
   useEffect(() => {
     const user = getActiveUser();
 
-    if (!user) {
+    if (!user || user.role === "admin") {
       return;
     }
 

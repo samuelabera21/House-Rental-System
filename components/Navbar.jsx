@@ -27,7 +27,10 @@ export default function Navbar() {
     const baseLinks = [{ href: "/", label: "Home" }];
 
     if (activeRole && DASHBOARD_BY_ROLE[activeRole]) {
-      return [...baseLinks, DASHBOARD_BY_ROLE[activeRole]];
+      const profileLinks =
+        activeRole === "admin" ? [] : [{ href: "/profile", label: "Profile" }];
+
+      return [...baseLinks, DASHBOARD_BY_ROLE[activeRole], ...profileLinks];
     }
 
     return [
@@ -67,14 +70,25 @@ export default function Navbar() {
           ))}
           {activeRole ? (
             <div className="nav-user-area">
-              <div className="nav-user-chip" title={activeUser?.fullName || "Active user"}>
-                {activeUser?.profileImage ? (
-                  <img src={activeUser.profileImage} alt="" />
-                ) : (
-                  <span>{avatarLabel}</span>
-                )}
-                <span>{activeUser?.fullName || activeRole}</span>
-              </div>
+              {activeRole === "admin" ? (
+                <div className="nav-user-chip" title={activeUser?.fullName || "Active user"}>
+                  {activeUser?.profileImage ? (
+                    <img src={activeUser.profileImage} alt="" />
+                  ) : (
+                    <span>{avatarLabel}</span>
+                  )}
+                  <span>{activeUser?.fullName || activeRole}</span>
+                </div>
+              ) : (
+                <Link href="/profile" className="nav-user-chip" title="Open profile">
+                  {activeUser?.profileImage ? (
+                    <img src={activeUser.profileImage} alt="" />
+                  ) : (
+                    <span>{avatarLabel}</span>
+                  )}
+                  <span>{activeUser?.fullName || activeRole}</span>
+                </Link>
+              )}
               <button type="button" className="nav-link nav-logout-btn" onClick={handleLogout}>
                 Logout
               </button>
