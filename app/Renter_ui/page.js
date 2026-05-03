@@ -5,7 +5,6 @@ import { useEffect, useMemo, useState } from "react";
 import RenterNotifications from "../../components/RenterNotifications";
 import RenterQuickSearch from "../../components/RenterQuickSearch";
 import RenterRecommendations from "../../components/RenterRecommendations";
-import ProfileEditor from "../../components/ProfileEditor";
 import { getActiveUser } from "../../lib/auth";
 import {
   renterListings,
@@ -101,8 +100,6 @@ export default function RenterDashboardPage() {
             from one dashboard.
           </p>
         </div>
-
-        <ProfileEditor />
 
         <div className="renter-stats-grid">
           {statsWithLiveRequests.map((item) => (
