@@ -206,7 +206,7 @@ export default function RenterDashboardPage() {
         />
         <RenterNotifications notifications={notifications} />
 
-        {/* now add requested form */}
+        {/* now add requested form  and ui*/}
 
         {/* Request Form Modal */}
         {showFormModal && (
