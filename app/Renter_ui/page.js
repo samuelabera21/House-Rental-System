@@ -180,6 +180,8 @@ export default function RenterDashboardPage() {
         />
         <RenterNotifications notifications={notifications} />
 
+        {/* now add requested form */}
+
         {/* Request Form Modal */}
         {showFormModal && (
           <div className="modal-overlay" onClick={closeModal}>
