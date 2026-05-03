@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import ProfileEditor from "../../components/ProfileEditor";
 import { getActiveUser } from "../../lib/auth";
 
 const userRecords = [
@@ -100,6 +101,8 @@ export default function AdminDashboardClient() {
             </p>
           </div>
         </div>
+
+        <ProfileEditor />
 
         <section className="admin-summary-grid" aria-label="Admin summary cards">
           <article className="admin-summary-card">

@@ -15,9 +15,11 @@ export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
   const [activeRole, setActiveRole] = useState(null);
+  const [activeUser, setActiveUser] = useState(null);
 
   useEffect(() => {
     const savedUser = getActiveUser();
+    setActiveUser(savedUser);
     setActiveRole(savedUser?.role || null);
   }, [pathname]);
 
@@ -38,8 +40,18 @@ export default function Navbar() {
   const handleLogout = () => {
     clearActiveUser();
     setActiveRole(null);
+    setActiveUser(null);
     router.push("/");
   };
+
+  const avatarLabel =
+    String(activeUser?.fullName || "User")
+      .trim()
+      .split(/\s+/)
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((part) => part.charAt(0).toUpperCase())
+      .join("") || "U";
 
   return (
     <header className="navbar-wrap">
@@ -54,9 +66,19 @@ export default function Navbar() {
             </Link>
           ))}
           {activeRole ? (
-            <button type="button" className="nav-link nav-logout-btn" onClick={handleLogout}>
-              Logout
-            </button>
+            <div className="nav-user-area">
+              <div className="nav-user-chip" title={activeUser?.fullName || "Active user"}>
+                {activeUser?.profileImage ? (
+                  <img src={activeUser.profileImage} alt="" />
+                ) : (
+                  <span>{avatarLabel}</span>
+                )}
+                <span>{activeUser?.fullName || activeRole}</span>
+              </div>
+              <button type="button" className="nav-link nav-logout-btn" onClick={handleLogout}>
+                Logout
+              </button>
+            </div>
           ) : null}
         </nav>
       </div>

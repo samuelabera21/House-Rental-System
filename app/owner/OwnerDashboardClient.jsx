@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import ProfileEditor from "../../components/ProfileEditor";
 import { getActiveUser } from "../../lib/auth";
 
 const ownerListings = [
@@ -98,6 +99,8 @@ export default function OwnerDashboardClient() {
             + Add New Listing
           </button>
         </div>
+
+        <ProfileEditor />
 
         <section
           className="owner-summary-grid"

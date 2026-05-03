@@ -3,8 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { clearActiveUser, getSavedUsers, STORAGE_KEYS } from "../../lib/auth";
-import { mergeUsersWithSystemAdmins } from "../../lib/systemAdmins";
+import { clearActiveUser, getMergedAccounts, getSavedUsers, STORAGE_KEYS } from "../../lib/auth";
 
 export default function RegisterClient() {
   const router = useRouter();
@@ -65,7 +64,7 @@ export default function RegisterClient() {
     }
 
     const savedUsers = getSavedUsers();
-    const usersWithAdmins = mergeUsersWithSystemAdmins(savedUsers);
+    const usersWithAdmins = getMergedAccounts(savedUsers);
     const isExistingUser = usersWithAdmins.some(
       (user) => user.email.toLowerCase() === trimmedEmail,
     );
@@ -82,6 +81,8 @@ export default function RegisterClient() {
         email: trimmedEmail,
         phone: trimmedPhone,
         address: address.trim(),
+        profileImage: "",
+        bio: "",
         password,
         role,
       },
