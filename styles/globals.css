@@ -1139,6 +1139,86 @@ a.nav-user-chip:hover {
   width: fit-content;
 }
 
+.owner-secondary-btn {
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #1e293b;
+}
+
+.owner-add-page-wrap {
+  display: grid;
+  gap: 1rem;
+}
+
+.owner-add-form {
+  border: 1px solid #dbe2ef;
+  border-radius: 12px;
+  background: #f8fbff;
+  padding: 0.9rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.owner-form-grid {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.owner-add-form label {
+  display: grid;
+  gap: 0.35rem;
+  color: #0f172a;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.owner-add-form input,
+.owner-add-form textarea {
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 0.62rem 0.7rem;
+  font-size: 0.92rem;
+  font-family: inherit;
+  background: #ffffff;
+}
+
+.owner-add-form textarea {
+  resize: vertical;
+}
+
+.owner-upload-field input {
+  padding: 0.2rem 0;
+  border: 0;
+  background: transparent;
+}
+
+.owner-upload-hint {
+  color: #64748b;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.owner-add-form-actions {
+  display: flex;
+  gap: 0.55rem;
+}
+
+.owner-add-form-actions button {
+  border: 0;
+  border-radius: 10px;
+  background: var(--primary);
+  color: #ffffff;
+  font-weight: 700;
+  padding: 0.6rem 0.9rem;
+  cursor: pointer;
+}
+
+.owner-add-form-actions .owner-secondary-btn {
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #1e293b;
+}
+
 .owner-panel-wrap {
   margin-top: 1rem;
   display: grid;
@@ -1184,6 +1264,14 @@ a.nav-user-chip:hover {
   border-radius: 12px;
   padding: 0.85rem;
   background: #f8fafc;
+}
+
+.owner-listing-thumb {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid #dbe2ef;
 }
 
 .owner-list-row {
