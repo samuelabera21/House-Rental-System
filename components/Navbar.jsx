@@ -3,32 +3,34 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import { clearActiveUser, getActiveUser } from "../lib/auth";
 
 const DASHBOARD_BY_ROLE = {
   renter: { href: "/Renter_ui", label: "Renter Dashboard" },
   owner: { href: "/owner", label: "Owner Dashboard" },
+  admin: { href: "/admin", label: "Admin Dashboard" },
 };
 
 export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
   const [activeRole, setActiveRole] = useState(null);
+  const [activeUser, setActiveUser] = useState(null);
 
   useEffect(() => {
-    try {
-      const savedUser = JSON.parse(localStorage.getItem("hrms_active_user") || "null");
-      const isLoggedIn = localStorage.getItem("hrms_is_logged_in") === "true";
-      setActiveRole(isLoggedIn ? savedUser?.role || null : null);
-    } catch {
-      setActiveRole(null);
-    }
+    const savedUser = getActiveUser();
+    setActiveUser(savedUser);
+    setActiveRole(savedUser?.role || null);
   }, [pathname]);
 
   const navLinks = useMemo(() => {
     const baseLinks = [{ href: "/", label: "Home" }];
 
     if (activeRole && DASHBOARD_BY_ROLE[activeRole]) {
-      return [...baseLinks, DASHBOARD_BY_ROLE[activeRole]];
+      const profileLinks =
+        activeRole === "admin" ? [] : [{ href: "/profile", label: "Profile" }];
+
+      return [...baseLinks, DASHBOARD_BY_ROLE[activeRole], ...profileLinks];
     }
 
     return [
@@ -39,11 +41,20 @@ export default function Navbar() {
   }, [activeRole]);
 
   const handleLogout = () => {
-    localStorage.removeItem("hrms_active_user");
-    localStorage.removeItem("hrms_is_logged_in");
+    clearActiveUser();
     setActiveRole(null);
+    setActiveUser(null);
     router.push("/");
   };
+
+  const avatarLabel =
+    String(activeUser?.fullName || "User")
+      .trim()
+      .split(/\s+/)
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((part) => part.charAt(0).toUpperCase())
+      .join("") || "U";
 
   return (
     <header className="navbar-wrap">
@@ -58,9 +69,30 @@ export default function Navbar() {
             </Link>
           ))}
           {activeRole ? (
-            <button type="button" className="nav-link nav-logout-btn" onClick={handleLogout}>
-              Logout
-            </button>
+            <div className="nav-user-area">
+              {activeRole === "admin" ? (
+                <div className="nav-user-chip" title={activeUser?.fullName || "Active user"}>
+                  {activeUser?.profileImage ? (
+                    <img src={activeUser.profileImage} alt="" />
+                  ) : (
+                    <span>{avatarLabel}</span>
+                  )}
+                  <span>{activeUser?.fullName || activeRole}</span>
+                </div>
+              ) : (
+                <Link href="/profile" className="nav-user-chip" title="Open profile">
+                  {activeUser?.profileImage ? (
+                    <img src={activeUser.profileImage} alt="" />
+                  ) : (
+                    <span>{avatarLabel}</span>
+                  )}
+                  <span>{activeUser?.fullName || activeRole}</span>
+                </Link>
+              )}
+              <button type="button" className="nav-link nav-logout-btn" onClick={handleLogout}>
+                Logout
+              </button>
+            </div>
           ) : null}
         </nav>
       </div>

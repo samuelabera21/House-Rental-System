@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { getActiveUser } from "../../lib/auth";
 
 const ownerListings = [
   {
@@ -56,32 +57,24 @@ const incomingRequests = [
 
 export default function OwnerDashboardClient() {
   const router = useRouter();
-  const [accessChecked, setAccessChecked] = useState(false);
+  const [isAuthorizing, setIsAuthorizing] = useState(true);
 
   useEffect(() => {
-    try {
-      const activeSession = JSON.parse(
-        localStorage.getItem("hrms_active_user") || "null",
-      );
-      const isLoggedIn = localStorage.getItem("hrms_is_logged_in") === "true";
+    const activeUser = getActiveUser();
 
-      if (!isLoggedIn || activeSession?.role !== "owner") {
-        router.replace("/login");
-        return;
-      }
-    } catch {
+    if (!activeUser || activeUser.role !== "owner") {
       router.replace("/login");
       return;
     }
 
-    setAccessChecked(true);
+    setIsAuthorizing(false);
   }, [router]);
 
-  if (!accessChecked) {
+  if (isAuthorizing) {
     return (
       <section className="section-block owner-section">
         <div className="page-container">
-          <p>Checking owner access...</p>
+          <p>Checking authentication...</p>
         </div>
       </section>
     );
@@ -89,7 +82,6 @@ export default function OwnerDashboardClient() {
 
   const totalListings = ownerListings.length;
   const totalRequests = incomingRequests.length;
-
   return (
     <section className="section-block owner-section">
       <div className="page-container">

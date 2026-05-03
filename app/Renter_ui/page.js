@@ -1,9 +1,11 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
 import RenterNotifications from "../../components/RenterNotifications";
 import RenterQuickSearch from "../../components/RenterQuickSearch";
 import RenterRecommendations from "../../components/RenterRecommendations";
+import { getActiveUser } from "../../lib/auth";
 import {
   renterListings,
   renterNotifications,
@@ -11,9 +13,13 @@ import {
 } from "../../lib/renterData";
 
 export default function RenterDashboardPage() {
+  const router = useRouter();
+  const [isAuthorizing, setIsAuthorizing] = useState(true);
   const [location, setLocation] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [rooms, setRooms] = useState("all");
+  const [requestedListingIds, setRequestedListingIds] = useState([]);
+  const [notifications, setNotifications] = useState(renterNotifications);
 
   const visibleListings = useMemo(() => {
     return renterListings.filter((house) => {
@@ -33,6 +39,56 @@ export default function RenterDashboardPage() {
     });
   }, [location, maxPrice, rooms]);
 
+  const statsWithLiveRequests = useMemo(() => {
+    const baseRequests = Number(
+      renterStats.find((item) => item.id === "requests")?.value ?? 0,
+    );
+
+    return renterStats.map((item) =>
+      item.id === "requests"
+        ? { ...item, value: baseRequests + requestedListingIds.length }
+        : item,
+    );
+  }, [requestedListingIds]);
+
+  useEffect(() => {
+    const activeUser = getActiveUser();
+
+    if (!activeUser || activeUser.role !== "renter") {
+      router.replace("/login");
+      return;
+    }
+
+    setIsAuthorizing(false);
+  }, [router]);
+
+  if (isAuthorizing) {
+    return (
+      <section className="section-block renter-section">
+        <div className="page-container renter-dashboard-wrap">
+          <p>Checking authentication...</p>
+        </div>
+      </section>
+    );
+  }
+
+  const handleSendRequest = (listing) => {
+    if (requestedListingIds.includes(listing.id)) {
+      return;
+    }
+
+    setRequestedListingIds((prev) => [...prev, listing.id]);
+    setNotifications((prev) => [
+      {
+        id: Date.now(),
+        title: "Request Sent",
+        detail: `Your request for ${listing.location} has been sent to the owner.`,
+        type: "info",
+      },
+      ...prev,
+    ]);
+  };
+
   return (
     <section className="section-block renter-section">
       <div className="page-container renter-dashboard-wrap">
@@ -46,7 +102,7 @@ export default function RenterDashboardPage() {
         </div>
 
         <div className="renter-stats-grid">
-          {renterStats.map((item) => (
+          {statsWithLiveRequests.map((item) => (
             <article key={item.id} className="renter-stat-card">
               <p>{item.label}</p>
               <strong>{item.value}</strong>
@@ -54,6 +110,7 @@ export default function RenterDashboardPage() {
           ))}
         </div>
 
+        {/* searching house by location, prices and number of rooms */}
         <RenterQuickSearch
           location={location}
           setLocation={setLocation}
@@ -63,8 +120,12 @@ export default function RenterDashboardPage() {
           setRooms={setRooms}
         />
 
-        <RenterRecommendations listings={visibleListings} />
-        <RenterNotifications notifications={renterNotifications} />
+        <RenterRecommendations
+          listings={visibleListings}
+          requestedListingIds={requestedListingIds}
+          onSendRequest={handleSendRequest}
+        />
+        <RenterNotifications notifications={notifications} />
       </div>
     </section>
   );

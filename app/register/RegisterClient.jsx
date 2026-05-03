@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { clearActiveUser, getMergedAccounts, getSavedUsers, STORAGE_KEYS } from "../../lib/auth";
 
 export default function RegisterClient() {
   const router = useRouter();
@@ -62,8 +63,9 @@ export default function RegisterClient() {
       return;
     }
 
-    const savedUsers = JSON.parse(localStorage.getItem("hrms_users") || "[]");
-    const isExistingUser = savedUsers.some(
+    const savedUsers = getSavedUsers();
+    const usersWithAdmins = getMergedAccounts(savedUsers);
+    const isExistingUser = usersWithAdmins.some(
       (user) => user.email.toLowerCase() === trimmedEmail,
     );
 
@@ -79,108 +81,124 @@ export default function RegisterClient() {
         email: trimmedEmail,
         phone: trimmedPhone,
         address: address.trim(),
+        profileImage: "",
+        bio: "",
         password,
         role,
       },
     ];
 
-    localStorage.setItem("hrms_users", JSON.stringify(nextUsers));
+    localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(nextUsers));
+    // Registration stores account data only; login creates authenticated session state.
+    clearActiveUser();
 
     router.push("/login");
   };
 
   return (
-    <section className="section-block auth-section">
-      <div className="page-container auth-container">
-        <h1>Create account</h1>
-        <p>Fill in your details, choose your role, and create your account.</p>
-        <form className="auth-form" onSubmit={handleSubmit}>
-          <div className="auth-form-grid">
-            <label>
-              Full Name
-              <input
-                type="text"
-                placeholder="Full name"
-                value={fullName}
-                onChange={(event) => setFullName(event.target.value)}
-                required
-              />
-            </label>
-            <label>
-              Email
-              <input
-                type="email"
-                placeholder="you@example.com"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-                required
-              />
-            </label>
-            <label>
-              Phone Number
-              <input
-                type="tel"
-                placeholder="+251 9XX XXX XXX"
-                value={phone}
-                onChange={(event) => setPhone(event.target.value)}
-                required
-              />
-            </label>
-            <label>
-              Address
-              <input
-                type="text"
-                placeholder="Your city or area"
-                value={address}
-                onChange={(event) => setAddress(event.target.value)}
-                required
-              />
-            </label>
-            <label>
-              Password
-              <input
-                type="password"
-                placeholder="Create a password"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-                required
-              />
-            </label>
-            <label>
-              Confirm Password
-              <input
-                type="password"
-                placeholder="Repeat your password"
-                value={confirmPassword}
-                onChange={(event) => setConfirmPassword(event.target.value)}
-                required
-              />
-            </label>
-            <label>
-              Select your role
-              <select
-                value={role}
-                onChange={(event) => setRole(event.target.value)}
-                required
-              >
-                <option value="" disabled>
-                  Choose your role
-                </option>
-                <option value="renter">Renter</option>
-                <option value="owner">House Owner</option>
-              </select>
-            </label>
+    <section className="section-block auth-section register-section">
+      <div className="page-container auth-container register-container">
+        <div className="register-shell">
+          <aside className="register-aside" aria-hidden="true">
+            <span className="register-badge">Create profile</span>
+            <h2>Start listing or renting without delays.</h2>
+            <p>
+              Join the platform to browse homes, post listings, and manage requests with ease.
+            </p>
+          </aside>
+
+          <div className="register-form-wrap">
+            <h1>Create account</h1>
+            <p>Fill in your details, choose your role, and create your account.</p>
+            <form className="auth-form register-form" onSubmit={handleSubmit}>
+              <div className="auth-form-grid register-grid">
+                <label>
+                  Full Name
+                  <input
+                    type="text"
+                    placeholder="Full name"
+                    value={fullName}
+                    onChange={(event) => setFullName(event.target.value)}
+                    required
+                  />
+                </label>
+                <label>
+                  Email
+                  <input
+                    type="email"
+                    placeholder="you@example.com"
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                    required
+                  />
+                </label>
+                <label>
+                  Phone Number
+                  <input
+                    type="tel"
+                    placeholder="+251 9XX XXX XXX"
+                    value={phone}
+                    onChange={(event) => setPhone(event.target.value)}
+                    required
+                  />
+                </label>
+                <label>
+                  Address
+                  <input
+                    type="text"
+                    placeholder="Your city or area"
+                    value={address}
+                    onChange={(event) => setAddress(event.target.value)}
+                    required
+                  />
+                </label>
+                <label>
+                  Password
+                  <input
+                    type="password"
+                    placeholder="Create a password"
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}
+                    required
+                  />
+                </label>
+                <label>
+                  Confirm Password
+                  <input
+                    type="password"
+                    placeholder="Repeat your password"
+                    value={confirmPassword}
+                    onChange={(event) => setConfirmPassword(event.target.value)}
+                    required
+                  />
+                </label>
+                <label>
+                  Select your role
+                  <select
+                    value={role}
+                    onChange={(event) => setRole(event.target.value)}
+                    required
+                  >
+                    <option value="" disabled>
+                      Choose your role
+                    </option>
+                    <option value="renter">Renter</option>
+                    <option value="owner">House Owner</option>
+                  </select>
+                </label>
+              </div>
+              <label className="register-consent">
+                <input type="checkbox" required />
+                <span>I agree to the terms and privacy policy.</span>
+              </label>
+              {message ? <p className="auth-error">{message}</p> : null}
+              <button type="submit">Create Account</button>
+            </form>
+            <p className="auth-switch register-switch">
+              Already have an account? <Link href="/login">Login here</Link>
+            </p>
           </div>
-          <label className="flex items-start gap-2 text-sm font-medium text-slate-700">
-            <input className="mt-1" type="checkbox" required />
-            <span>I agree to the terms and privacy policy.</span>
-          </label>
-          {message ? <p className="auth-error">{message}</p> : null}
-          <button type="submit">Create Account</button>
-        </form>
-        <p className="auth-switch">
-          Already have an account? <Link href="/login">Login here</Link>
-        </p>
+        </div>
       </div>
     </section>
   );

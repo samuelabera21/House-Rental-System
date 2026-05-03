@@ -3,11 +3,12 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { getMergedAccounts, getSavedUsers, setActiveUser } from "../../lib/auth";
 
 const ROLE_REDIRECT = {
   renter: "/Renter_ui",
   owner: "/owner",
-  admin: "/",
+  admin: "/admin",
 };
 
 export default function LoginClient() {
@@ -35,8 +36,9 @@ export default function LoginClient() {
       return;
     }
 
-    const savedUsers = JSON.parse(localStorage.getItem("hrms_users") || "[]");
-    const matchedUser = savedUsers.find(
+    const savedUsers = getSavedUsers();
+    const usersWithAdmins = getMergedAccounts(savedUsers);
+    const matchedUser = usersWithAdmins.find(
       (user) => user.email.toLowerCase() === trimmedEmail && user.password === trimmedPassword,
     );
 
@@ -47,47 +49,55 @@ export default function LoginClient() {
 
     const role = matchedUser.role;
 
-    localStorage.setItem(
-      "hrms_active_user",
-      JSON.stringify({ email: matchedUser.email, role, fullName: matchedUser.fullName }),
-    );
-    localStorage.setItem("hrms_is_logged_in", "true");
+    setActiveUser(matchedUser);
 
     router.push(ROLE_REDIRECT[role] || "/");
   };
 
   return (
-    <section className="section-block auth-section">
-      <div className="page-container auth-container">
-        <h1>Login</h1>
-        <p>Sign in with your registered email and password.</p>
-        <form className="auth-form" onSubmit={handleSubmit}>
-          <label>
-            Email
-            <input
-              type="email"
-              placeholder="you@example.com"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              required
-            />
-          </label>
-          <label>
-            Password
-            <input
-              type="password"
-              placeholder="********"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              required
-            />
-          </label>
-          {error ? <p className="auth-error">{error}</p> : null}
-          <button type="submit">Login</button>
-        </form>
-        <p className="auth-switch">
-          Don&apos;t have an account? <Link href="/register">Register here</Link>
-        </p>
+    <section className="section-block auth-section login-section">
+      <div className="page-container auth-container login-container">
+        <div className="login-shell">
+          <aside className="login-aside" aria-hidden="true">
+            <span className="login-badge">Welcome back</span>
+            <h2>Find your next home in minutes.</h2>
+            <p>
+              Sign in to manage your saved houses, messages, and rental requests from one place.
+            </p>
+          </aside>
+
+          <div className="login-form-wrap">
+            <h1>Login</h1>
+            <p>Sign in with your registered email and password.</p>
+            <form className="auth-form login-form" onSubmit={handleSubmit}>
+              <label>
+                Email
+                <input
+                  type="email"
+                  placeholder="you@example.com"
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                  required
+                />
+              </label>
+              <label>
+                Password
+                <input
+                  type="password"
+                  placeholder="********"
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
+                  required
+                />
+              </label>
+              {error ? <p className="auth-error">{error}</p> : null}
+              <button type="submit">Login</button>
+            </form>
+            <p className="auth-switch login-switch">
+              Don&apos;t have an account? <Link href="/register">Register here</Link>
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   );
