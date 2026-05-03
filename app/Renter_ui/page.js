@@ -22,17 +22,6 @@ export default function RenterDashboardPage() {
   const [requestedListingIds, setRequestedListingIds] = useState([]);
   const [notifications, setNotifications] = useState(renterNotifications);
 
-  useEffect(() => {
-    const activeUser = getActiveUser();
-
-    if (!activeUser || activeUser.role !== "renter") {
-      router.replace("/login");
-      return;
-    }
-
-    setIsAuthorizing(false);
-  }, [router]);
-
   const visibleListings = useMemo(() => {
     return renterListings.filter((house) => {
       const matchLocation = !location.trim()
@@ -51,16 +40,6 @@ export default function RenterDashboardPage() {
     });
   }, [location, maxPrice, rooms]);
 
-  if (isAuthorizing) {
-    return (
-      <section className="section-block renter-section">
-        <div className="page-container renter-dashboard-wrap">
-          <p>Checking authentication...</p>
-        </div>
-      </section>
-    );
-  }
-
   const statsWithLiveRequests = useMemo(() => {
     const baseRequests = Number(
       renterStats.find((item) => item.id === "requests")?.value ?? 0,
@@ -72,6 +51,27 @@ export default function RenterDashboardPage() {
         : item,
     );
   }, [requestedListingIds]);
+
+  useEffect(() => {
+    const activeUser = getActiveUser();
+
+    if (!activeUser || activeUser.role !== "renter") {
+      router.replace("/login");
+      return;
+    }
+
+    setIsAuthorizing(false);
+  }, [router]);
+
+  if (isAuthorizing) {
+    return (
+      <section className="section-block renter-section">
+        <div className="page-container renter-dashboard-wrap">
+          <p>Checking authentication...</p>
+        </div>
+      </section>
+    );
+  }
 
   const handleSendRequest = (listing) => {
     if (requestedListingIds.includes(listing.id)) {
