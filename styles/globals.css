@@ -113,6 +113,10 @@ main {
   gap: 0.3rem;
 }
 
+.nav-links {
+  position: relative;
+}
+
 .nav-user-area {
   display: flex;
   align-items: center;
@@ -320,6 +324,19 @@ main {
   background: linear-gradient(90deg, #89aacc, #4e85bf);
 }
 
+/* Floating moving indicator (smoothly moves under active link) */
+.nav-active-indicator {
+  position: absolute;
+  bottom: -8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 0 8px 20px rgba(4, 6, 8, 0.45);
+  transition: left 240ms cubic-bezier(.2,.9,.2,1), width 240ms cubic-bezier(.2,.9,.2,1), opacity 180ms ease;
+  pointer-events: none;
+  opacity: 0;
+}
+
 .hero-section {
   padding: 4rem 0 2.5rem;
 }
@@ -327,17 +344,14 @@ main {
 .hero-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.5rem;
+/* Simplified active link: clear, bold, white */
+.nav-link.active {
+  background: transparent;
+  color: #ffffff;
+  font-weight: 800;
+  box-shadow: none;
+  transform: none;
 }
-
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.35rem 0.7rem;
-  border-radius: 999px;
-  background: #dbeafe;
-  color: var(--primary-deep);
-  font-weight: 700;
   font-size: 0.8rem;
   margin-bottom: 0.9rem;
 }
@@ -1013,6 +1027,10 @@ main {
   gap: 0.85rem;
 }
 
+/* keep layout simple */
+.nav-links {
+  position: relative;
+}
 .profile-field {
   display: grid;
   gap: 0.45rem;

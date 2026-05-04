@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, useLayoutEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { clearActiveUser, getActiveUser } from "../lib/auth";
 
@@ -59,6 +59,9 @@ export default function Navbar() {
       window.removeEventListener("popstate", onHashChange);
     };
   }, []);
+
+  // Position the moving active indicator under the currently active nav link
+  // indicator removed — keep simple active link styling
 
   const navLinks = useMemo(() => {
     const baseLinks = isHomePage
@@ -127,6 +130,8 @@ export default function Navbar() {
                 </Link>
               );
             })}
+
+            {/* decorative indicator removed for simpler navbar */}
 
             {/* Auth actions (Login/Register) shown when there's no active user */}
             {!activeRole ? (
