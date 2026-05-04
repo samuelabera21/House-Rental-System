@@ -1,14 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { clearActiveUser, getActiveUser } from "../lib/auth";
 
 const DASHBOARD_BY_ROLE = {
-  renter: { href: "/Renter_ui", label: "Workspace" },
-  owner: { href: "/owner", label: "Workspace" },
-  admin: { href: "/admin", label: "Workspace" },
+  renter: { href: "/Renter_ui", label: "Dashboard" },
+  owner: { href: "/owner", label: "Dashboard" },
+  admin: { href: "/admin", label: "Dashboard" },
 };
 
 export default function Navbar() {
@@ -16,6 +16,8 @@ export default function Navbar() {
   const pathname = usePathname();
   const [activeRole, setActiveRole] = useState(null);
   const [activeUser, setActiveUser] = useState(null);
+  const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
+  const accountMenuRef = useRef(null);
   const isHomePage = pathname === "/";
 
   useEffect(() => {
@@ -23,6 +25,28 @@ export default function Navbar() {
     setActiveUser(savedUser);
     setActiveRole(savedUser?.role || null);
   }, [pathname]);
+
+  useEffect(() => {
+    const handlePointerDown = (event) => {
+      if (!accountMenuRef.current?.contains(event.target)) {
+        setIsAccountMenuOpen(false);
+      }
+    };
+
+    const handleEscape = (event) => {
+      if (event.key === "Escape") {
+        setIsAccountMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("pointerdown", handlePointerDown);
+    document.addEventListener("keydown", handleEscape);
+
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, []);
 
   const navLinks = useMemo(() => {
     const baseLinks = isHomePage
@@ -35,10 +59,7 @@ export default function Navbar() {
       : [{ href: "/", label: "Home" }];
 
     if (activeRole && DASHBOARD_BY_ROLE[activeRole]) {
-      const profileLinks =
-        activeRole === "admin" ? [] : [{ href: "/profile", label: "Profile" }];
-
-      return [...baseLinks, DASHBOARD_BY_ROLE[activeRole], ...profileLinks];
+      return [...baseLinks, DASHBOARD_BY_ROLE[activeRole]];
     }
 
     return [
@@ -64,6 +85,13 @@ export default function Navbar() {
       .map((part) => part.charAt(0).toUpperCase())
       .join("") || "U";
 
+  const displayName = String(activeUser?.fullName || activeRole || "Account")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .join(" ");
+
   return (
     <header className="navbar-wrap">
       <div className="page-container navbar">
@@ -80,33 +108,59 @@ export default function Navbar() {
               </Link>
             ))}
             {activeRole ? (
-              <div className="nav-user-area">
-                {activeRole === "admin" ? (
-                  <div className="nav-user-chip" title={activeUser?.fullName || "Active user"}>
-                    {activeUser?.profileImage ? (
-                      <img src={activeUser.profileImage} alt="" />
-                    ) : (
-                      <span>{avatarLabel}</span>
-                    )}
-                    <span>{activeUser?.fullName || activeRole}</span>
-                  </div>
-                ) : (
-                  <Link href="/profile" className="nav-user-chip" title="Open profile">
-                    {activeUser?.profileImage ? (
-                      <img src={activeUser.profileImage} alt="" />
-                    ) : (
-                      <span>{avatarLabel}</span>
-                    )}
-                    <span>{activeUser?.fullName || activeRole}</span>
-                  </Link>
-                )}
+              <div className="nav-user-area" ref={accountMenuRef}>
                 <button
                   type="button"
-                  className="nav-link nav-logout-btn"
-                  onClick={handleLogout}
+                  className="nav-account-btn"
+                  aria-haspopup="menu"
+                  aria-expanded={isAccountMenuOpen}
+                  onClick={() => setIsAccountMenuOpen((current) => !current)}
                 >
-                  Logout
+                  {activeUser?.profileImage ? (
+                    <img src={activeUser.profileImage} alt="" className="nav-account-avatar" />
+                  ) : (
+                    <span className="nav-account-avatar nav-account-initials">{avatarLabel}</span>
+                  )}
+                  <span className="nav-account-label">Account</span>
+                  <span className="nav-account-chevron" aria-hidden="true">
+                    ▾
+                  </span>
                 </button>
+
+                {isAccountMenuOpen ? (
+                  <div className="nav-account-menu" role="menu">
+                    <div className="nav-account-meta">
+                      <strong>{displayName}</strong>
+                      <span>{activeRole}</span>
+                    </div>
+                    <Link
+                      href="/profile"
+                      className="nav-account-menu-item"
+                      role="menuitem"
+                      onClick={() => setIsAccountMenuOpen(false)}
+                    >
+                      Profile
+                    </Link>
+                    {DASHBOARD_BY_ROLE[activeRole] ? (
+                      <Link
+                        href={DASHBOARD_BY_ROLE[activeRole].href}
+                        className="nav-account-menu-item"
+                        role="menuitem"
+                        onClick={() => setIsAccountMenuOpen(false)}
+                      >
+                        Dashboard
+                      </Link>
+                    ) : null}
+                    <button
+                      type="button"
+                      className="nav-account-menu-item nav-account-logout"
+                      role="menuitem"
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </button>
+                  </div>
+                ) : null}
               </div>
             ) : null}
           </nav>
