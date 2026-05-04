@@ -32,15 +32,18 @@ export default function ProfilePage() {
 
   return (
     <section className="section-block profile-page-section">
-      <div className="page-container profile-page-wrap">
-        <div className="profile-page-head">
-          <span className="hero-badge">Profile Settings</span>
+      <div className="page-container profile-page-wrap profile-shell">
+        <header className="profile-page-head profile-hero">
+          <span className="section-kicker">
+            <span className="section-kicker-line" />
+            Profile Settings
+          </span>
           <h1>Update your account information</h1>
           <p>
             Keep your personal details current from a dedicated profile page.
             Admin accounts are excluded from editing.
           </p>
-        </div>
+        </header>
 
         <ProfileEditor />
       </div>
