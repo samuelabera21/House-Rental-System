@@ -107,11 +107,8 @@ export default function Navbar() {
             {/* Auth actions (Login/Register) shown when there's no active user */}
             {!activeRole ? (
               <div className="auth-actions">
-                <Link href="/login" className="btn btn-outline" aria-label="Login">
+                <Link href="/login" className="btn btn-primary" aria-label="Login">
                   Login
-                </Link>
-                <Link href="/register" className="btn btn-primary" aria-label="Register">
-                  Register
                 </Link>
               </div>
             ) : (
