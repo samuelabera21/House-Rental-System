@@ -169,7 +169,7 @@ export default function Navbar() {
                   </div>
                 ) : null}
               </div>
-            ) : null}
+            )}
           </nav>
         </div>
       </div>
