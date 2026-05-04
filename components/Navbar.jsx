@@ -57,16 +57,12 @@ export default function Navbar() {
           { href: "/#about", label: "About" },
         ]
       : [{ href: "/", label: "Home" }];
-
     if (activeRole && DASHBOARD_BY_ROLE[activeRole]) {
       return [...baseLinks, DASHBOARD_BY_ROLE[activeRole]];
     }
 
-    return [
-      ...baseLinks,
-      { href: "/login", label: "Login" },
-      { href: "/register", label: "Register" },
-    ];
+    // Keep navigation links separate from auth actions for clearer layout
+    return [...baseLinks];
   }, [activeRole, isHomePage]);
 
   const handleLogout = () => {
@@ -107,7 +103,18 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
-            {activeRole ? (
+
+            {/* Auth actions (Login/Register) shown when there's no active user */}
+            {!activeRole ? (
+              <div className="auth-actions">
+                <Link href="/login" className="btn btn-outline" aria-label="Login">
+                  Login
+                </Link>
+                <Link href="/register" className="btn btn-primary" aria-label="Register">
+                  Register
+                </Link>
+              </div>
+            ) : (
               <div className="nav-user-area" ref={accountMenuRef}>
                 <button
                   type="button"
