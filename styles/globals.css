@@ -241,6 +241,68 @@ main {
   color: var(--primary-deep);
 }
 
+/* Auth action buttons on navbar */
+.auth-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: 0.65rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform 140ms ease, box-shadow 160ms ease, background-color 160ms ease;
+}
+
+.btn-outline {
+  background: transparent;
+  color: hsl(var(--text));
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(6px);
+}
+
+.btn-outline:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.btn-primary {
+  background: linear-gradient(90deg, #89aacc 0%, #4e85bf 100%);
+  color: hsl(var(--bg));
+  border: none;
+  box-shadow: 0 8px 20px rgba(78, 133, 191, 0.18);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  filter: saturate(1.05) brightness(1.02);
+}
+
+/* Make nav links subtle on dark header */
+.navbar-wrap {
+  background: rgba(10, 12, 14, 0.86);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  color: hsl(var(--text));
+}
+
+.nav-link {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.03);
+  color: #ffffff;
+}
+
 .hero-section {
   padding: 4rem 0 2.5rem;
 }
