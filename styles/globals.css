@@ -2872,3 +2872,198 @@ a.nav-user-chip:hover {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+.owner-section {
+  padding-top: 2.2rem;
+  padding-bottom: 3.5rem;
+}
+
+.owner-shell {
+  display: grid;
+  gap: 1rem;
+}
+
+.owner-hero,
+.owner-summary-card,
+.owner-panel,
+.owner-list-card,
+.owner-request-card {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.18);
+}
+
+.owner-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.35rem;
+  border-radius: 2rem;
+  background:
+    radial-gradient(circle at top right, rgba(78, 133, 191, 0.18), transparent 30%),
+    rgba(255, 255, 255, 0.03);
+}
+
+.owner-hero-copy h1 {
+  margin: 0.35rem 0 0;
+  font-size: clamp(2rem, 4.5vw, 3.4rem);
+  line-height: 0.95;
+}
+
+.owner-hero-copy p {
+  margin-top: 0.7rem;
+  max-width: 58ch;
+  color: hsl(var(--muted));
+  line-height: 1.75;
+}
+
+.owner-action-btn {
+  border: 0;
+  border-radius: 999px;
+  padding: 0.85rem 1.15rem;
+  width: fit-content;
+  color: hsl(var(--bg));
+}
+
+.owner-summary-grid-dark {
+  margin-top: 0;
+}
+
+.owner-summary-grid-dark .owner-summary-card {
+  border-radius: 1.5rem;
+  padding: 1rem;
+}
+
+.owner-summary-label {
+  color: hsl(var(--muted));
+}
+
+.owner-summary-value {
+  color: hsl(var(--text));
+}
+
+.owner-panel-wrap-dark {
+  margin-top: 0;
+}
+
+.owner-panel {
+  border-radius: 1.5rem;
+  padding: 1rem;
+}
+
+.owner-panel-head h2 {
+  color: hsl(var(--text));
+}
+
+.owner-panel-head p,
+.owner-location,
+.owner-request-text,
+.owner-list-meta,
+.owner-panel-head p,
+.owner-summary-label {
+  color: hsl(var(--muted));
+}
+
+.owner-list-card,
+.owner-request-card {
+  border-radius: 1.25rem;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.owner-listing-thumb {
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  height: 190px;
+}
+
+.owner-list-row h3 {
+  color: hsl(var(--text));
+}
+
+.owner-status-chip,
+.owner-request-state {
+  background: rgba(255, 255, 255, 0.06);
+  color: hsl(var(--text));
+}
+
+.owner-list-meta {
+  color: hsl(var(--text));
+}
+
+.owner-list-actions button {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  color: hsl(var(--text));
+}
+
+.owner-list-actions .approve-btn {
+  border-color: rgba(34, 197, 94, 0.4);
+  color: #86efac;
+}
+
+.owner-list-actions .reject-btn {
+  border-color: rgba(244, 63, 94, 0.4);
+  color: #fda4af;
+}
+
+.owner-secondary-btn {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.02);
+  color: hsl(var(--text));
+}
+
+.owner-add-form,
+.owner-panel,
+.owner-summary-card {
+  color: hsl(var(--text));
+}
+
+.owner-add-form {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.25rem;
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.18);
+}
+
+.owner-add-form label {
+  color: hsl(var(--text));
+}
+
+.owner-add-form input,
+.owner-add-form textarea {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.02);
+  color: hsl(var(--text));
+}
+
+.owner-upload-hint {
+  color: hsl(var(--muted));
+}
+
+.owner-add-form-actions button,
+.owner-add-form-actions .owner-secondary-btn {
+  border-radius: 999px;
+}
+
+.owner-add-form-actions button {
+  background: hsl(var(--text));
+  color: hsl(var(--bg));
+}
+
+@media (min-width: 768px) {
+  .owner-hero {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .owner-summary-grid-dark {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .owner-panel-wrap-dark {
+    grid-template-columns: 1.02fr 0.98fr;
+    align-items: start;
+  }
+}
