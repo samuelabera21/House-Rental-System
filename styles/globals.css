@@ -303,6 +303,23 @@ main {
   color: #ffffff;
 }
 
+.nav-link.active {
+  background: linear-gradient(90deg, rgba(78,133,191,0.14), rgba(78,133,191,0.08));
+  color: #ffffff;
+  box-shadow: 0 6px 18px rgba(4, 6, 8, 0.45);
+  transform: translateY(-1px);
+}
+
+.nav-link.active::after {
+  content: "";
+  display: block;
+  height: 3px;
+  width: 36%;
+  margin: 6px auto 0;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #89aacc, #4e85bf);
+}
+
 .hero-section {
   padding: 4rem 0 2.5rem;
 }
