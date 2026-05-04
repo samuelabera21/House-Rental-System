@@ -19,11 +19,18 @@ export default function Navbar() {
   const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
   const accountMenuRef = useRef(null);
   const isHomePage = pathname === "/";
+  const [currentLocation, setCurrentLocation] = useState(
+    typeof window !== "undefined" ? window.location.pathname + window.location.hash : pathname
+  );
 
   useEffect(() => {
     const savedUser = getActiveUser();
     setActiveUser(savedUser);
     setActiveRole(savedUser?.role || null);
+    // sync current location when pathname changes (client only)
+    if (typeof window !== "undefined") {
+      setCurrentLocation(window.location.pathname + window.location.hash);
+    }
   }, [pathname]);
 
   useEffect(() => {
@@ -41,10 +48,15 @@ export default function Navbar() {
 
     document.addEventListener("pointerdown", handlePointerDown);
     document.addEventListener("keydown", handleEscape);
+    const onHashChange = () => setCurrentLocation(window.location.pathname + window.location.hash);
+    window.addEventListener("hashchange", onHashChange);
+    window.addEventListener("popstate", onHashChange);
 
     return () => {
       document.removeEventListener("pointerdown", handlePointerDown);
       document.removeEventListener("keydown", handleEscape);
+      window.removeEventListener("hashchange", onHashChange);
+      window.removeEventListener("popstate", onHashChange);
     };
   }, []);
 
@@ -98,11 +110,23 @@ export default function Navbar() {
           </Link>
 
           <nav aria-label="Main navigation" className="nav-links">
-            {navLinks.map((link) => (
-              <Link key={link.href} href={link.href} className="nav-link">
-                {link.label}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const linkTarget = link.href;
+              const isActive =
+                currentLocation === linkTarget || (linkTarget === "/" && pathname === "/") ||
+                (pathname === "/" && linkTarget.startsWith("/#") && currentLocation.endsWith(linkTarget.slice(1)));
+
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`nav-link ${isActive ? "active" : ""}`}
+                  aria-current={isActive ? "page" : undefined}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
 
             {/* Auth actions (Login/Register) shown when there's no active user */}
             {!activeRole ? (
