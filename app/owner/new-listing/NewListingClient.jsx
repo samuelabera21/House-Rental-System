@@ -132,9 +132,12 @@ export default function NewListingClient() {
   return (
     <section className="section-block owner-section">
       <div className="page-container owner-add-page-wrap">
-        <div className="owner-header">
-          <div>
-            <span className="owner-badge">New Listing</span>
+        <header className="owner-hero owner-add-hero">
+          <div className="owner-hero-copy">
+            <span className="section-kicker">
+              <span className="section-kicker-line" />
+              New Listing
+            </span>
             <h1>Add a New Home Listing</h1>
             <p>
               Fill in the property details and upload a clear picture, then save to return to
@@ -148,7 +151,7 @@ export default function NewListingClient() {
           >
             Back to Dashboard
           </button>
-        </div>
+        </header>
 
         <form className="owner-add-form owner-add-page-form" onSubmit={handleSaveListing}>
           <div className="owner-form-grid">
@@ -219,7 +222,11 @@ export default function NewListingClient() {
           </label>
 
           {uploadedImageData ? (
-            <img src={uploadedImageData} alt="New listing preview" className="owner-listing-thumb" />
+            <img
+              src={uploadedImageData}
+              alt="New listing preview"
+              className="owner-listing-thumb owner-preview-thumb"
+            />
           ) : null}
 
           {formError ? <p className="auth-error">{formError}</p> : null}
