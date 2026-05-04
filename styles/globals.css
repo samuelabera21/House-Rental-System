@@ -3486,3 +3486,129 @@ a.nav-user-chip:hover {
     transform: translateY(0);
   }
 }
+
+.profile-page-section {
+  padding-top: 2.2rem;
+  padding-bottom: 3.5rem;
+}
+
+.profile-shell {
+  display: grid;
+  gap: 1rem;
+}
+
+.profile-hero,
+.profile-panel {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.18);
+}
+
+.profile-hero {
+  border-radius: 2rem;
+  padding: 1.3rem;
+  background:
+    radial-gradient(circle at top right, rgba(78, 133, 191, 0.18), transparent 30%),
+    rgba(255, 255, 255, 0.03);
+}
+
+.profile-page-head h1 {
+  margin: 0.35rem 0 0;
+  font-size: clamp(2rem, 4.5vw, 3.1rem);
+  line-height: 0.95;
+}
+
+.profile-page-head p {
+  margin-top: 0.7rem;
+  max-width: 60ch;
+  color: hsl(var(--muted));
+  line-height: 1.75;
+}
+
+.profile-panel {
+  border-radius: 1.5rem;
+  padding: 1.05rem;
+}
+
+.profile-panel-head h2 {
+  color: hsl(var(--text));
+}
+
+.profile-panel-head p {
+  color: hsl(var(--muted));
+}
+
+.profile-badge {
+  background: rgba(255, 255, 255, 0.07);
+  color: hsl(var(--text));
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 0.68rem;
+}
+
+.profile-avatar {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(135deg, rgba(137, 170, 204, 0.35), rgba(78, 133, 191, 0.42));
+  color: hsl(var(--text));
+}
+
+.profile-field {
+  color: hsl(var(--text));
+}
+
+.profile-field input,
+.profile-field textarea {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.95rem;
+  background: rgba(255, 255, 255, 0.02);
+  color: hsl(var(--text));
+}
+
+.profile-field input::placeholder,
+.profile-field textarea::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.profile-field input:focus-visible,
+.profile-field textarea:focus-visible {
+  outline: none;
+  border-color: rgba(137, 170, 204, 0.5);
+  box-shadow: 0 0 0 3px rgba(78, 133, 191, 0.18);
+}
+
+.profile-upload-field span {
+  color: hsl(var(--muted));
+}
+
+.profile-meta-grid {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.profile-meta-grid span {
+  color: hsl(var(--muted));
+}
+
+.profile-meta-grid strong {
+  color: hsl(var(--text));
+}
+
+.profile-form button {
+  border-radius: 999px;
+  background: hsl(var(--text));
+  color: hsl(var(--bg));
+  box-shadow: none;
+}
+
+.profile-status-info {
+  color: #bfdbfe;
+}
+
+.profile-status-success {
+  color: #86efac;
+}
+
+.profile-status-error {
+  color: #fda4af;
+}
