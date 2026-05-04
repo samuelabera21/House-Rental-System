@@ -3186,3 +3186,303 @@ a.nav-user-chip:hover {
     padding: 1.15rem;
   }
 }
+
+.renter-section {
+  padding-top: 2.2rem;
+  padding-bottom: 3.5rem;
+}
+
+.renter-shell {
+  display: grid;
+  gap: 1rem;
+}
+
+.renter-hero,
+.renter-stat-card,
+.renter-panel,
+.renter-note {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.18);
+}
+
+.renter-hero {
+  border-radius: 2rem;
+  padding: 1.3rem;
+  background:
+    radial-gradient(circle at top right, rgba(78, 133, 191, 0.18), transparent 30%),
+    rgba(255, 255, 255, 0.03);
+}
+
+.renter-hero-copy h1 {
+  margin: 0.35rem 0 0;
+  font-size: clamp(2rem, 4.5vw, 3.1rem);
+  line-height: 0.95;
+}
+
+.renter-hero-copy p {
+  margin-top: 0.7rem;
+  max-width: 60ch;
+  color: hsl(var(--muted));
+  line-height: 1.75;
+}
+
+.renter-stats-grid {
+  gap: 0.8rem;
+}
+
+.renter-stat-card {
+  border-radius: 1.45rem;
+  padding: 1rem;
+}
+
+.renter-stat-card p {
+  color: hsl(var(--muted));
+}
+
+.renter-stat-card strong {
+  color: hsl(var(--text));
+}
+
+.renter-panel {
+  border-radius: 1.45rem;
+  padding: 1rem;
+}
+
+.renter-panel .section-head {
+  margin-bottom: 0.8rem;
+}
+
+.renter-panel .section-head h2 {
+  margin: 0;
+  color: hsl(var(--text));
+}
+
+.renter-panel .section-head p {
+  margin-top: 0.35rem;
+  color: hsl(var(--muted));
+}
+
+.renter-search-panel h2 {
+  margin: 0;
+  color: hsl(var(--text));
+}
+
+.renter-search-panel p {
+  margin-top: 0.55rem;
+  color: hsl(var(--muted));
+}
+
+.renter-search-grid label {
+  color: hsl(var(--text));
+}
+
+.renter-search-grid input,
+.renter-search-grid select {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.95rem;
+  padding: 0.7rem 0.8rem;
+  background: rgba(255, 255, 255, 0.02);
+  color: hsl(var(--text));
+}
+
+.renter-search-grid input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.renter-search-grid input:focus-visible,
+.renter-search-grid select:focus-visible {
+  outline: none;
+  border-color: rgba(137, 170, 204, 0.5);
+  box-shadow: 0 0 0 3px rgba(78, 133, 191, 0.18);
+}
+
+.renter-card-footer span {
+  color: hsl(var(--muted));
+}
+
+.renter-card-footer button {
+  border-radius: 999px;
+  background: hsl(var(--text));
+  color: hsl(var(--bg));
+  padding: 0.55rem 0.82rem;
+}
+
+.request-btn:disabled,
+.request-btn-sent {
+  background: rgba(34, 197, 94, 0.2);
+  color: #bbf7d0;
+}
+
+.renter-note {
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.renter-note h3 {
+  color: hsl(var(--text));
+}
+
+.renter-note p {
+  color: hsl(var(--muted));
+}
+
+.renter-note-success,
+.renter-note-warning,
+.renter-note-info {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: modal-fade-in 0.25s ease;
+}
+
+.modal-content {
+  width: min(560px, 92vw);
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 1.3rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(14, 14, 14, 0.95);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+  animation: modal-slide-up 0.25s ease;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.15rem 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.modal-header h2 {
+  margin: 0;
+  color: hsl(var(--text));
+}
+
+.modal-close {
+  border: 0;
+  background: transparent;
+  color: hsl(var(--muted));
+  font-size: 1.7rem;
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  color: #fda4af;
+}
+
+.modal-body {
+  padding: 1.2rem 1.25rem 1.25rem;
+}
+
+.property-summary {
+  margin-bottom: 1rem;
+  padding: 0.85rem 0.95rem;
+  border-radius: 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.property-summary h3 {
+  margin: 0;
+  color: hsl(var(--text));
+}
+
+.property-summary p {
+  margin: 0.3rem 0 0;
+  color: hsl(var(--muted));
+}
+
+.request-form {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.form-group {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.form-group label {
+  color: hsl(var(--text));
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.85rem;
+  padding: 0.7rem 0.8rem;
+  background: rgba(255, 255, 255, 0.02);
+  color: hsl(var(--text));
+}
+
+.form-group input:focus-visible,
+.form-group select:focus-visible,
+.form-group textarea:focus-visible {
+  outline: none;
+  border-color: rgba(137, 170, 204, 0.5);
+  box-shadow: 0 0 0 3px rgba(78, 133, 191, 0.18);
+}
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.55rem;
+  margin-top: 0.3rem;
+}
+
+.btn-primary,
+.btn-secondary {
+  border: 0;
+  border-radius: 999px;
+  padding: 0.68rem 1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: hsl(var(--text));
+  color: hsl(var(--bg));
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.07);
+  color: hsl(var(--text));
+}
+
+@keyframes modal-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modal-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
