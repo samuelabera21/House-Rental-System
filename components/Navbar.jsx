@@ -6,9 +6,9 @@ import { usePathname, useRouter } from "next/navigation";
 import { clearActiveUser, getActiveUser } from "../lib/auth";
 
 const DASHBOARD_BY_ROLE = {
-  renter: { href: "/Renter_ui", label: "Renter Dashboard" },
-  owner: { href: "/owner", label: "Owner Dashboard" },
-  admin: { href: "/admin", label: "Admin Dashboard" },
+  renter: { href: "/Renter_ui", label: "Workspace" },
+  owner: { href: "/owner", label: "Workspace" },
+  admin: { href: "/admin", label: "Workspace" },
 };
 
 export default function Navbar() {
