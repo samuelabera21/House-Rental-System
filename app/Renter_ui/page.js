@@ -24,6 +24,7 @@ export default function RenterDashboardPage() {
   // Form modal state
   const [showFormModal, setShowFormModal] = useState(false);
   const [selectedListing, setSelectedListing] = useState(null);
+  const [requestError, setRequestError] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -75,8 +76,9 @@ export default function RenterDashboardPage() {
     if (activeUser) {
       setFormData((prev) => ({
         ...prev,
-        name: activeUser.name || "",
+        name: activeUser.fullName || activeUser.name || "",
         email: activeUser.email || "",
+        phone: activeUser.phone || "",
       }));
     }
 
@@ -94,6 +96,7 @@ export default function RenterDashboardPage() {
   }
 
   const handleRequestClick = (listing) => {
+    setRequestError("");
     setSelectedListing(listing);
     setShowFormModal(true);
   };
@@ -109,7 +112,23 @@ export default function RenterDashboardPage() {
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
+    if (!selectedListing) {
+      setRequestError("Please select a listing again before submitting.");
+      return;
+    }
+
+    const trimmedName = formData.name.trim();
+    const trimmedEmail = formData.email.trim();
+    const trimmedPhone = formData.phone.trim();
+    const trimmedDate = formData.moveInDate.trim();
+
+    if (!trimmedName || !trimmedEmail || !trimmedPhone || !trimmedDate) {
+      setRequestError("Please fill in all required fields.");
+      return;
+    }
+
     if (requestedListingIds.includes(selectedListing.id)) {
+      setRequestError("You already sent a request for this listing.");
       return;
     }
 
@@ -131,6 +150,7 @@ export default function RenterDashboardPage() {
     // Close modal and reset form
     setShowFormModal(false);
     setSelectedListing(null);
+    setRequestError("");
     setFormData((prev) => ({
       ...prev,
       message: "",
@@ -141,6 +161,7 @@ export default function RenterDashboardPage() {
   const closeModal = () => {
     setShowFormModal(false);
     setSelectedListing(null);
+    setRequestError("");
   };
 
   return (
@@ -297,6 +318,8 @@ export default function RenterDashboardPage() {
                       Submit Request
                     </button>
                   </div>
+
+                  {requestError ? <p className="auth-error">{requestError}</p> : null}
                 </form>
               </div>
             </div>
