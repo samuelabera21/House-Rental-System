@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Owner Dashboard | House Rental Management System",
+  title: "Owner | House Rental Management System",
 };
 
 import OwnerDashboardClient from "./OwnerDashboardClient";
