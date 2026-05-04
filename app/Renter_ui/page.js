@@ -145,15 +145,20 @@ export default function RenterDashboardPage() {
 
   return (
     <section className="section-block renter-section">
-      <div className="page-container renter-dashboard-wrap">
-        <div className="renter-head">
-          <span className="hero-badge">Renter Dashboard</span>
+      <div className="page-container renter-dashboard-wrap renter-shell">
+        <header className="renter-hero">
+          <div className="renter-hero-copy">
+            <span className="section-kicker">
+              <span className="section-kicker-line" />
+              Renter Workspace
+            </span>
           <h1>Welcome back, find your next home faster</h1>
           <p>
             Search houses, review recommendations, and track request updates
             from one dashboard.
           </p>
-        </div>
+          </div>
+        </header>
 
         <div className="renter-stats-grid">
           {statsWithLiveRequests.map((item) => (
@@ -298,176 +303,6 @@ export default function RenterDashboardPage() {
           </div>
         )}
       </div>
-
-      <style jsx>{`
-        .modal-overlay {
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background-color: rgba(0, 0, 0, 0.7);
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          z-index: 1000;
-          animation: fadeIn 0.3s ease;
-        }
-
-        .modal-content {
-          background: white;
-          border-radius: 12px;
-          max-width: 500px;
-          width: 90%;
-          max-height: 90vh;
-          overflow-y: auto;
-          animation: slideUp 0.3s ease;
-          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .modal-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 20px 24px;
-          border-bottom: 1px solid #e2e8f0;
-        }
-
-        .modal-header h2 {
-          margin: 0;
-          font-size: 1.5rem;
-          color: #1e293b;
-        }
-
-        .modal-close {
-          background: none;
-          border: none;
-          font-size: 28px;
-          cursor: pointer;
-          color: #64748b;
-          transition: color 0.2s;
-        }
-
-        .modal-close:hover {
-          color: #ef4444;
-        }
-
-        .modal-body {
-          padding: 24px;
-        }
-
-        .property-summary {
-          background: #f8fafc;
-          padding: 16px;
-          border-radius: 8px;
-          margin-bottom: 24px;
-          border-left: 4px solid #3b82f6;
-        }
-
-        .property-summary h3 {
-          margin: 0 0 8px 0;
-          font-size: 1.1rem;
-          color: #1e293b;
-        }
-
-        .property-summary p {
-          margin: 4px 0;
-          color: #64748b;
-          font-size: 0.9rem;
-        }
-
-        .request-form {
-          display: flex;
-          flex-direction: column;
-          gap: 20px;
-        }
-
-        .form-group {
-          display: flex;
-          flex-direction: column;
-          gap: 8px;
-        }
-
-        .form-group label {
-          font-weight: 500;
-          color: #334155;
-          font-size: 0.9rem;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-          padding: 10px 12px;
-          border: 1px solid #cbd5e1;
-          border-radius: 6px;
-          font-size: 0.95rem;
-          transition: border-color 0.2s;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-          outline: none;
-          border-color: #3b82f6;
-          box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-        }
-
-        .form-actions {
-          display: flex;
-          gap: 12px;
-          justify-content: flex-end;
-          margin-top: 20px;
-        }
-
-        .btn-primary,
-        .btn-secondary {
-          padding: 10px 20px;
-          border-radius: 6px;
-          font-weight: 500;
-          cursor: pointer;
-          transition: all 0.2s;
-          border: none;
-        }
-
-        .btn-primary {
-          background-color: #3b82f6;
-          color: white;
-        }
-
-        .btn-primary:hover {
-          background-color: #2563eb;
-          transform: translateY(-1px);
-        }
-
-        .btn-secondary {
-          background-color: #e2e8f0;
-          color: #334155;
-        }
-
-        .btn-secondary:hover {
-          background-color: #cbd5e1;
-        }
-
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
-        }
-
-        @keyframes slideUp {
-          from {
-            transform: translateY(30px);
-            opacity: 0;
-          }
-          to {
-            transform: translateY(0);
-            opacity: 1;
-          }
-        }
-      `}</style>
     </section>
   );
 }
