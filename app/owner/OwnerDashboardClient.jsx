@@ -72,29 +72,30 @@ export default function OwnerDashboardClient() {
 
   return (
     <section className="section-block owner-section">
-      <div className="page-container">
-        <div className="owner-header">
-          <div>
-            <span className="owner-badge">House Owner Dashboard</span>
-            <h1>Manage Your Listings and Rental Requests</h1>
+      <div className="page-container owner-shell">
+        <header className="owner-hero">
+          <div className="owner-hero-copy">
+            <span className="section-kicker">
+              <span className="section-kicker-line" />
+              Owner Workspace
+            </span>
+            <h1>Manage listings and rental requests</h1>
             <p>
-              View your property listings, monitor renter interest, and take
-              action on incoming requests from one place.
+              View your property listings, monitor renter interest, and take action on
+              incoming requests from one place.
             </p>
           </div>
+
           <button
             type="button"
-            className="owner-action-btn"
+            className="owner-action-btn cta-button cta-button-solid"
             onClick={() => router.push("/owner/new-listing")}
           >
-            + Add New Listing
+            Add New Listing
           </button>
-        </div>
+        </header>
 
-        <section
-          className="owner-summary-grid"
-          aria-label="Owner summary cards"
-        >
+        <section className="owner-summary-grid owner-summary-grid-dark" aria-label="Owner summary cards">
           <article className="owner-summary-card">
             <p className="owner-summary-label">Total Listings</p>
             <p className="owner-summary-value">{totalListings}</p>
@@ -103,9 +104,13 @@ export default function OwnerDashboardClient() {
             <p className="owner-summary-label">Requests</p>
             <p className="owner-summary-value">{totalRequests}</p>
           </article>
+          <article className="owner-summary-card">
+            <p className="owner-summary-label">Active Listings</p>
+            <p className="owner-summary-value">{activeListings}</p>
+          </article>
         </section>
 
-        <div className="owner-panel-wrap">
+        <div className="owner-panel-wrap owner-panel-wrap-dark">
           <article className="owner-panel">
             <div className="owner-panel-head">
               <h2>Listings Preview</h2>
@@ -155,9 +160,7 @@ export default function OwnerDashboardClient() {
                 <div key={request.id} className="owner-request-card">
                   <div className="owner-list-row">
                     <h3>{request.renter}</h3>
-                    <span className="owner-request-state">
-                      {request.status}
-                    </span>
+                    <span className="owner-request-state">{request.status}</span>
                   </div>
                   <p className="owner-request-text">
                     Requested: <strong>{request.listing}</strong>
