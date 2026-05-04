@@ -6,7 +6,6 @@ import HouseCard from "../components/HouseCard";
 import SearchBar from "../components/SearchBar";
 import { featuredHouses } from "../lib/dummyData";
 
-const loadingWords = ["Discover", "Search", "Move"];
 const heroRoles = ["Renter", "Owner", "Administrator"];
 
 const rentalStats = [
@@ -15,53 +14,9 @@ const rentalStats = [
   { value: "24/7", label: "Access", detail: "Browse, compare, and request a home anytime." },
 ];
 
-function LoadingScreen({ count, onComplete }) {
-  const [wordIndex, setWordIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = window.setInterval(() => {
-      setWordIndex((current) => (current + 1) % loadingWords.length);
-    }, 900);
-
-    return () => window.clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    if (count < 100) return undefined;
-
-    const timeout = window.setTimeout(() => {
-      onComplete();
-    }, 400);
-
-    return () => window.clearTimeout(timeout);
-  }, [count, onComplete]);
-
-  return (
-    <div className="loading-screen" aria-label="Loading homes overview">
-      <div className="loading-top-label">House Rental</div>
-
-      <div className="loading-center-copy">
-        <span className="loading-role">{loadingWords[wordIndex]}</span>
-      </div>
-
-      <div className="loading-counter">{String(count).padStart(3, "0")}</div>
-
-      <div className="loading-progress" aria-hidden="true">
-        <span className="loading-progress-track" />
-        <span
-          className="loading-progress-fill accent-gradient"
-          style={{ transform: `scaleX(${count / 100})` }}
-        />
-      </div>
-    </div>
-  );
-}
-
 export default function HomePage() {
   const [locationQuery, setLocationQuery] = useState("");
   const [heroRoleIndex, setHeroRoleIndex] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
-  const [loadCount, setLoadCount] = useState(0);
 
   const visibleHouses = useMemo(() => {
     if (!locationQuery.trim()) return featuredHouses;
@@ -70,27 +25,6 @@ export default function HomePage() {
       house.location.toLowerCase().includes(locationQuery.trim().toLowerCase())
     );
   }, [locationQuery]);
-
-  useEffect(() => {
-    let frameId = 0;
-    const startTime = performance.now();
-    const duration = 2700;
-
-    const updateCount = (timestamp) => {
-      const progress = Math.min((timestamp - startTime) / duration, 1);
-      setLoadCount(Math.round(progress * 100));
-
-      if (progress < 1) {
-        frameId = window.requestAnimationFrame(updateCount);
-      }
-    };
-
-    frameId = window.requestAnimationFrame(updateCount);
-
-    return () => {
-      window.cancelAnimationFrame(frameId);
-    };
-  }, []);
 
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -102,13 +36,6 @@ export default function HomePage() {
 
   return (
     <>
-      {isLoading ? (
-        <LoadingScreen
-          count={loadCount}
-          onComplete={() => setIsLoading(false)}
-        />
-      ) : null}
-
       <div className="home-page-shell">
         <section className="hero-section hero-stage" id="home">
           <div className="hero-backdrop" aria-hidden="true">
