@@ -1600,11 +1600,12 @@ main {
 .admin-header h1 {
   margin: 0.65rem 0 0;
   font-size: clamp(1.5rem, 4vw, 2.2rem);
+  color: #0f172a;
 }
 
 .admin-header p {
   margin: 0.65rem 0 0;
-  color: var(--muted);
+  color: #475569;
   line-height: 1.65;
   max-width: 66ch;
 }
@@ -1622,6 +1623,7 @@ main {
   background: #ffffff;
   padding: 1rem;
   box-shadow: 0 14px 28px rgba(148, 163, 184, 0.1);
+  color: #0f172a;
 }
 
 .admin-summary-label {
@@ -1668,6 +1670,7 @@ main {
 .admin-panel-head h2 {
   margin: 0;
   font-size: 1.18rem;
+  color: #0f172a;
 }
 
 .admin-panel-head p {
@@ -1698,6 +1701,7 @@ main {
 .admin-list-row h3 {
   margin: 0;
   font-size: 1rem;
+  color: #0f172a;
 }
 
 .admin-status-chip {
