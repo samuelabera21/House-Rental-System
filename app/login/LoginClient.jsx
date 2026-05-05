@@ -46,7 +46,9 @@ export default function LoginClient() {
       setError("No account found for these credentials. Please register first.");
       return;
     }
+// role is determined by the matched user, which is used to redirect to the appropriate dashboard after login
 
+    
     const role = matchedUser.role;
 
     setActiveUser(matchedUser);
