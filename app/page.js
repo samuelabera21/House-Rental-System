@@ -14,6 +14,17 @@ const rentalStats = [
   { value: "24/7", label: "Access", detail: "Browse, compare, and request a home anytime." },
 ];
 
+const appRoutes = [
+  { href: "/", label: "Home" },
+  { href: "/login", label: "Login" },
+  { href: "/register", label: "Register" },
+  { href: "/Renter_ui", label: "Renter Dashboard" },
+  { href: "/owner", label: "Owner Dashboard" },
+  { href: "/owner/new-listing", label: "Owner New Listing" },
+  { href: "/admin", label: "Admin Dashboard" },
+  { href: "/profile", label: "Profile" },
+];
+
 export default function HomePage() {
   const [locationQuery, setLocationQuery] = useState("");
   const [heroRoleIndex, setHeroRoleIndex] = useState(0);
@@ -204,6 +215,34 @@ export default function HomePage() {
                   <p>{item.label}</p>
                   <span>{item.detail}</span>
                 </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section-block section-dark" id="routes">
+          <div className="page-container">
+            <div className="section-head section-head-dark">
+              <div>
+                <span className="section-kicker">
+                  <span className="section-kicker-line" />
+                  Routes
+                </span>
+                <h2>
+                  Available <em>app routes</em>
+                </h2>
+                <p>
+                  Quick access links for the main pages used by renters, owners, and
+                  admins.
+                </p>
+              </div>
+            </div>
+
+            <div className="hero-actions blur-in">
+              {appRoutes.map((route) => (
+                <Link key={route.href} href={route.href} className="cta-button cta-button-outline">
+                  {route.label}
+                </Link>
               ))}
             </div>
           </div>
