@@ -3,33 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getActiveUser } from "../../lib/auth";
-
-const ownerListings = [
-  {
-    id: "L-101",
-    title: "Modern Family Apartment",
-    location: "Bole, Addis Ababa",
-    price: "$1,200 / month",
-    status: "Active",
-    rooms: "3 Rooms",
-  },
-  {
-    id: "L-102",
-    title: "Compact City Studio",
-    location: "Kazanchis, Addis Ababa",
-    price: "$780 / month",
-    status: "Pending Approval",
-    rooms: "1 Room",
-  },
-  {
-    id: "L-103",
-    title: "Garden View Villa",
-    location: "CMC, Addis Ababa",
-    price: "$1,650 / month",
-    status: "Active",
-    rooms: "4 Rooms",
-  },
-];
+import { getOwnerListings, saveOwnerListings } from "../../lib/ownerListings";
 
 const incomingRequests = [
   {
@@ -58,6 +32,7 @@ const incomingRequests = [
 export default function OwnerDashboardClient() {
   const router = useRouter();
   const [isAuthorizing, setIsAuthorizing] = useState(true);
+  const [listings, setListings] = useState([]);
 
   useEffect(() => {
     const activeUser = getActiveUser();
@@ -67,8 +42,17 @@ export default function OwnerDashboardClient() {
       return;
     }
 
+    setListings(getOwnerListings());
     setIsAuthorizing(false);
   }, [router]);
+
+  const handleDeleteListing = (listingId) => {
+    setListings((prev) => {
+      const next = prev.filter((listing) => listing.id !== listingId);
+      saveOwnerListings(next);
+      return next;
+    });
+  };
 
   if (isAuthorizing) {
     return (
@@ -80,29 +64,38 @@ export default function OwnerDashboardClient() {
     );
   }
 
-  const totalListings = ownerListings.length;
+  const totalListings = listings.length;
   const totalRequests = incomingRequests.length;
+  const activeListings = listings.filter(
+    (listing) => String(listing.status).toLowerCase() === "active",
+  ).length;
+
   return (
     <section className="section-block owner-section">
-      <div className="page-container">
-        <div className="owner-header">
-          <div>
-            <span className="owner-badge">House Owner Dashboard</span>
-            <h1>Manage Your Listings and Rental Requests</h1>
+      <div className="page-container owner-shell">
+        <header className="owner-hero">
+          <div className="owner-hero-copy">
+            <span className="section-kicker">
+              <span className="section-kicker-line" />
+              Owner Workspace
+            </span>
+            <h1>Manage listings and rental requests</h1>
             <p>
-              View your property listings, monitor renter interest, and take
-              action on incoming requests from one place.
+              View your property listings, monitor renter interest, and take action on
+              incoming requests from one place.
             </p>
           </div>
-          <button type="button" className="owner-action-btn">
-            + Add New Listing
-          </button>
-        </div>
 
-        <section
-          className="owner-summary-grid"
-          aria-label="Owner summary cards"
-        >
+          <button
+            type="button"
+            className="owner-action-btn cta-button cta-button-solid"
+            onClick={() => router.push("/owner/new-listing")}
+          >
+            Add New Listing
+          </button>
+        </header>
+
+        <section className="owner-summary-grid owner-summary-grid-dark" aria-label="Owner summary cards">
           <article className="owner-summary-card">
             <p className="owner-summary-label">Total Listings</p>
             <p className="owner-summary-value">{totalListings}</p>
@@ -111,29 +104,46 @@ export default function OwnerDashboardClient() {
             <p className="owner-summary-label">Requests</p>
             <p className="owner-summary-value">{totalRequests}</p>
           </article>
+          <article className="owner-summary-card">
+            <p className="owner-summary-label">Active Listings</p>
+            <p className="owner-summary-value">{activeListings}</p>
+          </article>
         </section>
 
-        <div className="owner-panel-wrap">
+        <div className="owner-panel-wrap owner-panel-wrap-dark">
           <article className="owner-panel">
             <div className="owner-panel-head">
               <h2>Listings Preview</h2>
-              <p>{ownerListings.length} active listings</p>
+              <p>{activeListings} active listings</p>
             </div>
             <div className="owner-list-grid">
-              {ownerListings.map((listing) => (
+              {listings.map((listing) => (
                 <div key={listing.id} className="owner-list-card">
+                  <img
+                    src={listing.image}
+                    alt={listing.title}
+                    className="owner-listing-thumb"
+                  />
                   <div className="owner-list-row">
                     <h3>{listing.title}</h3>
                     <span className="owner-status-chip">{listing.status}</span>
                   </div>
                   <p className="owner-location">{listing.location}</p>
                   <div className="owner-list-meta">
-                    <span>{listing.price}</span>
-                    <span>{listing.rooms}</span>
+                    <span>${Number(listing.price).toLocaleString()} / month</span>
+                    <span>{listing.rooms} Rooms</span>
                   </div>
+                  <p className="owner-request-text">{listing.description}</p>
                   <div className="owner-list-actions">
-                    <button type="button">Edit</button>
-                    <button type="button">Delete</button>
+                    <button type="button" disabled>
+                      Edit
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteListing(listing.id)}
+                    >
+                      Delete
+                    </button>
                   </div>
                 </div>
               ))}
@@ -150,9 +160,7 @@ export default function OwnerDashboardClient() {
                 <div key={request.id} className="owner-request-card">
                   <div className="owner-list-row">
                     <h3>{request.renter}</h3>
-                    <span className="owner-request-state">
-                      {request.status}
-                    </span>
+                    <span className="owner-request-state">{request.status}</span>
                   </div>
                   <p className="owner-request-text">
                     Requested: <strong>{request.listing}</strong>
