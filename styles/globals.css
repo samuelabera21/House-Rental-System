@@ -2966,13 +2966,17 @@ a.nav-user-chip:hover {
   border-radius: 0.95rem;
   padding: 0.82rem 0.9rem;
   font-size: 0.95rem;
-  background: rgba(255, 255, 255, 0.02);
-  color: hsl(var(--text));
+  background: #ffffff;
+  color: #0f172a;
 }
 
 .auth-form input::placeholder,
+.auth-form select:invalid {
+  color: #64748b;
+}
+
 .auth-form select {
-  color: rgba(255, 255, 255, 0.45);
+  color: #0f172a;
 }
 
 .auth-form input:focus-visible,
@@ -2980,6 +2984,17 @@ a.nav-user-chip:hover {
   outline: none;
   border-color: rgba(137, 170, 204, 0.55);
   box-shadow: 0 0 0 3px rgba(78, 133, 191, 0.18);
+  background: #ffffff;
+  color: #0f172a;
+}
+
+.auth-form input:-webkit-autofill,
+.auth-form input:-webkit-autofill:hover,
+.auth-form input:-webkit-autofill:focus,
+.auth-form input:-webkit-autofill:active {
+  -webkit-text-fill-color: #0f172a;
+  box-shadow: 0 0 0 1000px #ffffff inset;
+  transition: background-color 9999s ease-out 0s;
 }
 
 .auth-form button {
