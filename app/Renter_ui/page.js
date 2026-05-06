@@ -147,6 +147,8 @@ export default function RenterDashboardPage() {
       ...prev,
     ]);
 
+    // renter ui is finishes
+
     // Close modal and reset form
     setShowFormModal(false);
     setSelectedListing(null);
