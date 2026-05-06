@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState, useLayoutEffect } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { clearActiveUser, getActiveUser } from "../lib/auth";
 
@@ -19,19 +19,19 @@ export default function Navbar() {
   const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
   const accountMenuRef = useRef(null);
   const isHomePage = pathname === "/";
-  const [currentLocation, setCurrentLocation] = useState(
-    typeof window !== "undefined" ? window.location.pathname + window.location.hash : pathname
-  );
+  const [currentLocation, setCurrentLocation] = useState(pathname);
 
   useEffect(() => {
     const savedUser = getActiveUser();
     setActiveUser(savedUser);
     setActiveRole(savedUser?.role || null);
-    // sync current location when pathname changes (client only)
-    if (typeof window !== "undefined") {
-      setCurrentLocation(window.location.pathname + window.location.hash);
-    }
+    // sync current location when pathname changes
+    setCurrentLocation(pathname);
   }, [pathname]);
+
+  useEffect(() => {
+    setCurrentLocation(window.location.pathname + window.location.hash);
+  }, []);
 
   useEffect(() => {
     const handlePointerDown = (event) => {
@@ -103,8 +103,53 @@ export default function Navbar() {
     .slice(0, 2)
     .join(" ");
 
+  // determine active nav link to set navbar background
+  const activeLink = useMemo(() => {
+    return navLinks.find((link) => {
+      const linkTarget = link.href;
+      return (
+        currentLocation === linkTarget ||
+        (linkTarget === "/" && pathname === "/") ||
+        (pathname === "/" && linkTarget.startsWith("/#") && currentLocation.endsWith(linkTarget.slice(1)))
+      );
+    });
+  }, [navLinks, currentLocation, pathname]);
+
+  const activeHref = activeLink?.href || pathname || "/";
+  const bgClass = useMemo(() => {
+    const key = String(activeHref)
+      .replace(/^\/?#?/, "")
+      .replace(/[^a-z0-9]+/gi, "-")
+      .replace(/^-|-$/g, "")
+      .toLowerCase();
+    return key ? `bg-${key}` : "bg-home";
+  }, [activeHref]);
+
+  // When on the home page, observe sections so active nav updates on scroll
+  useEffect(() => {
+    if (!isHomePage) return;
+    const ids = ["home", "featured", "highlights", "about"];
+    const elements = ids.map((id) => document.getElementById(id)).filter(Boolean);
+    if (!elements.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            setCurrentLocation(`/${id ? `#${id}` : ""}`);
+          }
+        });
+      },
+      { root: null, rootMargin: "0px 0px -40% 0px", threshold: 0.25 }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [isHomePage]);
+
   return (
-    <header className="navbar-wrap">
+    <header className={`navbar-wrap ${bgClass}`}>
       <div className="page-container navbar">
         <div className="navbar-pill">
           <Link href="/" className="navbar-brand" aria-label="House Rental System home">
@@ -113,10 +158,12 @@ export default function Navbar() {
           </Link>
 
           <nav aria-label="Main navigation" className="nav-links">
-            {navLinks.map((link) => {
+            <div className="nav-main">
+              {navLinks.map((link) => {
               const linkTarget = link.href;
               const isActive =
                 currentLocation === linkTarget || (linkTarget === "/" && pathname === "/") ||
+                (linkTarget === "/#home" && pathname === "/" && currentLocation === "/") ||
                 (pathname === "/" && linkTarget.startsWith("/#") && currentLocation.endsWith(linkTarget.slice(1)));
 
               return (
@@ -124,19 +171,33 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   className={`nav-link ${isActive ? "active" : ""}`}
+                  onClick={() => {
+                    // ensure immediate update when clicking hash/nav links
+                    try {
+                      setCurrentLocation(link.href);
+                    } catch (e) {
+                      /* ignore */
+                    }
+                  }}
                   aria-current={isActive ? "page" : undefined}
                 >
                   {link.label}
                 </Link>
               );
             })}
+            </div>
 
             {/* decorative indicator removed for simpler navbar */}
 
             {/* Auth actions (Login/Register) shown when there's no active user */}
             {!activeRole ? (
               <div className="auth-actions">
-                <Link href="/login" className="btn btn-primary" aria-label="Login">
+                <Link
+                  href="/login"
+                  className={`btn btn-primary ${pathname === "/login" || currentLocation === "/login" ? "active-login" : ""}`}
+                  aria-label="Login"
+                  onClick={() => setCurrentLocation("/login")}
+                >
                   Login
                 </Link>
               </div>
