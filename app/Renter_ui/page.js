@@ -147,6 +147,8 @@ export default function RenterDashboardPage() {
       ...prev,
     ]);
 
+    // renter ui is finishes
+
     // Close modal and reset form
     setShowFormModal(false);
     setSelectedListing(null);
@@ -206,7 +208,7 @@ export default function RenterDashboardPage() {
         />
         <RenterNotifications notifications={notifications} />
 
-        {/* now add requested form */}
+        {/* now add requested form  and ui*/}
 
         {/* Request Form Modal */}
         {showFormModal && (
