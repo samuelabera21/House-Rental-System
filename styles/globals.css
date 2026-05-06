@@ -456,7 +456,7 @@ main {
 
 .hero-card-text {
   margin-top: 0.4rem;
-  color: var(--muted);
+  color: hsl(var(--muted));
   font-size: 0.95rem;
 }
 
