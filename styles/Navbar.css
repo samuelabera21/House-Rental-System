@@ -99,7 +99,7 @@
   text-decoration: none;
   font-weight: bold;
   transition: background-color 0.3s;
-  border: 1px solid white;
+  border: none;
 }
 
 .login-button:hover {
@@ -109,7 +109,7 @@
 
 .navbar.light .login-button {
   color: black;
-  border-color: black;
+  border: none;
 }
 
 .login-button:hover {
