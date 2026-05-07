@@ -62,7 +62,9 @@ body.light {
 h1,
 h2,
 h3,
-.font-display {
+h4,
+h5,
+h6 {
   font-family: "Instrument Serif", serif;
 }
 
@@ -106,8 +108,7 @@ a {
 
 .app-main {
   flex: 1;
-  display: flex;
-  flex-direction: column;
+  padding-top: 80px; /* Adjust this value based on your navbar's height */
 }
 
 .page-container {
