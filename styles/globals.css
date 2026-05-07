@@ -33,15 +33,38 @@ body {
 
 body {
   background:
-    radial-gradient(circle at 20% 20%, rgba(78, 133, 191, 0.15), transparent 28%),
-    radial-gradient(circle at 80% 10%, rgba(255, 255, 255, 0.06), transparent 22%),
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(78, 133, 191, 0.15),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 80% 10%,
+      rgba(255, 255, 255, 0.06),
+      transparent 22%
+    ),
     hsl(var(--bg));
+}
+
+body.light {
+  --bg: 0 0% 96%;
+  --surface: 0 0% 92%;
+  --text: 0 0% 4%;
+  --muted: 0 0% 47%;
+  --stroke: 0 0% 88%;
+  --accent: 0 0% 4%;
+  --primary: #4e85bf;
+  --primary-deep: #89aacc;
+  --ink: #333;
+  --line: rgba(0, 0, 0, 0.08);
 }
 
 h1,
 h2,
 h3,
-.font-display {
+h4,
+h5,
+h6 {
   font-family: "Instrument Serif", serif;
 }
 
@@ -60,8 +83,16 @@ h3,
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(circle at 10% 10%, rgba(255, 255, 255, 0.04), transparent 22%),
-    radial-gradient(circle at 90% 18%, rgba(78, 133, 191, 0.13), transparent 25%);
+    radial-gradient(
+      circle at 10% 10%,
+      rgba(255, 255, 255, 0.04),
+      transparent 22%
+    ),
+    radial-gradient(
+      circle at 90% 18%,
+      rgba(78, 133, 191, 0.13),
+      transparent 25%
+    );
 }
 
 a {
@@ -77,8 +108,7 @@ a {
 
 .app-main {
   flex: 1;
-  display: flex;
-  flex-direction: column;
+  padding-top: 80px; /* Adjust this value based on your navbar's height */
 }
 
 .page-container {
@@ -91,17 +121,50 @@ a {
   top: 0;
   z-index: 40;
   width: 100%;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.25);
-  background: rgba(248, 250, 252, 0.88);
-  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  background: rgba(10, 12, 14, 0.95);
+  backdrop-filter: blur(12px);
+  padding: 0.75rem 0;
 }
 
 .navbar {
-  min-height: 72px;
+  min-height: 60px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 2rem;
+}
+
+.navbar-pill {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: hsl(var(--text));
+  flex-shrink: 0;
+}
+
+.navbar-brand-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #89aacc 0%, #4e85bf 100%);
+  color: hsl(var(--bg));
+  font-weight: 800;
+  font-size: 0.9rem;
+  flex-shrink: 0;
 }
 
 .brand {
@@ -113,18 +176,35 @@ a {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 0.3rem;
+  gap: 0.8rem;
+  flex: 1;
 }
 
 .nav-links {
   position: relative;
 }
 
+.nav-main {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.auth-actions {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.btn.active-login {
+  box-shadow: 0 10px 30px rgba(78, 133, 191, 0.18);
+  transform: translateY(-1px);
+}
+
 .nav-user-area {
   display: flex;
   align-items: center;
   position: relative;
-  margin-left: 0.35rem;
+  margin-left: auto;
 }
 
 .nav-account-btn {
@@ -233,19 +313,29 @@ a {
 }
 
 .nav-link {
-  padding: 0.45rem 0.8rem;
-  border-radius: 999px;
-  color: #1e293b;
-  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
   font-size: 0.95rem;
   transition:
     background-color 180ms ease,
     color 180ms ease;
+  white-space: nowrap;
 }
 
 .nav-link:hover {
-  background: #dbeafe;
-  color: var(--primary-deep);
+  background: rgba(137, 170, 204, 0.15);
+  color: #ffffff;
+}
+
+.nav-link.active {
+  background: linear-gradient(
+    90deg,
+    rgba(78, 133, 191, 0.2),
+    rgba(78, 133, 191, 0.1)
+  );
+  color: #89aacc;
 }
 
 /* Auth action buttons on navbar */
@@ -253,7 +343,6 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  margin-left: 0.65rem;
 }
 
 .btn {
@@ -261,60 +350,44 @@ a {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.45rem 0.9rem;
-  border-radius: 999px;
-  font-weight: 700;
+  padding: 0.5rem 1.2rem;
+  border-radius: 6px;
+  font-weight: 600;
   font-size: 0.95rem;
   line-height: 1;
   cursor: pointer;
-  transition: transform 140ms ease, box-shadow 160ms ease, background-color 160ms ease;
+  transition:
+    transform 140ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease;
+  border: none;
 }
 
 .btn-outline {
   background: transparent;
   color: hsl(var(--text));
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .btn-outline:hover {
-  transform: translateY(-2px);
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.25);
 }
 
 .btn-primary {
-  background: linear-gradient(90deg, #89aacc 0%, #4e85bf 100%);
+  background: linear-gradient(135deg, #89aacc 0%, #4e85bf 100%);
   color: hsl(var(--bg));
-  border: none;
-  box-shadow: 0 8px 20px rgba(78, 133, 191, 0.18);
+  box-shadow: 0 4px 15px rgba(78, 133, 191, 0.25);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  filter: saturate(1.05) brightness(1.02);
+  box-shadow: 0 6px 20px rgba(78, 133, 191, 0.35);
 }
 
-/* Make nav links subtle on dark header */
-.navbar-wrap {
-  background: rgba(10, 12, 14, 0.86);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-  color: hsl(var(--text));
-}
-
-.nav-link {
-  color: rgba(255, 255, 255, 0.9);
-}
-
-.nav-link:hover {
-  background: rgba(255, 255, 255, 0.03);
-  color: #ffffff;
-}
-
-.nav-link.active {
-  background: linear-gradient(90deg, rgba(78,133,191,0.14), rgba(78,133,191,0.08));
-  color: #ffffff;
-  box-shadow: 0 6px 18px rgba(4, 6, 8, 0.45);
-  transform: translateY(-1px);
+.btn.active-login {
+  box-shadow: 0 10px 30px rgba(78, 133, 191, 0.3);
+  transform: translateY(-2px);
 }
 
 .nav-link.active::after {
@@ -335,9 +408,41 @@ a {
   border-radius: 999px;
   background: #ffffff;
   box-shadow: 0 8px 20px rgba(4, 6, 8, 0.45);
-  transition: left 240ms cubic-bezier(.2,.9,.2,1), width 240ms cubic-bezier(.2,.9,.2,1), opacity 180ms ease;
+  transition:
+    left 240ms cubic-bezier(0.2, 0.9, 0.2, 1),
+    width 240ms cubic-bezier(0.2, 0.9, 0.2, 1),
+    opacity 180ms ease;
   pointer-events: none;
   opacity: 0;
+}
+
+/* Navbar background variants for active section highlighting */
+.navbar-wrap.bg-home {
+  background: rgba(10, 12, 14, 0.86);
+}
+
+.navbar-wrap.bg-featured {
+  background: linear-gradient(90deg, rgba(78,133,191,0.22), rgba(78,133,191,0.06));
+}
+
+.navbar-wrap.bg-highlights {
+  background: linear-gradient(90deg, rgba(156,85,211,0.22), rgba(156,85,211,0.06));
+}
+
+.navbar-wrap.bg-about {
+  background: linear-gradient(90deg, rgba(16,185,129,0.22), rgba(16,185,129,0.06));
+}
+
+.navbar-wrap.bg-renter-ui {
+  background: linear-gradient(90deg, rgba(136,170,204,0.22), rgba(78,133,191,0.06));
+}
+
+.navbar-wrap.bg-owner {
+  background: linear-gradient(90deg, rgba(245,158,11,0.22), rgba(249,115,22,0.06));
+}
+
+.navbar-wrap.bg-admin {
+  background: linear-gradient(90deg, rgba(239,68,68,0.22), rgba(190,24,83,0.06));
 }
 
 .hero-section {
@@ -347,14 +452,14 @@ a {
 .hero-grid {
   display: grid;
   grid-template-columns: 1fr;
-/* Simplified active link: clear, bold, white */
-.nav-link.active {
-  background: transparent;
-  color: #ffffff;
-  font-weight: 800;
-  box-shadow: none;
-  transform: none;
-}
+  /* Simplified active link: clear, bold, white */
+  .nav-link.active {
+    background: transparent;
+    color: #ffffff;
+    font-weight: 800;
+    box-shadow: none;
+    transform: none;
+  }
   font-size: 0.8rem;
   margin-bottom: 0.9rem;
 }
@@ -433,7 +538,7 @@ a {
 
 .hero-card-text {
   margin-top: 0.4rem;
-  color: var(--muted);
+  color: hsl(var(--muted));
   font-size: 0.95rem;
 }
 
@@ -669,8 +774,16 @@ a {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.25), transparent 44%),
-    radial-gradient(circle at 82% 72%, rgba(255, 255, 255, 0.2), transparent 38%);
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(255, 255, 255, 0.25),
+      transparent 44%
+    ),
+    radial-gradient(
+      circle at 82% 72%,
+      rgba(255, 255, 255, 0.2),
+      transparent 38%
+    );
   pointer-events: none;
 }
 
@@ -791,8 +904,16 @@ a {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 14% 18%, rgba(255, 255, 255, 0.21), transparent 42%),
-    radial-gradient(circle at 88% 76%, rgba(255, 255, 255, 0.17), transparent 36%);
+    radial-gradient(
+      circle at 14% 18%,
+      rgba(255, 255, 255, 0.21),
+      transparent 42%
+    ),
+    radial-gradient(
+      circle at 88% 76%,
+      rgba(255, 255, 255, 0.17),
+      transparent 36%
+    );
   pointer-events: none;
 }
 
@@ -964,7 +1085,11 @@ a {
 .profile-panel {
   border: 1px solid #dbe2ef;
   border-radius: 18px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94) 0%, rgba(241, 245, 249, 0.92) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.94) 0%,
+    rgba(241, 245, 249, 0.92) 100%
+  );
   padding: 1rem;
   box-shadow: 0 18px 34px rgba(148, 163, 184, 0.12);
 }
@@ -1214,10 +1339,18 @@ a {
 
 .renter-search-grid input,
 .renter-search-grid select {
-  border: 1px solid #cbd5e1;
-  border-radius: 10px;
-  padding: 0.62rem 0.7rem;
-  font-size: 0.95rem;
+  background: hsl(var(--surface));
+  color: hsl(var(--text));
+  border: 1px solid hsl(var(--stroke));
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.renter-search-grid option {
+  background: hsl(var(--surface));
+  color: hsl(var(--text));
 }
 
 .renter-house-grid {
@@ -1603,11 +1736,12 @@ a {
 .admin-header h1 {
   margin: 0.65rem 0 0;
   font-size: clamp(1.5rem, 4vw, 2.2rem);
+  color: #0f172a;
 }
 
 .admin-header p {
   margin: 0.65rem 0 0;
-  color: var(--muted);
+  color: #475569;
   line-height: 1.65;
   max-width: 66ch;
 }
@@ -1625,6 +1759,7 @@ a {
   background: #ffffff;
   padding: 1rem;
   box-shadow: 0 14px 28px rgba(148, 163, 184, 0.1);
+  color: #0f172a;
 }
 
 .admin-summary-label {
@@ -1671,6 +1806,7 @@ a {
 .admin-panel-head h2 {
   margin: 0;
   font-size: 1.18rem;
+  color: #0f172a;
 }
 
 .admin-panel-head p {
@@ -1701,6 +1837,7 @@ a {
 .admin-list-row h3 {
   margin: 0;
   font-size: 1rem;
+  color: #0f172a;
 }
 
 .admin-status-chip {
@@ -2784,10 +2921,6 @@ a.nav-user-chip:hover {
   .stats-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
-
-  .footer-bar {
-    flex-direction: row;
-  }
 }
 
 @media (max-width: 767px) {
@@ -2838,11 +2971,10 @@ a.nav-user-chip:hover {
   }
 
   .footer-bar {
-    flex-direction: column;
-    align-items: flex-start;
+    grid-template-columns: 1fr;
+    justify-items: start;
   }
 }
-
 .auth-section {
   padding-top: 2.2rem;
   padding-bottom: 3.5rem;
@@ -2864,7 +2996,11 @@ a.nav-user-chip:hover {
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 2rem;
   background:
-    radial-gradient(circle at top right, rgba(78, 133, 191, 0.18), transparent 30%),
+    radial-gradient(
+      circle at top right,
+      rgba(78, 133, 191, 0.18),
+      transparent 30%
+    ),
     rgba(255, 255, 255, 0.03);
   overflow: hidden;
   box-shadow: 0 28px 70px rgba(0, 0, 0, 0.3);
@@ -2881,7 +3017,11 @@ a.nav-user-chip:hover {
 
 .login-aside {
   background:
-    linear-gradient(155deg, rgba(78, 133, 191, 0.36), rgba(255, 255, 255, 0.05)),
+    linear-gradient(
+      155deg,
+      rgba(78, 133, 191, 0.36),
+      rgba(255, 255, 255, 0.05)
+    ),
     rgba(255, 255, 255, 0.03);
 }
 
@@ -2897,8 +3037,16 @@ a.nav-user-chip:hover {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.18), transparent 40%),
-    radial-gradient(circle at 82% 72%, rgba(255, 255, 255, 0.08), transparent 38%);
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(255, 255, 255, 0.18),
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 82% 72%,
+      rgba(255, 255, 255, 0.08),
+      transparent 38%
+    );
   pointer-events: none;
 }
 
@@ -2977,13 +3125,17 @@ a.nav-user-chip:hover {
   border-radius: 0.95rem;
   padding: 0.82rem 0.9rem;
   font-size: 0.95rem;
-  background: rgba(255, 255, 255, 0.02);
-  color: hsl(var(--text));
+  background: #ffffff;
+  color: #0f172a;
 }
 
 .auth-form input::placeholder,
+.auth-form select:invalid {
+  color: #64748b;
+}
+
 .auth-form select {
-  color: rgba(255, 255, 255, 0.45);
+  color: #0f172a;
 }
 
 .auth-form input:focus-visible,
@@ -2991,6 +3143,17 @@ a.nav-user-chip:hover {
   outline: none;
   border-color: rgba(137, 170, 204, 0.55);
   box-shadow: 0 0 0 3px rgba(78, 133, 191, 0.18);
+  background: #ffffff;
+  color: #0f172a;
+}
+
+.auth-form input:-webkit-autofill,
+.auth-form input:-webkit-autofill:hover,
+.auth-form input:-webkit-autofill:focus,
+.auth-form input:-webkit-autofill:active {
+  -webkit-text-fill-color: #0f172a;
+  box-shadow: 0 0 0 1000px #ffffff inset;
+  transition: background-color 9999s ease-out 0s;
 }
 
 .auth-form button {
@@ -3096,7 +3259,11 @@ a.nav-user-chip:hover {
   padding: 1.35rem;
   border-radius: 2rem;
   background:
-    radial-gradient(circle at top right, rgba(78, 133, 191, 0.18), transparent 30%),
+    radial-gradient(
+      circle at top right,
+      rgba(78, 133, 191, 0.18),
+      transparent 30%
+    ),
     rgba(255, 255, 255, 0.03);
 }
 
@@ -3319,7 +3486,11 @@ a.nav-user-chip:hover {
   border-radius: 2rem;
   padding: 1.3rem;
   background:
-    radial-gradient(circle at top right, rgba(78, 133, 191, 0.18), transparent 30%),
+    radial-gradient(
+      circle at top right,
+      rgba(78, 133, 191, 0.18),
+      transparent 30%
+    ),
     rgba(255, 255, 255, 0.03);
 }
 
@@ -3388,22 +3559,18 @@ a.nav-user-chip:hover {
 
 .renter-search-grid input,
 .renter-search-grid select {
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 0.95rem;
-  padding: 0.7rem 0.8rem;
-  background: rgba(255, 255, 255, 0.02);
+  background: hsl(var(--surface));
   color: hsl(var(--text));
+  border: 1px solid hsl(var(--stroke));
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  width: 100%;
 }
 
-.renter-search-grid input::placeholder {
-  color: rgba(255, 255, 255, 0.4);
-}
-
-.renter-search-grid input:focus-visible,
-.renter-search-grid select:focus-visible {
-  outline: none;
-  border-color: rgba(137, 170, 204, 0.5);
-  box-shadow: 0 0 0 3px rgba(78, 133, 191, 0.18);
+.renter-search-grid option {
+  background: hsl(var(--surface));
+  color: hsl(var(--text));
 }
 
 .renter-card-footer span {
@@ -3617,7 +3784,11 @@ a.nav-user-chip:hover {
   border-radius: 2rem;
   padding: 1.3rem;
   background:
-    radial-gradient(circle at top right, rgba(78, 133, 191, 0.18), transparent 30%),
+    radial-gradient(
+      circle at top right,
+      rgba(78, 133, 191, 0.18),
+      transparent 30%
+    ),
     rgba(255, 255, 255, 0.03);
 }
 
@@ -3657,7 +3828,11 @@ a.nav-user-chip:hover {
 
 .profile-avatar {
   border: 1px solid rgba(255, 255, 255, 0.1);
-  background: linear-gradient(135deg, rgba(137, 170, 204, 0.35), rgba(78, 133, 191, 0.42));
+  background: linear-gradient(
+    135deg,
+    rgba(137, 170, 204, 0.35),
+    rgba(78, 133, 191, 0.42)
+  );
   color: hsl(var(--text));
 }
 

@@ -9,9 +9,32 @@ import { featuredHouses } from "../lib/dummyData";
 const heroRoles = ["Renter", "Owner", "Administrator"];
 
 const rentalStats = [
-  { value: "6+", label: "Featured homes", detail: "Verified listings across Addis Ababa." },
-  { value: "3", label: "User roles", detail: "Dedicated flows for renters, owners, and admins." },
-  { value: "24/7", label: "Access", detail: "Browse, compare, and request a home anytime." },
+  {
+    value: "6+",
+    label: "Featured homes",
+    detail: "Verified listings across Addis Ababa.",
+  },
+  {
+    value: "3",
+    label: "User roles",
+    detail: "Dedicated flows for renters, owners, and admins.",
+  },
+  {
+    value: "24/7",
+    label: "Access",
+    detail: "Browse, compare, and request a home anytime.",
+  },
+];
+
+const appRoutes = [
+  { href: "/", label: "Home" },
+  { href: "/login", label: "Login" },
+  { href: "/register", label: "Register" },
+  { href: "/Renter_ui", label: "Renter Dashboard" },
+  { href: "/owner", label: "Owner Dashboard" },
+  { href: "/owner/new-listing", label: "Owner New Listing" },
+  { href: "/admin", label: "Admin Dashboard" },
+  { href: "/profile", label: "Profile" },
 ];
 
 export default function HomePage() {
@@ -22,7 +45,7 @@ export default function HomePage() {
     if (!locationQuery.trim()) return featuredHouses;
 
     return featuredHouses.filter((house) =>
-      house.location.toLowerCase().includes(locationQuery.trim().toLowerCase())
+      house.location.toLowerCase().includes(locationQuery.trim().toLowerCase()),
     );
   }, [locationQuery]);
 
@@ -46,19 +69,24 @@ export default function HomePage() {
 
           <div className="page-container hero-grid hero-grid-dark">
             <div className="hero-copy">
-              <span className="hero-badge blur-in">Trusted Rental Platform</span>
+              <span className="hero-badge blur-in">
+                Trusted Rental Platform
+              </span>
               <h1 className="hero-title name-reveal">
                 Find the house that feels like home.
               </h1>
               <p className="hero-subtitle blur-in">
-                Discover verified homes, compare prices, and connect with owners in a
-                few clicks. House Rental Management System helps renters, owners, and
-                administrators stay organized in one place.
+                Discover verified homes, compare prices, and connect with owners
+                in a few clicks. House Rental Management System helps renters,
+                owners, and administrators stay organized in one place.
               </p>
 
               <p className="hero-role-line blur-in" key={heroRoleIndex}>
-                A <span className="hero-role-word">{heroRoles[heroRoleIndex]}</span> lives
-                in one platform.
+                A{" "}
+                <span className="hero-role-word">
+                  {heroRoles[heroRoleIndex]}
+                </span>{" "}
+                lives in one platform.
               </p>
 
               <SearchBar onSearch={setLocationQuery} />
@@ -73,7 +101,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="hero-visual hero-visual-dark" aria-hidden="true">
+            <div className="hero-visual" aria-hidden="true">
               <div className="hero-card">
                 <p className="hero-card-title">Fast Discovery</p>
                 <p className="hero-card-text">
@@ -115,8 +143,8 @@ export default function HomePage() {
                   Featured <em>homes</em>
                 </h2>
                 <p>
-                  Curated rental homes from popular neighborhoods, arranged in a bento
-                  grid to keep browsing quick.
+                  Curated rental homes from popular neighborhoods, arranged in a
+                  bento grid to keep browsing quick.
                 </p>
               </div>
 
@@ -145,7 +173,10 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="section-block section-dark section-highlight" id="highlights">
+        <section
+          className="section-block section-dark section-highlight"
+          id="highlights"
+        >
           <div className="page-container">
             <div className="section-head section-head-dark">
               <div>
@@ -157,8 +188,8 @@ export default function HomePage() {
                   Recent <em>houses</em>
                 </h2>
                 <p>
-                  A quick glance at the most recent homes in the system, with price and
-                  neighborhood details front and center.
+                  A quick glance at the most recent homes in the system, with
+                  price and neighborhood details front and center.
                 </p>
               </div>
             </div>
@@ -166,10 +197,16 @@ export default function HomePage() {
             <div className="listing-pill-grid">
               {visibleHouses.slice(0, 4).map((house) => (
                 <article key={house.id} className="listing-pill">
-                  <img src={house.image} alt={`${house.location} house`} loading="lazy" />
+                  <img
+                    src={house.image}
+                    alt={`${house.location} house`}
+                    loading="lazy"
+                  />
                   <div>
                     <p className="listing-pill-title">{house.location}</p>
-                    <p className="listing-pill-copy">${house.price.toLocaleString()} / month</p>
+                    <p className="listing-pill-copy">
+                      ${house.price.toLocaleString()} / month
+                    </p>
                   </div>
                 </article>
               ))}
@@ -186,14 +223,15 @@ export default function HomePage() {
               </span>
               <h2>About House Rental Management System</h2>
               <p>
-                This platform connects renters searching for quality homes, owners
-                managing their listings, and administrators maintaining platform
-                integrity. The system streamlines discovery, rental requests, and
-                communication to create a smoother rental journey for everyone.
+                This platform connects renters searching for quality homes,
+                owners managing their listings, and administrators maintaining
+                platform integrity. The system streamlines discovery, rental
+                requests, and communication to create a smoother rental journey
+                for everyone.
               </p>
               <p>
-                Use the search bar above to narrow homes by location, then move into the
-                renter, owner, or admin flows that match your role.
+                Use the search bar above to narrow homes by location, then move
+                into the renter, owner, or admin flows that match your role.
               </p>
             </div>
 
@@ -204,6 +242,38 @@ export default function HomePage() {
                   <p>{item.label}</p>
                   <span>{item.detail}</span>
                 </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section-block section-dark" id="routes">
+          <div className="page-container">
+            <div className="section-head section-head-dark">
+              <div>
+                <span className="section-kicker">
+                  <span className="section-kicker-line" />
+                  Routes
+                </span>
+                <h2>
+                  Available <em>app routes</em>
+                </h2>
+                <p>
+                  Quick access links for the main pages used by renters, owners,
+                  and admins.
+                </p>
+              </div>
+            </div>
+
+            <div className="hero-actions blur-in">
+              {appRoutes.map((route) => (
+                <Link
+                  key={route.href}
+                  href={route.href}
+                  className="cta-button cta-button-outline"
+                >
+                  {route.label}
+                </Link>
               ))}
             </div>
           </div>
