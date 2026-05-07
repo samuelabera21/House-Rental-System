@@ -28,6 +28,10 @@ body {
   font-family: "Inter", sans-serif;
   background: hsl(var(--bg));
   color: hsl(var(--text));
+  padding-top: 5rem; /* Adjust this value based on your navbar's height */
+}
+
+html {
   scroll-behavior: smooth;
 }
 
