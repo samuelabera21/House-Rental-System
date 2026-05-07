@@ -46,6 +46,19 @@ body {
     hsl(var(--bg));
 }
 
+body.light {
+  --bg: 0 0% 96%;
+  --surface: 0 0% 92%;
+  --text: 0 0% 4%;
+  --muted: 0 0% 47%;
+  --stroke: 0 0% 88%;
+  --accent: 0 0% 4%;
+  --primary: #4e85bf;
+  --primary-deep: #89aacc;
+  --ink: #333;
+  --line: rgba(0, 0, 0, 0.08);
+}
+
 h1,
 h2,
 h3,

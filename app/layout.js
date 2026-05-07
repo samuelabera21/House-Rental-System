@@ -1,6 +1,9 @@
 import "../styles/globals.css";
+import "../styles/Navbar.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { ThemeProvider } from "./context/ThemeContext";
+import ThemedBody from "./ThemedBody";
 
 export const metadata = {
   title: "House Rental Management System",
@@ -10,13 +13,15 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
-        <div className="app-shell">
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
-        </div>
-      </body>
+      <ThemeProvider>
+        <ThemedBody>
+          <div className="app-shell">
+            <Navbar />
+            <main>{children}</main>
+            <Footer />
+          </div>
+        </ThemedBody>
+      </ThemeProvider>
     </html>
   );
 }
