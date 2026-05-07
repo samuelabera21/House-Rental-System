@@ -1869,10 +1869,17 @@ a {
   }
 
   .footer-inner {
-    flex-direction: column;
-    justify-content: center;
     text-align: center;
     padding: 0.8rem 0;
+  }
+
+  .footer-bar {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .footer-bar > div:first-child {
+    max-width: 28rem;
   }
 
   .owner-list-row {
@@ -2607,9 +2614,9 @@ a.nav-user-chip:hover {
 
 .footer-bar {
   width: 100%;
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) auto auto;
   align-items: center;
-  justify-content: space-between;
   gap: 1rem;
   padding: 1rem 0;
 }
