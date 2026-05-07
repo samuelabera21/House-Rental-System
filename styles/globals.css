@@ -106,13 +106,13 @@ a {
   flex-direction: column;
 }
 
-main {
+.app-main {
   flex: 1;
   padding-top: 80px; /* Adjust this value based on your navbar's height */
 }
 
 .page-container {
-  width: min(1120px, 92%);
+  width: min(1120px, calc(100% - 2rem));
   margin-inline: auto;
 }
 
@@ -120,6 +120,7 @@ main {
   position: sticky;
   top: 0;
   z-index: 40;
+  width: 100%;
   border-bottom: 1px solid rgba(148, 163, 184, 0.25);
   background: rgba(248, 250, 252, 0.88);
   backdrop-filter: blur(10px);
@@ -1862,6 +1863,7 @@ main {
 }
 
 .footer-wrap {
+  width: 100%;
   border-top: 1px solid rgba(148, 163, 184, 0.3);
   background: #f1f5f9;
 }
