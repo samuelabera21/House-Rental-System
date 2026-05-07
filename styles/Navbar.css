@@ -1,0 +1,119 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  transition: background-color 0.3s;
+}
+
+.navbar.scrolled {
+  background-color: rgba(26, 26, 26, 0.8);
+  backdrop-filter: blur(10px);
+}
+
+.navbar.light {
+  background-color: #f5f5f5;
+  color: black;
+}
+
+.navbar.light.scrolled {
+  background-color: rgba(245, 245, 245, 0.8);
+}
+
+.navbar.light .navbar-logo a,
+.navbar.light .navbar-links a {
+  color: black;
+}
+
+.navbar.light .navbar-links a:hover,
+.navbar.light .navbar-links a.active {
+  color: #555;
+}
+
+.navbar.light .login-button {
+  background-color: black;
+  color: white;
+}
+
+.navbar.light .login-button:hover {
+  background-color: #333;
+}
+
+.theme-toggle-button {
+  width: 50px;
+  height: 25px;
+  border-radius: 25px;
+  background-color: #444;
+  position: relative;
+  cursor: pointer;
+  border: 1px solid #666;
+}
+
+.theme-toggle-dot {
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  background-color: white;
+  position: absolute;
+  top: 1px;
+  left: 2px;
+  transition: transform 0.3s;
+}
+
+.navbar.light .theme-toggle-button {
+  background-color: #ccc;
+  border-color: #999;
+}
+
+.navbar.light .theme-toggle-dot {
+  background-color: #444;
+  transform: translateX(25px);
+}
+
+.navbar-logo a {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.navbar-links a {
+  text-decoration: none;
+  color: #ccc;
+  transition: color 0.3s;
+}
+
+.navbar-links a:hover,
+.navbar-links a.active {
+  color: white;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.login-button {
+  background-color: white;
+  color: black;
+  padding: 0.5rem 1.5rem;
+  border-radius: 9999px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.login-button:hover {
+  background-color: #eee;
+}
