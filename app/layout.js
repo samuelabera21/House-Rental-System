@@ -14,7 +14,7 @@ export default function RootLayout({ children }) {
         {/* Global app shell keeps shared navigation and footer across pages */}
         <div className="app-shell">
           <Navbar />
-          <main>{children}</main>
+          <main className="app-main">{children}</main>
           <Footer />
         </div>
       </body>
