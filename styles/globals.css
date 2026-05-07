@@ -1519,6 +1519,20 @@ main {
   font-weight: 600;
 }
 
+.owner-amenities {
+  margin: 0.3rem 0 0;
+  color: #059669;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.owner-furnished {
+  margin: 0.3rem 0 0;
+  color: #7c3aed;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
 .owner-list-actions {
   margin-top: 0.75rem;
   display: flex;
