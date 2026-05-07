@@ -17,6 +17,11 @@ export default function NewListingClient() {
     price: "",
     rooms: "",
     description: "",
+    propertyType: "",
+    size: "",
+    yearBuilt: "",
+    furnished: false,
+    amenities: [],
   });
 
   useEffect(() => {
@@ -31,8 +36,20 @@ export default function NewListingClient() {
   }, [router]);
 
   const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setNewListing((prev) => ({ ...prev, [name]: value }));
+    const { name, value, type, checked } = event.target;
+    setNewListing((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value
+    }));
+  };
+
+  const handleAmenityChange = (amenity) => {
+    setNewListing((prev) => ({
+      ...prev,
+      amenities: prev.amenities.includes(amenity)
+        ? prev.amenities.filter((a) => a !== amenity)
+        : [...prev.amenities, amenity],
+    }));
   };
 
   const handleFileUpload = (event) => {
@@ -110,6 +127,11 @@ export default function NewListingClient() {
       rooms,
       description,
       image: uploadedImageData,
+      propertyType: newListing.propertyType,
+      size: newListing.size ? Number(newListing.size) : null,
+      yearBuilt: newListing.yearBuilt ? Number(newListing.yearBuilt) : null,
+      furnished: newListing.furnished,
+      amenities: newListing.amenities,
     };
 
     const existingListings = getOwnerListings();
@@ -199,6 +221,45 @@ export default function NewListingClient() {
                 required
               />
             </label>
+            <label>
+              Property Type
+              <select
+                name="propertyType"
+                value={newListing.propertyType}
+                onChange={handleInputChange}
+                required
+              >
+                <option value="">Select Type</option>
+                <option value="Apartment">Apartment</option>
+                <option value="House">House</option>
+                <option value="Villa">Villa</option>
+                <option value="Studio">Studio</option>
+                <option value="Condo">Condo</option>
+              </select>
+            </label>
+            <label>
+              Size (sq ft)
+              <input
+                type="number"
+                name="size"
+                value={newListing.size}
+                onChange={handleInputChange}
+                min="1"
+                placeholder="Optional"
+              />
+            </label>
+            <label>
+              Year Built
+              <input
+                type="number"
+                name="yearBuilt"
+                value={newListing.yearBuilt}
+                onChange={handleInputChange}
+                min="1900"
+                max={new Date().getFullYear()}
+                placeholder="Optional"
+              />
+            </label>
           </div>
 
           <label>
@@ -213,6 +274,32 @@ export default function NewListingClient() {
             />
           </label>
 
+          <div className="owner-form-section">
+            <h3>Amenities</h3>
+            <div className="amenities-grid">
+              {["WiFi", "Parking", "Air Conditioning", "Heating", "Balcony", "Garden", "Security", "Elevator", "Gym", "Pool"].map((amenity) => (
+                <label key={amenity} className="amenity-checkbox">
+                  <input
+                    type="checkbox"
+                    checked={newListing.amenities.includes(amenity)}
+                    onChange={() => handleAmenityChange(amenity)}
+                  />
+                  {amenity}
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <label className="owner-checkbox-field">
+            <input
+              type="checkbox"
+              name="furnished"
+              checked={newListing.furnished}
+              onChange={handleInputChange}
+            />
+            Furnished
+          </label>
+
           <label className="owner-upload-field">
             House Picture
             <input type="file" accept="image/*" onChange={handleFileUpload} required />
@@ -222,11 +309,23 @@ export default function NewListingClient() {
           </label>
 
           {uploadedImageData ? (
-            <img
-              src={uploadedImageData}
-              alt="New listing preview"
-              className="owner-listing-thumb owner-preview-thumb"
-            />
+            <div className="image-preview-container">
+              <img
+                src={uploadedImageData}
+                alt="New listing preview"
+                className="owner-listing-thumb owner-preview-thumb"
+              />
+              <button
+                type="button"
+                className="remove-image-btn"
+                onClick={() => {
+                  setUploadedImageData("");
+                  setUploadedImageName("");
+                }}
+              >
+                Remove Image
+              </button>
+            </div>
           ) : null}
 
           {formError ? <p className="auth-error">{formError}</p> : null}
