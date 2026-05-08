@@ -632,11 +632,32 @@ a {
   box-shadow: 0 16px 40px rgba(148, 163, 184, 0.12);
 }
 
-.house-media img {
+.house-media {
   width: 100%;
   height: 210px;
+  overflow: hidden;
+  display: block;
+  background: #f1f5f9;
+}
+
+.house-media img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   display: block;
+}
+
+.house-media .image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #e2e8f0 0%, #f1f5f9 100%);
+  color: #cbd5e1;
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 1rem;
 }
 
 .house-content {
@@ -1413,6 +1434,25 @@ a {
 
 .renter-house-grid {
   margin-top: 0.9rem;
+}
+
+.renter-house-grid .house-card {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
+}
+
+.renter-house-grid .house-media {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.renter-house-grid .house-price {
+  color: var(--primary);
+}
+
+.renter-house-grid .house-location,
+.renter-house-grid .house-description {
+  color: hsl(var(--muted));
 }
 
 .renter-card-footer {
