@@ -291,6 +291,11 @@ main {
   filter: saturate(1.05) brightness(1.02);
 }
 
+.btn.active-login {
+  box-shadow: 0 10px 30px rgba(78, 133, 191, 0.3);
+  transform: translateY(-2px);
+}
+
 /* Make nav links subtle on dark header */
 .navbar-wrap {
   background: rgba(10, 12, 14, 0.86);
