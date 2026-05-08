@@ -99,6 +99,11 @@ export default function AdminDashboardClient() {
               from a single admin workspace.
             </p>
           </div>
+          <img
+            className="admin-header-image"
+            src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=720&q=80"
+            alt="Admin dashboard overview"
+          />
         </div>
 
         <section className="admin-summary-grid" aria-label="Admin summary cards">

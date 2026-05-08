@@ -1599,6 +1599,19 @@ main {
   border: 1px solid #dbe2ef;
   border-radius: 16px;
   padding: 1.2rem;
+  display: grid;
+  gap: 1rem;
+  align-items: center;
+  grid-template-columns: 1fr;
+}
+
+.admin-header-image {
+  width: 100%;
+  max-width: 240px;
+  height: auto;
+  border-radius: 18px;
+  object-fit: cover;
+  justify-self: center;
 }
 
 .admin-badge {
@@ -1869,6 +1882,10 @@ main {
 }
 
 @media (min-width: 1024px) {
+  .admin-header {
+    grid-template-columns: 1.4fr auto;
+  }
+
   .house-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
