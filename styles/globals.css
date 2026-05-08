@@ -351,7 +351,9 @@ a {
   background: rgba(10, 12, 14, 0.86);
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
   color: hsl(var(--text));
-  transition: background 240ms ease, background-color 240ms ease;
+  transition:
+    background 240ms ease,
+    background-color 240ms ease;
 }
 
 .nav-link {
@@ -406,27 +408,51 @@ a {
 }
 
 .navbar-wrap.bg-featured {
-  background: linear-gradient(90deg, rgba(78,133,191,0.22), rgba(78,133,191,0.06));
+  background: linear-gradient(
+    90deg,
+    rgba(78, 133, 191, 0.22),
+    rgba(78, 133, 191, 0.06)
+  );
 }
 
 .navbar-wrap.bg-highlights {
-  background: linear-gradient(90deg, rgba(156,85,211,0.22), rgba(156,85,211,0.06));
+  background: linear-gradient(
+    90deg,
+    rgba(156, 85, 211, 0.22),
+    rgba(156, 85, 211, 0.06)
+  );
 }
 
 .navbar-wrap.bg-about {
-  background: linear-gradient(90deg, rgba(16,185,129,0.22), rgba(16,185,129,0.06));
+  background: linear-gradient(
+    90deg,
+    rgba(16, 185, 129, 0.22),
+    rgba(16, 185, 129, 0.06)
+  );
 }
 
 .navbar-wrap.bg-renter-ui {
-  background: linear-gradient(90deg, rgba(136,170,204,0.22), rgba(78,133,191,0.06));
+  background: linear-gradient(
+    90deg,
+    rgba(136, 170, 204, 0.22),
+    rgba(78, 133, 191, 0.06)
+  );
 }
 
 .navbar-wrap.bg-owner {
-  background: linear-gradient(90deg, rgba(245,158,11,0.22), rgba(249,115,22,0.06));
+  background: linear-gradient(
+    90deg,
+    rgba(245, 158, 11, 0.22),
+    rgba(249, 115, 22, 0.06)
+  );
 }
 
 .navbar-wrap.bg-admin {
-  background: linear-gradient(90deg, rgba(239,68,68,0.22), rgba(190,24,83,0.06));
+  background: linear-gradient(
+    90deg,
+    rgba(239, 68, 68, 0.22),
+    rgba(190, 24, 83, 0.06)
+  );
 }
 
 .hero-section {
