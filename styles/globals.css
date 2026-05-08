@@ -1917,6 +1917,10 @@ a {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
+  .renter-recent-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .profile-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -2541,6 +2545,27 @@ a {
 .renter-panel {
   border-radius: 1.45rem;
   padding: 1rem;
+}
+
+.renter-recent-panel,
+.renter-browse-panel {
+  scroll-margin-top: 6rem;
+}
+
+.renter-recent-grid {
+  margin-top: 1rem;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.renter-browse-panel .search-bar {
+  margin-top: 1rem;
+  max-width: 100%;
+}
+
+.renter-browse-panel .renter-search-panel {
+  margin-top: 1rem;
 }
 
 .renter-panel .section-head {
