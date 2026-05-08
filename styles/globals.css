@@ -1660,6 +1660,44 @@ main {
   color: #b91c1c;
 }
 
+.admin-quick-actions-grid {
+  margin-top: 1rem;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.admin-action-list {
+  margin-top: 0.9rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.admin-action-list button {
+  border: 1px solid #c7d2fe;
+  background: #eff6ff;
+  color: #1d4ed8;
+  border-radius: 12px;
+  padding: 0.55rem 0.95rem;
+  font-weight: 700;
+  font-size: 0.92rem;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.admin-action-list button:hover {
+  background: #dbeafe;
+  transform: translateY(-1px);
+}
+
+.admin-alert-copy {
+  margin: 0.75rem 0 0;
+  color: #475569;
+  line-height: 1.65;
+  font-size: 0.95rem;
+}
+
 .admin-panel-wrap {
   margin-top: 1rem;
   display: grid;

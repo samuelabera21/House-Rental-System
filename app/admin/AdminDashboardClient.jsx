@@ -116,6 +116,22 @@ export default function AdminDashboardClient() {
           </article>
         </section>
 
+        <section className="admin-quick-actions-grid" aria-label="Admin quick actions">
+          <article className="admin-summary-card admin-action-card">
+            <p className="admin-summary-label">Quick Actions</p>
+            <div className="admin-action-list">
+              <button type="button">Review flagged listings</button>
+              <button type="button">Send system announcement</button>
+            </div>
+          </article>
+          <article className="admin-summary-card admin-alert-card">
+            <p className="admin-summary-label">Recent Alerts</p>
+            <p className="admin-alert-copy">
+              1 listing flagged, 2 new owner verifications pending, and 0 urgent reports.
+            </p>
+          </article>
+        </section>
+
         <div className="admin-panel-wrap">
           <article className="admin-panel">
             <div className="admin-panel-head">
