@@ -11,43 +11,63 @@ export default function RenterQuickSearch({
       className="renter-panel renter-search-panel"
       aria-label="Quick house search"
     >
-      <h2>Quick House Search</h2>
-      <p>Filter listings by location, monthly budget, and number of rooms.</p>
+      <div className="renter-search-header">
+        <h2>Filter Your Search</h2>
+        <p>Refine results by location, monthly budget, and number of rooms.</p>
+      </div>
 
       <div className="renter-search-grid">
-        <label>
-          Location
+        <div className="search-filter-group">
+          <label htmlFor="location-input">
+            <span className="filter-label">Location</span>
+            <span className="filter-hint">City or area name</span>
+          </label>
           <input
+            id="location-input"
             type="text"
-            placeholder="e.g. Bole"
+            placeholder="e.g. Bole, Kazanchis"
             value={location}
             onChange={(event) => setLocation(event.target.value)}
+            className="search-filter-input"
           />
-        </label>
+        </div>
 
-        <label>
-          Max Price (USD)
-          <input
-            type="number"
-            min="0"
-            placeholder="e.g. 1500"
-            value={maxPrice}
-            onChange={(event) => setMaxPrice(event.target.value)}
-          />
-        </label>
+        <div className="search-filter-group">
+          <label htmlFor="price-input">
+            <span className="filter-label">Max Price</span>
+            <span className="filter-hint">USD per month</span>
+          </label>
+          <div className="price-input-wrapper">
+            <span className="price-currency">$</span>
+            <input
+              id="price-input"
+              type="number"
+              min="0"
+              placeholder="1500"
+              value={maxPrice}
+              onChange={(event) => setMaxPrice(event.target.value)}
+              className="search-filter-input price-input"
+            />
+          </div>
+        </div>
 
-        <label>
-          Rooms
+        <div className="search-filter-group">
+          <label htmlFor="rooms-select">
+            <span className="filter-label">Number of Rooms</span>
+            <span className="filter-hint">Bedroom count</span>
+          </label>
           <select
+            id="rooms-select"
             value={rooms}
             onChange={(event) => setRooms(event.target.value)}
+            className="search-filter-input"
           >
-            <option value="all">All</option>
+            <option value="all">Any number of rooms</option>
             <option value="1">1 room</option>
             <option value="2">2 rooms</option>
             <option value="3">3+ rooms</option>
           </select>
-        </label>
+        </div>
       </div>
     </section>
   );

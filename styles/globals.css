@@ -2638,6 +2638,87 @@ a {
   color: hsl(var(--text));
 }
 
+.renter-search-header {
+  margin-bottom: 1.2rem;
+}
+
+.renter-search-header h2 {
+  margin: 0;
+  color: hsl(var(--text));
+}
+
+.renter-search-header p {
+  margin-top: 0.35rem;
+  color: hsl(var(--muted));
+  font-size: 0.95rem;
+}
+
+.search-filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.search-filter-group label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  color: hsl(var(--text));
+}
+
+.filter-label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: hsl(var(--text));
+}
+
+.filter-hint {
+  font-weight: 400;
+  font-size: 0.8rem;
+  color: hsl(var(--muted));
+}
+
+.search-filter-input {
+  background: hsl(var(--surface));
+  color: hsl(var(--text));
+  border: 1px solid hsl(var(--stroke));
+  border-radius: 0.5rem;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.95rem;
+  width: 100%;
+  transition:
+    border-color 200ms ease,
+    background-color 200ms ease;
+}
+
+.search-filter-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: hsl(var(--surface));
+}
+
+.search-filter-input::placeholder {
+  color: hsl(var(--muted));
+}
+
+.price-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.price-currency {
+  position: absolute;
+  left: 0.75rem;
+  color: hsl(var(--muted));
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.price-input {
+  padding-left: 1.8rem;
+}
+
 .renter-card-footer span {
   color: hsl(var(--muted));
 }
