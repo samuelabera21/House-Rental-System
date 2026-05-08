@@ -351,7 +351,9 @@ a {
   background: rgba(10, 12, 14, 0.86);
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
   color: hsl(var(--text));
-  transition: background 240ms ease, background-color 240ms ease;
+  transition:
+    background 240ms ease,
+    background-color 240ms ease;
 }
 
 .nav-link {
@@ -406,27 +408,51 @@ a {
 }
 
 .navbar-wrap.bg-featured {
-  background: linear-gradient(90deg, rgba(78,133,191,0.22), rgba(78,133,191,0.06));
+  background: linear-gradient(
+    90deg,
+    rgba(78, 133, 191, 0.22),
+    rgba(78, 133, 191, 0.06)
+  );
 }
 
 .navbar-wrap.bg-highlights {
-  background: linear-gradient(90deg, rgba(156,85,211,0.22), rgba(156,85,211,0.06));
+  background: linear-gradient(
+    90deg,
+    rgba(156, 85, 211, 0.22),
+    rgba(156, 85, 211, 0.06)
+  );
 }
 
 .navbar-wrap.bg-about {
-  background: linear-gradient(90deg, rgba(16,185,129,0.22), rgba(16,185,129,0.06));
+  background: linear-gradient(
+    90deg,
+    rgba(16, 185, 129, 0.22),
+    rgba(16, 185, 129, 0.06)
+  );
 }
 
 .navbar-wrap.bg-renter-ui {
-  background: linear-gradient(90deg, rgba(136,170,204,0.22), rgba(78,133,191,0.06));
+  background: linear-gradient(
+    90deg,
+    rgba(136, 170, 204, 0.22),
+    rgba(78, 133, 191, 0.06)
+  );
 }
 
 .navbar-wrap.bg-owner {
-  background: linear-gradient(90deg, rgba(245,158,11,0.22), rgba(249,115,22,0.06));
+  background: linear-gradient(
+    90deg,
+    rgba(245, 158, 11, 0.22),
+    rgba(249, 115, 22, 0.06)
+  );
 }
 
 .navbar-wrap.bg-admin {
-  background: linear-gradient(90deg, rgba(239,68,68,0.22), rgba(190,24,83,0.06));
+  background: linear-gradient(
+    90deg,
+    rgba(239, 68, 68, 0.22),
+    rgba(190, 24, 83, 0.06)
+  );
 }
 
 .hero-section {
@@ -1917,6 +1943,10 @@ a {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
+  .renter-recent-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .profile-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -2541,6 +2571,27 @@ a {
 .renter-panel {
   border-radius: 1.45rem;
   padding: 1rem;
+}
+
+.renter-recent-panel,
+.renter-browse-panel {
+  scroll-margin-top: 6rem;
+}
+
+.renter-recent-grid {
+  margin-top: 1rem;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.renter-browse-panel .search-bar {
+  margin-top: 1rem;
+  max-width: 100%;
+}
+
+.renter-browse-panel .renter-search-panel {
+  margin-top: 1rem;
 }
 
 .renter-panel .section-head {

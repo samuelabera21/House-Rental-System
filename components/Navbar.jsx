@@ -7,7 +7,7 @@ import { clearActiveUser, getActiveUser } from "../lib/auth";
 import { useTheme } from "../app/context/ThemeContext";
 
 const DASHBOARD_BY_ROLE = {
-  renter: { href: "/Renter_ui", label: "Dashboard" },
+  renter: { href: "/Renter_ui#browse", label: "Browse House" },
   owner: { href: "/owner", label: "Dashboard" },
   admin: { href: "/admin", label: "Dashboard" },
 };
@@ -40,7 +40,18 @@ export default function Navbar() {
   }, [pathname]);
 
   useEffect(() => {
-    setCurrentLocation(window.location.pathname + window.location.hash);
+    const syncLocation = () => {
+      setCurrentLocation(window.location.pathname + window.location.hash);
+    };
+
+    syncLocation();
+    window.addEventListener("hashchange", syncLocation);
+    window.addEventListener("popstate", syncLocation);
+
+    return () => {
+      window.removeEventListener("hashchange", syncLocation);
+      window.removeEventListener("popstate", syncLocation);
+    };
   }, []);
 
   useEffect(() => {
@@ -104,7 +115,11 @@ export default function Navbar() {
           <Link
             href={DASHBOARD_BY_ROLE[activeRole].href}
             className={
-              pathname === DASHBOARD_BY_ROLE[activeRole].href ? "active" : ""
+              currentLocation.endsWith("#browse")
+                ? "active"
+                : pathname === DASHBOARD_BY_ROLE[activeRole].href
+                  ? "active"
+                  : ""
             }
           >
             {DASHBOARD_BY_ROLE[activeRole].label}
