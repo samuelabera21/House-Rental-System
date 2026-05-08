@@ -2,10 +2,13 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
+import HouseCard from "../../components/HouseCard";
 import RenterNotifications from "../../components/RenterNotifications";
 import RenterQuickSearch from "../../components/RenterQuickSearch";
 import RenterRecommendations from "../../components/RenterRecommendations";
+import SearchBar from "../../components/SearchBar";
 import { getActiveUser } from "../../lib/auth";
+import { getOwnerListings } from "../../lib/ownerListings";
 import {
   renterListings,
   renterNotifications,
@@ -64,6 +67,10 @@ export default function RenterDashboardPage() {
     );
   }, [requestedListingIds]);
 
+  const recentUploadedListings = useMemo(() => {
+    return getOwnerListings().slice(0, 3);
+  }, []);
+
   useEffect(() => {
     const activeUser = getActiveUser();
 
@@ -99,6 +106,10 @@ export default function RenterDashboardPage() {
     setRequestError("");
     setSelectedListing(listing);
     setShowFormModal(true);
+  };
+
+  const handleBrowseSearch = (query) => {
+    setLocation(query);
   };
 
   const handleInputChange = (e) => {
@@ -175,11 +186,11 @@ export default function RenterDashboardPage() {
               <span className="section-kicker-line" />
               Renter Workspace
             </span>
-          <h1>Welcome back, find your next home faster</h1>
-          <p>
-            Search houses, review recommendations, and track request updates
-            from one dashboard.
-          </p>
+            <h1>Welcome back, your home search starts here</h1>
+            <p>
+              Review the latest uploaded houses first, then jump into browse
+              mode to search by location, price, and room count.
+            </p>
           </div>
         </header>
 
@@ -192,20 +203,43 @@ export default function RenterDashboardPage() {
           ))}
         </div>
 
-        <RenterQuickSearch
-          location={location}
-          setLocation={setLocation}
-          maxPrice={maxPrice}
-          setMaxPrice={setMaxPrice}
-          rooms={rooms}
-          setRooms={setRooms}
-        />
+        <section className="renter-panel renter-recent-panel">
+          <div className="section-head">
+            <h2>Recently Uploaded Houses</h2>
+            <p>New listings posted by owners are shown here first.</p>
+          </div>
 
-        <RenterRecommendations
-          listings={visibleListings}
-          requestedListingIds={requestedListingIds}
-          onSendRequest={handleRequestClick}
-        />
+          <div className="renter-recent-grid">
+            {recentUploadedListings.map((house) => (
+              <HouseCard key={house.id} house={house} />
+            ))}
+          </div>
+        </section>
+
+        <section className="renter-panel renter-browse-panel" id="browse">
+          <div className="section-head">
+            <h2>Browse House</h2>
+            <p>Use search to jump straight to matching houses.</p>
+          </div>
+
+          <SearchBar onSearch={handleBrowseSearch} />
+
+          <RenterQuickSearch
+            location={location}
+            setLocation={setLocation}
+            maxPrice={maxPrice}
+            setMaxPrice={setMaxPrice}
+            rooms={rooms}
+            setRooms={setRooms}
+          />
+
+          <RenterRecommendations
+            listings={visibleListings}
+            requestedListingIds={requestedListingIds}
+            onSendRequest={handleRequestClick}
+          />
+        </section>
+
         <RenterNotifications notifications={notifications} />
 
         {/* now add requested form  and ui*/}
@@ -321,7 +355,9 @@ export default function RenterDashboardPage() {
                     </button>
                   </div>
 
-                  {requestError ? <p className="auth-error">{requestError}</p> : null}
+                  {requestError ? (
+                    <p className="auth-error">{requestError}</p>
+                  ) : null}
                 </form>
               </div>
             </div>
