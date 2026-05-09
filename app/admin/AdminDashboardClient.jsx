@@ -99,6 +99,11 @@ export default function AdminDashboardClient() {
               from a single admin workspace.
             </p>
           </div>
+          <img
+            className="admin-header-image"
+            src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=720&q=80"
+            alt="Admin dashboard overview"
+          />
         </div>
 
         <section className="admin-summary-grid" aria-label="Admin summary cards">
@@ -113,6 +118,22 @@ export default function AdminDashboardClient() {
           <article className="admin-summary-card">
             <p className="admin-summary-label">Flagged Listings</p>
             <p className="admin-summary-value admin-danger-value">{stats.flaggedListings}</p>
+          </article>
+        </section>
+
+        <section className="admin-quick-actions-grid" aria-label="Admin quick actions">
+          <article className="admin-summary-card admin-action-card">
+            <p className="admin-summary-label">Quick Actions</p>
+            <div className="admin-action-list">
+              <button type="button">Review flagged listings</button>
+              <button type="button">Send system announcement</button>
+            </div>
+          </article>
+          <article className="admin-summary-card admin-alert-card">
+            <p className="admin-summary-label">Recent Alerts</p>
+            <p className="admin-alert-copy">
+              1 listing flagged, 2 new owner verifications pending, and 0 urgent reports.
+            </p>
           </article>
         </section>
 
