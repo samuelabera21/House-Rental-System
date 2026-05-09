@@ -216,7 +216,6 @@ export default function RenterDashboardPage() {
                 house={house}
                 isRequested={requestedListingIds.includes(house.id)}
                 onSendRequest={handleRequestClick}
-                isDarkTheme={true}
               />
             ))}
           </div>
