@@ -28,6 +28,10 @@ body {
   font-family: "Inter", sans-serif;
   background: hsl(var(--bg));
   color: hsl(var(--text));
+  padding-top: 5rem; /* Adjust this value based on your navbar's height */
+}
+
+html {
   scroll-behavior: smooth;
 }
 
@@ -88,17 +92,54 @@ main {
   position: sticky;
   top: 0;
   z-index: 40;
+  width: 100%;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  background: rgba(10, 12, 14, 0.95);
+  backdrop-filter: blur(12px);
+  padding: 0.75rem 0;
   border-bottom: 1px solid rgba(148, 163, 184, 0.25);
   background: rgba(248, 250, 252, 0.88);
   backdrop-filter: blur(10px);
 }
 
 .navbar {
-  min-height: 72px;
+  min-height: 60px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 2rem;
+}
+
+.navbar-pill {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: hsl(var(--text));
+  flex-shrink: 0;
+}
+
+.navbar-brand-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #89aacc 0%, #4e85bf 100%);
+  color: hsl(var(--bg));
+  font-weight: 800;
+  font-size: 0.9rem;
+  flex-shrink: 0;
 }
 
 .brand {
@@ -110,18 +151,35 @@ main {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 0.3rem;
+  gap: 0.8rem;
+  flex: 1;
 }
 
 .nav-links {
   position: relative;
 }
 
+.nav-main {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.auth-actions {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.btn.active-login {
+  box-shadow: 0 10px 30px rgba(78, 133, 191, 0.18);
+  transform: translateY(-1px);
+}
+
 .nav-user-area {
   display: flex;
   align-items: center;
   position: relative;
-  margin-left: 0.35rem;
+  margin-left: auto;
 }
 
 .nav-account-btn {
@@ -230,19 +288,29 @@ main {
 }
 
 .nav-link {
-  padding: 0.45rem 0.8rem;
-  border-radius: 999px;
-  color: #1e293b;
-  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
   font-size: 0.95rem;
   transition:
     background-color 180ms ease,
     color 180ms ease;
+  white-space: nowrap;
 }
 
 .nav-link:hover {
-  background: #dbeafe;
-  color: var(--primary-deep);
+  background: rgba(137, 170, 204, 0.15);
+  color: #ffffff;
+}
+
+.nav-link.active {
+  background: linear-gradient(
+    90deg,
+    rgba(78, 133, 191, 0.2),
+    rgba(78, 133, 191, 0.1)
+  );
+  color: #89aacc;
 }
 
 /* Auth action buttons on navbar */
@@ -250,7 +318,6 @@ main {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  margin-left: 0.65rem;
 }
 
 .btn {
@@ -258,37 +325,45 @@ main {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.45rem 0.9rem;
-  border-radius: 999px;
-  font-weight: 700;
+  padding: 0.5rem 1.2rem;
+  border-radius: 6px;
+  font-weight: 600;
   font-size: 0.95rem;
   line-height: 1;
   cursor: pointer;
+  transition:
+    transform 140ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease;
+  border: none;
   transition: transform 140ms ease, box-shadow 160ms ease, background-color 160ms ease;
 }
 
 .btn-outline {
   background: transparent;
   color: hsl(var(--text));
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .btn-outline:hover {
-  transform: translateY(-2px);
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.25);
 }
 
 .btn-primary {
-  background: linear-gradient(90deg, #89aacc 0%, #4e85bf 100%);
+  background: linear-gradient(135deg, #89aacc 0%, #4e85bf 100%);
   color: hsl(var(--bg));
-  border: none;
-  box-shadow: 0 8px 20px rgba(78, 133, 191, 0.18);
+  box-shadow: 0 4px 15px rgba(78, 133, 191, 0.25);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  filter: saturate(1.05) brightness(1.02);
+  box-shadow: 0 6px 20px rgba(78, 133, 191, 0.35);
+}
+
+.btn.active-login {
+  box-shadow: 0 10px 30px rgba(78, 133, 191, 0.3);
+  transform: translateY(-2px);
 }
 
 .btn.active-login {
@@ -301,6 +376,9 @@ main {
   background: rgba(10, 12, 14, 0.86);
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
   color: hsl(var(--text));
+  transition:
+    background 240ms ease,
+    background-color 240ms ease;
 }
 
 .nav-link {
@@ -340,6 +418,59 @@ main {
   transition: left 240ms cubic-bezier(.2, .9, .2, 1), width 240ms cubic-bezier(.2, .9, .2, 1), opacity 180ms ease;
   pointer-events: none;
   opacity: 0;
+}
+
+/* Navbar background variants for active section highlighting */
+.navbar-wrap.bg-home {
+  background: rgba(10, 12, 14, 0.86);
+}
+
+.navbar-wrap.bg-featured {
+  background: linear-gradient(
+    90deg,
+    rgba(78, 133, 191, 0.22),
+    rgba(78, 133, 191, 0.06)
+  );
+}
+
+.navbar-wrap.bg-highlights {
+  background: linear-gradient(
+    90deg,
+    rgba(156, 85, 211, 0.22),
+    rgba(156, 85, 211, 0.06)
+  );
+}
+
+.navbar-wrap.bg-about {
+  background: linear-gradient(
+    90deg,
+    rgba(16, 185, 129, 0.22),
+    rgba(16, 185, 129, 0.06)
+  );
+}
+
+.navbar-wrap.bg-renter-ui {
+  background: linear-gradient(
+    90deg,
+    rgba(136, 170, 204, 0.22),
+    rgba(78, 133, 191, 0.06)
+  );
+}
+
+.navbar-wrap.bg-owner {
+  background: linear-gradient(
+    90deg,
+    rgba(245, 158, 11, 0.22),
+    rgba(249, 115, 22, 0.06)
+  );
+}
+
+.navbar-wrap.bg-admin {
+  background: linear-gradient(
+    90deg,
+    rgba(239, 68, 68, 0.22),
+    rgba(190, 24, 83, 0.06)
+  );
 }
 
 .hero-section {
@@ -473,11 +604,32 @@ main {
   box-shadow: 0 16px 40px rgba(148, 163, 184, 0.12);
 }
 
-.house-media img {
+.house-media {
   width: 100%;
   height: 210px;
+  overflow: hidden;
+  display: block;
+  background: #f1f5f9;
+}
+
+.house-media img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   display: block;
+}
+
+.house-media .image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #e2e8f0 0%, #f1f5f9 100%);
+  color: #cbd5e1;
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 1rem;
 }
 
 .house-content {
@@ -1227,6 +1379,25 @@ main {
   margin-top: 0.9rem;
 }
 
+.renter-house-grid .house-card {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
+}
+
+.renter-house-grid .house-media {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.renter-house-grid .house-price {
+  color: var(--primary);
+}
+
+.renter-house-grid .house-location,
+.renter-house-grid .house-description {
+  color: hsl(var(--muted));
+}
+
 .renter-card-footer {
   margin-top: 0.9rem;
   display: flex;
@@ -1813,6 +1984,10 @@ main {
   }
 
   .renter-search-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .renter-recent-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
@@ -3387,6 +3562,27 @@ a.nav-user-chip:hover {
   padding: 1rem;
 }
 
+.renter-recent-panel,
+.renter-browse-panel {
+  scroll-margin-top: 6rem;
+}
+
+.renter-recent-grid {
+  margin-top: 1rem;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.renter-browse-panel .search-bar {
+  margin-top: 1rem;
+  max-width: 100%;
+}
+
+.renter-browse-panel .renter-search-panel {
+  margin-top: 1rem;
+}
+
 .renter-panel .section-head {
   margin-bottom: 0.8rem;
 }
@@ -3433,6 +3629,87 @@ a.nav-user-chip:hover {
   outline: none;
   border-color: rgba(137, 170, 204, 0.5);
   box-shadow: 0 0 0 3px rgba(78, 133, 191, 0.18);
+}
+
+.renter-search-header {
+  margin-bottom: 1.2rem;
+}
+
+.renter-search-header h2 {
+  margin: 0;
+  color: hsl(var(--text));
+}
+
+.renter-search-header p {
+  margin-top: 0.35rem;
+  color: hsl(var(--muted));
+  font-size: 0.95rem;
+}
+
+.search-filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.search-filter-group label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  color: hsl(var(--text));
+}
+
+.filter-label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: hsl(var(--text));
+}
+
+.filter-hint {
+  font-weight: 400;
+  font-size: 0.8rem;
+  color: hsl(var(--muted));
+}
+
+.search-filter-input {
+  background: hsl(var(--surface));
+  color: hsl(var(--text));
+  border: 1px solid hsl(var(--stroke));
+  border-radius: 0.5rem;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.95rem;
+  width: 100%;
+  transition:
+    border-color 200ms ease,
+    background-color 200ms ease;
+}
+
+.search-filter-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: hsl(var(--surface));
+}
+
+.search-filter-input::placeholder {
+  color: hsl(var(--muted));
+}
+
+.price-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.price-currency {
+  position: absolute;
+  left: 0.75rem;
+  color: hsl(var(--muted));
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.price-input {
+  padding-left: 1.8rem;
 }
 
 .renter-card-footer span {

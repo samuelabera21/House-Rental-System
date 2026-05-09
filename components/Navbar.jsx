@@ -7,7 +7,7 @@ import { clearActiveUser, getActiveUser } from "../lib/auth";
 import { useTheme } from "../app/context/ThemeContext";
 
 const DASHBOARD_BY_ROLE = {
-  renter: { href: "/Renter_ui", label: "Dashboard" },
+  renter: { href: "/Renter_ui#browse", label: "Browse House" },
   owner: { href: "/owner", label: "Dashboard" },
   admin: { href: "/admin", label: "Dashboard" },
 };
@@ -40,7 +40,18 @@ export default function Navbar() {
   }, [pathname]);
 
   useEffect(() => {
-    setCurrentLocation(window.location.pathname + window.location.hash);
+    const syncLocation = () => {
+      setCurrentLocation(window.location.pathname + window.location.hash);
+    };
+
+    syncLocation();
+    window.addEventListener("hashchange", syncLocation);
+    window.addEventListener("popstate", syncLocation);
+
+    return () => {
+      window.removeEventListener("hashchange", syncLocation);
+      window.removeEventListener("popstate", syncLocation);
+    };
   }, []);
 
   useEffect(() => {
@@ -73,6 +84,24 @@ export default function Navbar() {
     router.push("/");
   };
 
+  const handleNavLinkClick = (href) => {
+    // If the link contains a hash and we're on the same page, scroll to top first
+    if (href.includes("#")) {
+      const [path, hash] = href.split("#");
+      if (path === pathname || path === "") {
+        // Scroll to top smoothly, then let browser handle anchor scroll
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        // Small delay to ensure smooth transition
+        setTimeout(() => {
+          const element = document.getElementById(hash);
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth" });
+          }
+        }, 300);
+      }
+    }
+  };
+
   return (
     <nav className={`navbar ${isScrolled ? "scrolled" : ""} ${theme}`}>
       <div className="navbar-logo">
@@ -85,18 +114,21 @@ export default function Navbar() {
         <Link
           href="/#featured"
           className={currentLocation.endsWith("#featured") ? "active" : ""}
+          onClick={() => handleNavLinkClick("/#featured")}
         >
           Featured
         </Link>
         <Link
           href="/#highlights"
           className={currentLocation.endsWith("#highlights") ? "active" : ""}
+          onClick={() => handleNavLinkClick("/#highlights")}
         >
           Highlights
         </Link>
         <Link
           href="/#about"
           className={currentLocation.endsWith("#about") ? "active" : ""}
+          onClick={() => handleNavLinkClick("/#about")}
         >
           About
         </Link>
@@ -104,7 +136,14 @@ export default function Navbar() {
           <Link
             href={DASHBOARD_BY_ROLE[activeRole].href}
             className={
-              pathname === DASHBOARD_BY_ROLE[activeRole].href ? "active" : ""
+              currentLocation.endsWith("#browse")
+                ? "active"
+                : pathname === DASHBOARD_BY_ROLE[activeRole].href
+                  ? "active"
+                  : ""
+            }
+            onClick={() =>
+              handleNavLinkClick(DASHBOARD_BY_ROLE[activeRole].href)
             }
           >
             {DASHBOARD_BY_ROLE[activeRole].label}
