@@ -4,7 +4,6 @@ export default function HouseCard({
   house,
   isRequested = false,
   onSendRequest = null,
-  isDarkTheme = false,
 }) {
   const [imageError, setImageError] = useState(false);
 
@@ -13,7 +12,7 @@ export default function HouseCard({
   };
 
   return (
-    <article className={`house-card ${isDarkTheme ? "house-card-dark" : ""}`}>
+    <article className="house-card">
       <div className="house-media">
         {!imageError && house?.image ? (
           <img
