@@ -211,7 +211,13 @@ export default function RenterDashboardPage() {
 
           <div className="renter-recent-grid">
             {recentUploadedListings.map((house) => (
-              <HouseCard key={house.id} house={house} />
+              <HouseCard
+                key={house.id}
+                house={house}
+                isRequested={requestedListingIds.includes(house.id)}
+                onSendRequest={handleRequestClick}
+                isDarkTheme={true}
+              />
             ))}
           </div>
         </section>

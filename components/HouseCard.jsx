@@ -1,6 +1,11 @@
 import { useState } from "react";
 
-export default function HouseCard({ house }) {
+export default function HouseCard({
+  house,
+  isRequested = false,
+  onSendRequest = null,
+  isDarkTheme = false,
+}) {
   const [imageError, setImageError] = useState(false);
 
   const handleImageError = () => {
@@ -8,7 +13,7 @@ export default function HouseCard({ house }) {
   };
 
   return (
-    <article className="house-card">
+    <article className={`house-card ${isDarkTheme ? "house-card-dark" : ""}`}>
       <div className="house-media">
         {!imageError && house?.image ? (
           <img
@@ -29,6 +34,21 @@ export default function HouseCard({ house }) {
           <p className="house-location">{house.location}</p>
         </div>
         <p className="house-description">{house.description}</p>
+        {onSendRequest && (
+          <div className="renter-card-footer">
+            <span>{house.rooms} room(s)</span>
+            <button
+              type="button"
+              onClick={() => onSendRequest(house)}
+              disabled={isRequested}
+              className={
+                isRequested ? "request-btn request-btn-sent" : "request-btn"
+              }
+            >
+              {isRequested ? "Request Sent" : "Send Request"}
+            </button>
+          </div>
+        )}
       </div>
     </article>
   );
