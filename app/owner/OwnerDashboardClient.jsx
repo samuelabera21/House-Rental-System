@@ -132,7 +132,16 @@ export default function OwnerDashboardClient() {
                   <div className="owner-list-meta">
                     <span>${Number(listing.price).toLocaleString()} / month</span>
                     <span>{listing.rooms} Rooms</span>
+                    {listing.propertyType && <span>{listing.propertyType}</span>}
                   </div>
+                  {listing.amenities && listing.amenities.length > 0 && (
+                    <p className="owner-amenities">
+                      Amenities: {listing.amenities.join(", ")}
+                    </p>
+                  )}
+                  {listing.furnished && (
+                    <p className="owner-furnished">✓ Furnished</p>
+                  )}
                   <p className="owner-request-text">{listing.description}</p>
                   <div className="owner-list-actions">
                     <button type="button" disabled>
