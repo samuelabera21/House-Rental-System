@@ -55,6 +55,9 @@ const listingRecords = [
 export default function AdminDashboardClient() {
   const router = useRouter();
   const [isAuthorizing, setIsAuthorizing] = useState(true);
+  const [users, setUsers] = useState(userRecords);
+  const [listings, setListings] = useState(listingRecords);
+  const [adminMessage, setAdminMessage] = useState("");
 
   useEffect(() => {
     const activeUser = getActiveUser();
@@ -67,15 +70,70 @@ export default function AdminDashboardClient() {
     setIsAuthorizing(false);
   }, [router]);
 
+  const showAdminMessage = (message) => {
+    setAdminMessage(message);
+    window.setTimeout(() => setAdminMessage(""), 4000);
+  };
+
+  const handleReviewFlaggedListings = () => {
+    const flaggedCount = listings.filter(
+      (listing) => listing.status === "Flagged",
+    ).length;
+
+    showAdminMessage(
+      flaggedCount > 0
+        ? `${flaggedCount} flagged listing(s) awaiting review.`
+        : "No flagged listings are pending review.",
+    );
+  };
+
+  const handleSendAnnouncement = () => {
+    showAdminMessage("System announcement sent to all active users.");
+  };
+
+  const handleBlockUser = (userId) => {
+    setUsers((prevUsers) =>
+      prevUsers.map((user) =>
+        user.id === userId
+          ? { ...user, status: "Blocked" }
+          : user,
+      ),
+    );
+    showAdminMessage("User has been blocked.");
+  };
+
+  const handleRemoveUser = (userId) => {
+    setUsers((prevUsers) => prevUsers.filter((user) => user.id !== userId));
+    showAdminMessage("User removed from the system.");
+  };
+
+  const handleApproveListing = (listingId) => {
+    setListings((prevListings) =>
+      prevListings.map((listing) =>
+        listing.id === listingId
+          ? { ...listing, status: "Approved" }
+          : listing,
+      ),
+    );
+    showAdminMessage("Listing approved.");
+  };
+
+  const handleRemoveListing = (listingId) => {
+    setListings((prevListings) =>
+      prevListings.filter((listing) => listing.id !== listingId),
+    );
+    showAdminMessage("Listing removed from the queue.");
+  };
+
   const stats = useMemo(() => {
-    const usersCount = userRecords.length;
-    const listingsCount = listingRecords.length;
-    const flaggedListings = listingRecords.filter(
+    const usersCount = users.length;
+    const listingsCount = listings.length;
+    const flaggedListings = listings.filter(
       (listing) => listing.status === "Flagged",
     ).length;
 
     return { usersCount, listingsCount, flaggedListings };
-  }, []);
+  }, [users, listings]);
 
   if (isAuthorizing) {
     return (
