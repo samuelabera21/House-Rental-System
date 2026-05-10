@@ -8,6 +8,17 @@ Use these links to open the shared team docs directly:
 - [Team Structure](Guide%20documents/Structure.md)
 - [UI Structure & Functional Design](Guide%20documents/UI%20structure.md)
 
+## System Overview
+
+House Rental Management System is a role-based frontend with three user types: renter, house owner, and administrator.
+
+Core flow:
+
+- Landing page with navbar, quick search, featured listings, and about section
+- Authentication with register and login, including role selection
+- Role-based dashboards for renter, owner, and admin users
+- Shared features such as notifications and profile management
+
 ## 🚨 TEAM WORKFLOW GUIDE (MANDATORY)
 
 ## 🎯 Goal
