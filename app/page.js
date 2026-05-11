@@ -283,7 +283,6 @@ export default function HomePage() {
         display: "flex",
         alignItems: "center",
         position: "relative",
-        marginTop: "60px",
         overflow: "hidden",
       }}>
         <div className={`hero-background ${heroLoaded ? "hero-background--loaded" : ""}`} style={{

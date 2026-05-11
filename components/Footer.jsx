@@ -26,9 +26,9 @@ export default function Footer() {
           <div className="footer-column">
             <h4>Contact us</h4>
             <ul className="footer-list">
-              <li>Staten Island, NY 10314, USA</li>
-              <li>+111 222 369 45</li>
-              <li>+123 456 789 11</li>
+              <li>Debre Berhan, Ethiopia</li>
+              <li>+251 91 234 5678</li>
+              <li>+251 11 234 5678</li>
               <li>newhome@example.com</li>
             </ul>
           </div>

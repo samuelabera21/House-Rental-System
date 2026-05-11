@@ -8014,3 +8014,1207 @@ select:focus {
 ::-webkit-scrollbar-thumb:hover {
   background: #e55a24;
 }
+
+/* Renter dashboard refresh */
+.renter-section {
+  padding: 2.5rem 0 4rem;
+  background: linear-gradient(180deg, #f7f9fc 0%, #edf2f7 100%);
+  color: #0f172a;
+}
+
+.renter-dashboard-wrap {
+  width: min(1240px, calc(100% - 2rem));
+}
+
+.renter-shell {
+  gap: 1.35rem;
+}
+
+.renter-dashboard-grid {
+  display: grid;
+  gap: 1.35rem;
+}
+
+.renter-dashboard-main {
+  padding: 0;
+}
+
+.renter-hero-new {
+  position: relative;
+  min-height: clamp(420px, 58vw, 620px);
+  display: grid;
+  place-items: center;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  margin: 0 0 0.5rem;
+  border-radius: 32px;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, rgba(5, 10, 18, 0.48), rgba(5, 10, 18, 0.68)),
+    url("https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=1600&h=900&fit=crop") center/cover no-repeat;
+  box-shadow: 0 26px 70px rgba(15, 23, 42, 0.16);
+}
+
+.renter-hero-new::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.16), transparent 30%),
+    radial-gradient(circle at 80% 80%, rgba(255, 107, 53, 0.16), transparent 34%),
+    linear-gradient(180deg, rgba(10, 15, 22, 0.06), rgba(10, 15, 22, 0.28));
+  pointer-events: none;
+}
+
+.renter-hero-content {
+  position: relative;
+  z-index: 1;
+  width: min(760px, 100%);
+  padding: clamp(1.5rem, 4vw, 3rem);
+  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.18);
+  text-align: center;
+}
+
+.renter-welcome-title {
+  margin: 0;
+  font-size: clamp(2.4rem, 6vw, 4.6rem);
+  line-height: 0.98;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+  text-shadow: 0 14px 30px rgba(0, 0, 0, 0.38);
+}
+
+.user-name {
+  display: inline-block;
+  margin-top: 0.35rem;
+  background: linear-gradient(135deg, #ffe08a 0%, #ffb84d 50%, #ff9150 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.renter-welcome-subtitle {
+  margin: 1rem auto 0;
+  max-width: 32ch;
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.renter-browse-btn {
+  margin-top: 1.8rem;
+  padding: 0.95rem 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.9) 100%);
+  color: #0f172a;
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.18);
+  transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+}
+
+.renter-browse-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.22);
+}
+
+.renter-panel,
+.renter-stat-card,
+.listing-card,
+.renter-note,
+.search-bar,
+.modal-content,
+.property-summary,
+.search-filter-input {
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, background-color 180ms ease;
+}
+
+.renter-panel {
+  padding: 1.35rem;
+  border-radius: 24px;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 16px 44px rgba(15, 23, 42, 0.08);
+}
+
+.renter-panel .section-head,
+.renter-search-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+  padding-bottom: 0.9rem;
+  margin-bottom: 1.1rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+}
+
+.renter-panel .section-head h2,
+.renter-search-header h2 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.renter-panel .section-head p,
+.renter-search-header p,
+.renter-hero-content p,
+.renter-search-panel p,
+.renter-note p,
+.property-summary p,
+.overlay-description,
+.overlay-rooms,
+.house-description,
+.filter-hint,
+.renter-card-footer,
+.renter-hero-copy p {
+  display: block;
+  color: #64748b;
+  line-height: 1.7;
+}
+
+.renter-search-panel {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.98));
+}
+
+.renter-search-grid {
+  gap: 1rem;
+  padding: 0.5rem 0 0;
+}
+
+.search-filter-group label,
+.filter-label,
+.form-group label,
+.price-currency,
+.renter-note h3,
+.property-summary h3,
+.overlay-title,
+.overlay-price {
+  color: #0f172a;
+}
+
+.search-filter-input,
+.search-bar {
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  background: #ffffff;
+}
+
+.search-bar {
+  border-radius: 18px;
+  padding: 0.85rem 0.95rem;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+}
+
+.search-bar input {
+  color: #0f172a;
+}
+
+.search-bar button,
+.btn-primary,
+.overlay-btn.btn-active {
+  background: linear-gradient(135deg, #ff6b35, #ff8a50);
+  color: #ffffff;
+  box-shadow: 0 8px 20px rgba(255, 107, 53, 0.22);
+}
+
+.renter-search-grid input::placeholder,
+.search-bar input::placeholder,
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #94a3b8;
+}
+
+.search-filter-input:focus-visible,
+.search-bar input:focus-visible,
+.form-group input:focus-visible,
+.form-group select:focus-visible,
+.form-group textarea:focus-visible {
+  outline: none;
+  border-color: rgba(255, 107, 53, 0.36);
+  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.12);
+}
+
+.renter-house-grid {
+  margin-top: 1.25rem;
+  gap: 1.2rem;
+}
+
+.listing-card {
+  height: 340px;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.08);
+}
+
+.listing-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 22px 44px rgba(15, 23, 42, 0.14);
+  border-color: rgba(255, 107, 53, 0.16);
+}
+
+.listing-card-image {
+  background: linear-gradient(135deg, #eef2f7, #e5eaf1);
+}
+
+.listing-card-overlay {
+  background: linear-gradient(180deg, rgba(10, 18, 35, 0.1), rgba(10, 18, 35, 0.78));
+}
+
+.overlay-content {
+  max-width: 92%;
+  color: #ffffff;
+}
+
+.overlay-title {
+  color: #ffffff;
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+
+.overlay-price {
+  color: #ffcf8b;
+  font-weight: 800;
+}
+
+.overlay-description,
+.overlay-rooms {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.overlay-btn {
+  border-radius: 999px;
+  padding: 0.82rem 1.25rem;
+  font-weight: 800;
+}
+
+.overlay-btn.btn-sent,
+.request-btn:disabled,
+.request-btn-sent {
+  background: rgba(148, 163, 184, 0.16);
+  color: #64748b;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+}
+
+.renter-note {
+  border-radius: 20px;
+  padding: 1rem 1.05rem;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  background: rgba(248, 250, 252, 0.96);
+}
+
+.renter-note-success {
+  border-left: 4px solid #16a34a;
+}
+
+.renter-note-warning {
+  border-left: 4px solid #f59e0b;
+}
+
+.renter-note-info {
+  border-left: 4px solid #2563eb;
+}
+
+.modal-overlay {
+  padding: 1rem;
+  background: rgba(15, 23, 42, 0.62);
+  backdrop-filter: blur(10px);
+}
+
+.modal-content {
+  width: min(640px, 100%);
+  max-height: 88vh;
+  border-radius: 28px;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 30px 80px rgba(15, 23, 42, 0.24);
+}
+
+.modal-header {
+  background: rgba(248, 250, 252, 0.96);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+}
+
+.modal-header h2 {
+  color: #0f172a;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.modal-close {
+  color: #334155;
+  background: rgba(148, 163, 184, 0.14);
+}
+
+.modal-close:hover {
+  color: #0f172a;
+  background: rgba(148, 163, 184, 0.2);
+}
+
+.property-summary {
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  background: linear-gradient(135deg, rgba(248, 250, 252, 0.98), rgba(241, 245, 249, 0.96));
+}
+
+.request-form {
+  gap: 1rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  border-radius: 14px;
+  background: #ffffff;
+  color: #0f172a;
+}
+
+.form-actions {
+  border-top: 1px solid rgba(148, 163, 184, 0.16);
+  padding-top: 0.85rem;
+}
+
+.btn-secondary {
+  background: rgba(148, 163, 184, 0.14);
+  color: #334155;
+}
+
+.auth-error {
+  color: #dc2626;
+}
+
+.empty-state {
+  border: 1px dashed rgba(148, 163, 184, 0.3);
+  border-radius: 22px;
+  background: rgba(248, 250, 252, 0.92);
+  color: #334155;
+}
+
+.empty-state h3,
+.empty-state p {
+  color: inherit;
+}
+
+.dark .renter-section {
+  background: linear-gradient(180deg, #0b1220 0%, #121a2c 100%);
+  color: #e2e8f0;
+}
+
+.dark .renter-hero-new {
+  background:
+    linear-gradient(135deg, rgba(2, 6, 23, 0.56), rgba(2, 6, 23, 0.78)),
+    url("https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=1600&h=900&fit=crop") center/cover no-repeat;
+  box-shadow: 0 30px 84px rgba(0, 0, 0, 0.42);
+}
+
+.dark .renter-hero-content {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(8, 13, 26, 0.56);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+}
+
+.dark .renter-welcome-title,
+.dark .renter-panel .section-head h2,
+.dark .renter-search-header h2,
+.dark .overlay-title,
+.dark .property-summary h3,
+.dark .renter-note h3,
+.dark .modal-header h2,
+.dark .empty-state,
+.dark .empty-state h3,
+.dark .empty-state p,
+.dark .filter-label,
+.dark .search-filter-group label,
+.dark .form-group label,
+.dark .price-currency {
+  color: #f8fafc;
+}
+
+.dark .renter-welcome-subtitle,
+.dark .renter-panel .section-head p,
+.dark .renter-search-header p,
+.dark .renter-search-panel p,
+.dark .renter-note p,
+.dark .property-summary p,
+.dark .overlay-description,
+.dark .overlay-rooms,
+.dark .house-description,
+.dark .filter-hint,
+.dark .renter-card-footer,
+.dark .search-bar input,
+.dark .search-bar input::placeholder,
+.dark .search-filter-input::placeholder,
+.dark .form-group input::placeholder,
+.dark .form-group textarea::placeholder {
+  color: #cbd5e1;
+}
+
+.dark .renter-panel,
+.dark .renter-search-panel,
+.dark .listing-card,
+.dark .renter-note,
+.dark .modal-content,
+.dark .property-summary {
+  border-color: rgba(255, 255, 255, 0.08);
+  background: rgba(8, 13, 26, 0.94);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+}
+
+.dark .renter-panel .section-head,
+.dark .renter-search-header,
+.dark .form-actions,
+.dark .modal-header {
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.dark .search-filter-input,
+.dark .search-bar,
+.dark .form-group input,
+.dark .form-group select,
+.dark .form-group textarea {
+  background: rgba(15, 23, 42, 0.74);
+  border-color: rgba(148, 163, 184, 0.18);
+}
+
+.dark .search-bar button,
+.dark .btn-primary,
+.dark .overlay-btn.btn-active,
+.dark .renter-browse-btn {
+  background: linear-gradient(135deg, #ff6b35, #ff9a57);
+  color: #ffffff;
+}
+
+.dark .search-bar button:hover,
+.dark .btn-primary:hover,
+.dark .overlay-btn.btn-active:hover:not(:disabled),
+.dark .renter-browse-btn:hover {
+  box-shadow: 0 16px 34px rgba(255, 107, 53, 0.28);
+}
+
+.dark .listing-card-image {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.92));
+}
+
+.dark .listing-card-overlay {
+  background: linear-gradient(180deg, rgba(2, 6, 23, 0.12), rgba(2, 6, 23, 0.84));
+}
+
+.dark .overlay-btn.btn-sent,
+.dark .request-btn:disabled,
+.dark .request-btn-sent {
+  background: rgba(148, 163, 184, 0.16);
+  color: #94a3b8;
+  border-color: rgba(148, 163, 184, 0.2);
+}
+
+.dark .modal-overlay {
+  background: rgba(2, 6, 23, 0.7);
+}
+
+.dark .modal-header {
+  background: rgba(15, 23, 42, 0.96);
+}
+
+.dark .modal-close {
+  color: #e2e8f0;
+  background: rgba(148, 163, 184, 0.14);
+}
+
+.dark .modal-close:hover {
+  background: rgba(148, 163, 184, 0.22);
+  color: #ffffff;
+}
+
+.dark .property-summary,
+.dark .empty-state {
+  background: rgba(15, 23, 42, 0.88);
+}
+
+.dark .renter-note-success {
+  border-left-color: #22c55e;
+}
+
+.dark .renter-note-warning {
+  border-left-color: #f59e0b;
+}
+
+.dark .renter-note-info {
+  border-left-color: #60a5fa;
+}
+
+.dark .btn-secondary {
+  background: rgba(148, 163, 184, 0.12);
+  color: #e2e8f0;
+}
+
+.dark .btn-secondary:hover {
+  background: rgba(148, 163, 184, 0.2);
+}
+
+@media (max-width: 768px) {
+  .renter-section {
+    padding: 1.5rem 0 2.5rem;
+  }
+
+  .renter-hero-new {
+    min-height: 420px;
+    border-radius: 24px;
+  }
+
+  .renter-hero-content {
+    padding: 1.2rem;
+    border-radius: 22px;
+  }
+
+  .renter-welcome-title {
+    font-size: clamp(2.1rem, 10vw, 3.2rem);
+  }
+
+  .renter-browse-btn {
+    width: 100%;
+  }
+
+  .renter-panel {
+    padding: 1.1rem;
+  }
+
+  .listing-card {
+    height: 300px;
+  }
+
+  .modal-content {
+    width: min(100%, 100%);
+    border-radius: 22px;
+  }
+
+  .request-form {
+    grid-template-columns: 1fr;
+  }
+
+  .request-form .form-group:nth-child(6),
+  .request-form .form-actions,
+  .request-form .auth-error {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Owner dashboard refresh */
+.owner-section {
+  padding: 2.5rem 0 4rem;
+  background: linear-gradient(180deg, #f8fafc 0%, #edf2f7 100%);
+  color: #0f172a;
+}
+
+.owner-shell,
+.owner-add-page-wrap,
+.owner-request-panel,
+.owner-add-page-form {
+  width: min(1240px, calc(100% - 2rem));
+}
+
+.owner-shell,
+.owner-add-page-wrap {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.owner-hero,
+.owner-summary-card,
+.owner-panel,
+.owner-request-card,
+.owner-add-form,
+.owner-page-tab {
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, background-color 180ms ease, color 180ms ease;
+}
+
+.owner-hero,
+.owner-summary-card,
+.owner-panel,
+.owner-request-card,
+.owner-add-form {
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 16px 44px rgba(15, 23, 42, 0.08);
+}
+
+.owner-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1.25rem;
+  align-items: start;
+  padding: 1.4rem;
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at top right, rgba(255, 107, 53, 0.08), transparent 36%),
+    rgba(255, 255, 255, 0.95);
+}
+
+.owner-hero-copy h1,
+.owner-panel-head h2,
+.owner-summary-label,
+.owner-summary-value,
+.owner-list-row h3,
+.owner-location,
+.owner-request-text,
+.owner-request-message,
+.owner-request-review-note,
+.owner-add-form label,
+.owner-add-form h3,
+.owner-add-form input,
+.owner-add-form textarea,
+.owner-add-form select,
+.owner-page-tab,
+.owner-dashboard-actions-note,
+.owner-request-state,
+.owner-badge,
+.owner-request-notification,
+.owner-request-link,
+.owner-secondary-btn,
+.owner-list-actions button,
+.owner-add-form-actions button,
+.owner-empty-state,
+.owner-empty-state *,
+.owner-hero-copy p,
+.owner-panel-head p,
+.owner-add-hero p,
+.owner-hero-note,
+.owner-request-badge,
+.owner-summary-card p,
+.owner-add-form p,
+.owner-form-section,
+.owner-form-section * {
+  color: #0f172a;
+}
+
+.owner-hero-copy .section-kicker,
+.owner-hero-copy p,
+.owner-panel-head p,
+.owner-dashboard-actions-note,
+.owner-location,
+.owner-request-text,
+.owner-request-message,
+.owner-request-review-note,
+.owner-summary-label,
+.owner-hero-note,
+.owner-request-state,
+.owner-request-notification strong,
+.owner-request-notification span,
+.owner-list-meta,
+.owner-list-meta span,
+.owner-add-form label span,
+.owner-add-form .owner-upload-hint,
+.owner-add-form .owner-form-help,
+.owner-empty-state {
+  color: #475569;
+}
+
+.owner-hero-copy h1,
+.owner-panel-head h2,
+.owner-summary-value,
+.owner-list-row h3 {
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.owner-hero-copy h1 {
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  margin: 0.45rem 0 0;
+  line-height: 1;
+}
+
+.owner-summary-grid {
+  gap: 1rem;
+}
+
+.owner-summary-card {
+  border-radius: 22px;
+  padding: 1.1rem 1.2rem;
+}
+
+.owner-summary-label {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.owner-summary-value {
+  margin-top: 0.45rem;
+  font-size: 2rem;
+  color: #ff6b35;
+}
+
+.owner-panel,
+.owner-add-form,
+.owner-request-card {
+  border-radius: 24px;
+}
+
+.owner-panel-head,
+.owner-list-row,
+.owner-request-notification,
+.owner-list-actions,
+.owner-add-form-actions,
+.owner-page-tabs {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.owner-panel-head {
+  justify-content: space-between;
+  padding-bottom: 0.9rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+}
+
+.owner-panel-head h2 {
+  margin: 0;
+  font-size: 1.45rem;
+}
+
+.owner-panel-head p {
+  margin-top: 0.35rem;
+  line-height: 1.7;
+}
+
+.owner-list-grid,
+.owner-request-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.owner-list-card,
+.owner-request-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  background: rgba(248, 250, 252, 0.98);
+  padding: 1rem;
+  border-radius: 22px;
+}
+
+.owner-list-card:hover,
+.owner-request-card:hover,
+.owner-summary-card:hover,
+.owner-add-form:hover,
+.owner-panel:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 22px 50px rgba(15, 23, 42, 0.12);
+}
+
+.owner-listing-thumb {
+  border-radius: 18px;
+  border: 1px solid rgba(148, 163, 184, 0.14);
+}
+
+.owner-list-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  color: #475569;
+}
+
+.owner-list-meta span {
+  padding: 0.38rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.12);
+}
+
+.owner-request-notification,
+.owner-request-link,
+.owner-secondary-btn,
+.owner-list-actions button,
+.owner-add-form-actions button,
+.owner-page-tab {
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: #ffffff;
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.owner-request-link,
+.owner-secondary-btn,
+.owner-page-tab {
+  padding: 0.75rem 1rem;
+}
+
+.owner-request-notification {
+  padding: 0.85rem 1rem;
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.12), rgba(255, 107, 53, 0.06));
+}
+
+.owner-request-notification strong,
+.owner-request-state {
+  color: #ff6b35;
+}
+
+.owner-request-notification-dot {
+  background: #ff6b35;
+}
+
+.owner-request-badge {
+  background: rgba(255, 107, 53, 0.12);
+  color: #c2410c;
+  border: 1px solid rgba(255, 107, 53, 0.18);
+}
+
+.owner-request-state-pending {
+  background: rgba(250, 204, 21, 0.14);
+  color: #a16207;
+}
+
+.owner-request-state-accepted {
+  background: rgba(34, 197, 94, 0.14);
+  color: #166534;
+}
+
+.owner-request-state-rejected {
+  background: rgba(239, 68, 68, 0.14);
+  color: #991b1b;
+}
+
+.owner-request-message,
+.owner-request-review-note,
+.owner-empty-state,
+.owner-dashboard-actions-note,
+.owner-hero-note,
+.owner-panel-head p,
+.owner-location,
+.owner-request-text,
+.owner-list-meta {
+  color: #64748b;
+}
+
+.owner-add-hero {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.owner-add-form {
+  display: grid;
+  gap: 1rem;
+  padding: 1.25rem;
+}
+
+.owner-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.owner-form-grid label,
+.owner-add-form > label,
+.owner-form-section h3 {
+  color: #0f172a;
+}
+
+.owner-form-grid input,
+.owner-form-grid select,
+.owner-add-form textarea,
+.owner-add-form input,
+.owner-add-form select {
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  border-radius: 14px;
+  background: #ffffff;
+  color: #0f172a;
+}
+
+.owner-form-grid input::placeholder,
+.owner-add-form textarea::placeholder,
+.owner-add-form input::placeholder {
+  color: #94a3b8;
+}
+
+.owner-form-section {
+  display: grid;
+  gap: 0.85rem;
+  padding: 1rem;
+  border-radius: 18px;
+  background: rgba(248, 250, 252, 0.96);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+.owner-checkbox-field,
+.amenity-checkbox {
+  color: #334155;
+}
+
+.owner-upload-hint,
+.owner-hero-note {
+  color: #64748b;
+}
+
+.owner-add-form-actions {
+  justify-content: flex-end;
+}
+
+.owner-add-form-actions .owner-secondary-btn {
+  background: rgba(148, 163, 184, 0.12);
+}
+
+.owner-add-form-actions button,
+.owner-list-actions button {
+  padding: 0.72rem 1.05rem;
+}
+
+.owner-list-edit-btn,
+.approve-btn {
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  color: #ffffff;
+  border-color: transparent;
+}
+
+.owner-list-delete-btn,
+.reject-btn {
+  background: rgba(239, 68, 68, 0.1);
+  color: #991b1b;
+}
+
+.owner-page-tabs {
+  margin-top: 0.25rem;
+}
+
+.owner-page-tab {
+  background: rgba(148, 163, 184, 0.12);
+}
+
+.owner-page-tab.active {
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.16), rgba(255, 107, 53, 0.08));
+  color: #9a3412;
+  border-color: rgba(255, 107, 53, 0.22);
+}
+
+.owner-empty-state {
+  min-height: 140px;
+  display: grid;
+  place-items: center;
+  border-radius: 20px;
+  border: 1px dashed rgba(148, 163, 184, 0.24);
+  background: rgba(248, 250, 252, 0.95);
+  font-weight: 600;
+}
+
+.dark .owner-section {
+  background: linear-gradient(180deg, #0b1220 0%, #121a2c 100%);
+  color: #e2e8f0;
+}
+
+.dark .owner-hero,
+.dark .owner-summary-card,
+.dark .owner-panel,
+.dark .owner-request-card,
+.dark .owner-add-form,
+.dark .owner-page-tab,
+.dark .owner-request-notification,
+.dark .owner-request-link,
+.dark .owner-secondary-btn,
+.dark .owner-list-actions button,
+.dark .owner-add-form-actions button {
+  background: rgba(8, 13, 26, 0.92);
+  border-color: rgba(255, 255, 255, 0.08);
+  color: #f8fafc;
+}
+
+.dark .owner-hero {
+  background:
+    radial-gradient(circle at top right, rgba(255, 107, 53, 0.12), transparent 36%),
+    rgba(8, 13, 26, 0.94);
+}
+
+.dark .owner-hero-copy h1,
+.dark .owner-panel-head h2,
+.dark .owner-summary-label,
+.dark .owner-summary-value,
+.dark .owner-list-row h3,
+.dark .owner-location,
+.dark .owner-request-text,
+.dark .owner-request-message,
+.dark .owner-request-review-note,
+.dark .owner-add-form label,
+.dark .owner-add-form h3,
+.dark .owner-add-form input,
+.dark .owner-add-form textarea,
+.dark .owner-add-form select,
+.dark .owner-page-tab,
+.dark .owner-dashboard-actions-note,
+.dark .owner-request-state,
+.dark .owner-badge,
+.dark .owner-request-notification,
+.dark .owner-request-link,
+.dark .owner-secondary-btn,
+.dark .owner-list-actions button,
+.dark .owner-add-form-actions button,
+.dark .owner-empty-state,
+.dark .owner-empty-state *,
+.dark .owner-hero-copy p,
+.dark .owner-panel-head p,
+.dark .owner-add-hero p,
+.dark .owner-hero-note,
+.dark .owner-request-badge,
+.dark .owner-summary-card p,
+.dark .owner-add-form p,
+.dark .owner-form-section,
+.dark .owner-form-section * {
+  color: #f8fafc;
+}
+
+.dark .owner-hero-copy .section-kicker,
+.dark .owner-panel-head p,
+.dark .owner-dashboard-actions-note,
+.dark .owner-location,
+.dark .owner-request-text,
+.dark .owner-request-message,
+.dark .owner-request-review-note,
+.dark .owner-summary-label,
+.dark .owner-hero-note,
+.dark .owner-list-meta,
+.dark .owner-add-form .owner-upload-hint,
+.dark .owner-add-form .owner-form-help,
+.dark .owner-empty-state {
+  color: #cbd5e1;
+}
+
+.dark .owner-panel-head,
+.dark .owner-summary-grid,
+.dark .owner-form-section,
+.dark .owner-panel,
+.dark .owner-add-form {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.dark .owner-summary-value {
+  color: #ffb36b;
+}
+
+.dark .owner-list-card,
+.dark .owner-request-card {
+  background: rgba(15, 23, 42, 0.94);
+}
+
+.dark .owner-list-meta span {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.dark .owner-request-notification {
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.18), rgba(255, 107, 53, 0.08));
+}
+
+.dark .owner-request-badge {
+  color: #ffb36b;
+  background: rgba(255, 107, 53, 0.12);
+}
+
+.dark .owner-request-state-pending {
+  background: rgba(250, 204, 21, 0.12);
+  color: #fcd34d;
+}
+
+.dark .owner-request-state-accepted {
+  background: rgba(34, 197, 94, 0.12);
+  color: #86efac;
+}
+
+.dark .owner-request-state-rejected {
+  background: rgba(239, 68, 68, 0.12);
+  color: #fca5a5;
+}
+
+.dark .owner-form-grid input,
+.dark .owner-form-grid select,
+.dark .owner-add-form textarea,
+.dark .owner-add-form input,
+.dark .owner-add-form select {
+  background: rgba(15, 23, 42, 0.72);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #f8fafc;
+}
+
+.dark .owner-form-grid input::placeholder,
+.dark .owner-add-form textarea::placeholder,
+.dark .owner-add-form input::placeholder {
+  color: #94a3b8;
+}
+
+.dark .owner-form-section {
+  background: rgba(15, 23, 42, 0.92);
+}
+
+.dark .owner-page-tab.active {
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.2), rgba(255, 107, 53, 0.1));
+  color: #ffcf8b;
+}
+
+.dark .owner-empty-state {
+  background: rgba(15, 23, 42, 0.92);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 900px) {
+  .owner-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .owner-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .owner-panel-head,
+  .owner-list-row,
+  .owner-add-form-actions,
+  .owner-request-notification {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 768px) {
+  .owner-section {
+    padding: 1.5rem 0 2.5rem;
+  }
+
+  .owner-shell,
+  .owner-add-page-wrap,
+  .owner-request-panel,
+  .owner-add-page-form {
+    width: calc(100% - 1rem);
+  }
+
+  .owner-hero,
+  .owner-summary-card,
+  .owner-panel,
+  .owner-request-card,
+  .owner-add-form {
+    padding: 1rem;
+    border-radius: 22px;
+  }
+
+  .owner-hero-copy h1 {
+    font-size: clamp(1.9rem, 8vw, 2.8rem);
+  }
+
+  .owner-summary-value {
+    font-size: 1.7rem;
+  }
+
+  .owner-list-actions,
+  .owner-add-form-actions,
+  .owner-page-tabs {
+    width: 100%;
+  }
+
+  .owner-request-link,
+  .owner-secondary-btn,
+  .owner-page-tab,
+  .owner-list-actions button,
+  .owner-add-form-actions button {
+    width: 100%;
+    justify-content: center;
+  }
+}

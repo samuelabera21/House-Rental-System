@@ -3,6 +3,49 @@
 import { useEffect, useMemo, useState } from "react";
 import { getActiveUser, updateStoredUserProfile } from "../lib/auth";
 
+const MAX_PROFILE_IMAGE_SIDE = 480;
+
+function compressProfileImage(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.onerror = () => reject(new Error("Unable to read the selected image."));
+    reader.onload = () => {
+      const image = new Image();
+
+      image.onerror = () => reject(new Error("Unable to process the selected image."));
+      image.onload = () => {
+        const scale = Math.min(
+          1,
+          MAX_PROFILE_IMAGE_SIDE / Math.max(image.width || 1, image.height || 1),
+        );
+        const canvas = document.createElement("canvas");
+        canvas.width = Math.max(1, Math.round(image.width * scale));
+        canvas.height = Math.max(1, Math.round(image.height * scale));
+
+        const context = canvas.getContext("2d");
+
+        if (!context) {
+          resolve(String(reader.result || ""));
+          return;
+        }
+
+        context.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+        try {
+          resolve(canvas.toDataURL("image/jpeg", 0.82));
+        } catch {
+          resolve(String(reader.result || ""));
+        }
+      };
+
+      image.src = String(reader.result || "");
+    };
+
+    reader.readAsDataURL(file);
+  });
+}
+
 function getInitials(fullName) {
   const parts = String(fullName || "")
     .trim()
@@ -50,18 +93,21 @@ export default function ProfileEditor() {
     [activeUser, fullName],
   );
 
-  const handleImageChange = (event) => {
+  const handleImageChange = async (event) => {
     const file = event.target.files?.[0];
 
     if (!file) {
       return;
     }
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      setProfileImage(String(reader.result || ""));
-    };
-    reader.readAsDataURL(file);
+    try {
+      const imageData = await compressProfileImage(file);
+      setProfileImage(imageData);
+      setStatus("");
+    } catch (error) {
+      setStatus(error instanceof Error ? error.message : "Unable to load the selected image.");
+      setStatusType("error");
+    }
   };
 
   const handleSubmit = (event) => {
