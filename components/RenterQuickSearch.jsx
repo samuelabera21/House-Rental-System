@@ -13,14 +13,12 @@ export default function RenterQuickSearch({
     >
       <div className="renter-search-header">
         <h2>Filter Your Search</h2>
-        <p>Refine results by location, monthly budget, and number of rooms.</p>
       </div>
 
       <div className="renter-search-grid">
         <div className="search-filter-group">
           <label htmlFor="location-input">
             <span className="filter-label">Location</span>
-            <span className="filter-hint">City or area name</span>
           </label>
           <input
             id="location-input"
@@ -35,7 +33,6 @@ export default function RenterQuickSearch({
         <div className="search-filter-group">
           <label htmlFor="price-input">
             <span className="filter-label">Max Price</span>
-            <span className="filter-hint">USD per month</span>
           </label>
           <div className="price-input-wrapper">
             <span className="price-currency">$</span>
@@ -53,8 +50,7 @@ export default function RenterQuickSearch({
 
         <div className="search-filter-group">
           <label htmlFor="rooms-select">
-            <span className="filter-label">Number of Rooms</span>
-            <span className="filter-hint">Bedroom count</span>
+            <span className="filter-label">Rooms</span>
           </label>
           <select
             id="rooms-select"

@@ -85,6 +85,8 @@ export default function RegisterClient() {
         bio: "",
         password,
         role,
+        accountStatus: role === "owner" ? "Pending Approval" : "Active",
+        isApproved: role !== "owner",
       },
     ];
 
@@ -96,107 +98,141 @@ export default function RegisterClient() {
   };
 
   return (
-    <section className="section-block auth-section register-section">
-      <div className="page-container auth-container register-container">
-        <div className="register-shell">
-          <aside className="register-aside" aria-hidden="true">
-            <span className="register-badge">Create profile</span>
-            <h2>Start listing or renting without delays.</h2>
-            <p>
-              Join the platform to browse homes, post listings, and manage requests with ease.
-            </p>
-          </aside>
+    <section className="min-h-screen flex items-center justify-center bg-gray-50 py-12">
+      <div className="w-full max-w-6xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden grid grid-cols-1 md:grid-cols-2">
+        <div className="p-8 md:p-12 flex items-center">
+          <div className="w-full max-w-2xl mx-auto">
+            <div className="bg-white rounded-lg shadow-lg p-6">
+              <h1 className="text-2xl font-semibold mb-2">Create account</h1>
+              <p className="text-sm text-gray-600 mb-6">Fill in your details, choose your role, and create your account.</p>
 
-          <div className="register-form-wrap">
-            <h1>Create account</h1>
-            <p>Fill in your details, choose your role, and create your account.</p>
-            <form className="auth-form register-form" onSubmit={handleSubmit}>
-              <div className="auth-form-grid register-grid">
-                <label>
-                  Full Name
-                  <input
-                    type="text"
-                    placeholder="Full name"
-                    value={fullName}
-                    onChange={(event) => setFullName(event.target.value)}
-                    required
-                  />
+              <form className="space-y-4" onSubmit={handleSubmit}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <label className="block">
+                    <span className="text-sm font-medium text-gray-700">Full Name</span>
+                    <input
+                      type="text"
+                      placeholder="Full name"
+                      value={fullName}
+                      onChange={(event) => setFullName(event.target.value)}
+                      required
+                      className="mt-1 block w-full rounded-lg border border-gray-200 px-4 py-3 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-orange-400 box-border"
+                    />
+                  </label>
+
+                  <label className="block">
+                    <span className="text-sm font-medium text-gray-700">Email</span>
+                    <input
+                      type="email"
+                      placeholder="you@example.com"
+                      value={email}
+                      onChange={(event) => setEmail(event.target.value)}
+                      required
+                      className="mt-1 block w-full rounded-lg border border-gray-200 px-4 py-3 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-orange-400 box-border"
+                    />
+                  </label>
+
+                  <label className="block">
+                    <span className="text-sm font-medium text-gray-700">Phone Number</span>
+                    <input
+                      type="tel"
+                      placeholder="+251 9XX XXX XXX"
+                      value={phone}
+                      onChange={(event) => setPhone(event.target.value)}
+                      required
+                      className="mt-1 block w-full rounded-lg border border-gray-200 px-4 py-3 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-orange-400 box-border"
+                    />
+                  </label>
+
+                  <label className="block">
+                    <span className="text-sm font-medium text-gray-700">Address</span>
+                    <input
+                      type="text"
+                      placeholder="Your city or area"
+                      value={address}
+                      onChange={(event) => setAddress(event.target.value)}
+                      required
+                      className="mt-1 block w-full rounded-lg border border-gray-200 px-4 py-3 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-orange-400 box-border"
+                    />
+                  </label>
+
+                  <label className="block">
+                    <span className="text-sm font-medium text-gray-700">Password</span>
+                    <input
+                      type="password"
+                      placeholder="Create a password"
+                      value={password}
+                      onChange={(event) => setPassword(event.target.value)}
+                      required
+                      className="mt-1 block w-full rounded-lg border border-gray-200 px-4 py-3 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-orange-400 box-border"
+                    />
+                  </label>
+
+                  <label className="block">
+                    <span className="text-sm font-medium text-gray-700">Confirm Password</span>
+                    <input
+                      type="password"
+                      placeholder="Repeat your password"
+                      value={confirmPassword}
+                      onChange={(event) => setConfirmPassword(event.target.value)}
+                      required
+                      className="mt-1 block w-full rounded-lg border border-gray-200 px-4 py-3 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-orange-400 box-border"
+                    />
+                  </label>
+
+                  <label className="block sm:col-span-2">
+                    <span className="text-sm font-medium text-gray-700">Select your role</span>
+                    <select
+                      value={role}
+                      onChange={(event) => setRole(event.target.value)}
+                      required
+                      className="mt-1 block w-full rounded-lg border border-gray-200 px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-orange-400 box-border"
+                    >
+                      <option value="" disabled>
+                        Choose your role
+                      </option>
+                      <option value="renter">Renter</option>
+                      <option value="owner">House Owner</option>
+                    </select>
+                  </label>
+                </div>
+
+                <label className="flex items-center gap-2 text-sm">
+                  <input type="checkbox" required className="w-4 h-4" />
+                  <span>I agree to the terms and privacy policy.</span>
                 </label>
-                <label>
-                  Email
-                  <input
-                    type="email"
-                    placeholder="you@example.com"
-                    value={email}
-                    onChange={(event) => setEmail(event.target.value)}
-                    required
-                  />
-                </label>
-                <label>
-                  Phone Number
-                  <input
-                    type="tel"
-                    placeholder="+251 9XX XXX XXX"
-                    value={phone}
-                    onChange={(event) => setPhone(event.target.value)}
-                    required
-                  />
-                </label>
-                <label>
-                  Address
-                  <input
-                    type="text"
-                    placeholder="Your city or area"
-                    value={address}
-                    onChange={(event) => setAddress(event.target.value)}
-                    required
-                  />
-                </label>
-                <label>
-                  Password
-                  <input
-                    type="password"
-                    placeholder="Create a password"
-                    value={password}
-                    onChange={(event) => setPassword(event.target.value)}
-                    required
-                  />
-                </label>
-                <label>
-                  Confirm Password
-                  <input
-                    type="password"
-                    placeholder="Repeat your password"
-                    value={confirmPassword}
-                    onChange={(event) => setConfirmPassword(event.target.value)}
-                    required
-                  />
-                </label>
-                <label>
-                  Select your role
-                  <select
-                    value={role}
-                    onChange={(event) => setRole(event.target.value)}
-                    required
-                  >
-                    <option value="" disabled>
-                      Choose your role
-                    </option>
-                    <option value="renter">Renter</option>
-                    <option value="owner">House Owner</option>
-                  </select>
-                </label>
+
+                {message ? <p className="text-sm text-red-600">{message}</p> : null}
+
+                <button type="submit" className="w-full inline-flex items-center justify-center px-4 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded-lg font-medium">Create Account</button>
+              </form>
+
+              <p className="mt-6 text-sm text-gray-600">
+                Already have an account? <Link href="/login" className="text-orange-600 font-medium">Login here</Link>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div
+          className="hidden md:block bg-cover bg-center"
+          style={{
+            backgroundImage:
+              "url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1400&q=80')",
+          }}
+          aria-hidden="true"
+        >
+          <div className="h-full w-full bg-black bg-opacity-40 flex items-center justify-center p-8">
+            <div className="text-white max-w-xs">
+              <span className="inline-block bg-orange-500 text-xs uppercase px-3 py-1 rounded-full mb-4">Create profile</span>
+              <h2 className="text-3xl font-bold mb-2">Start listing or renting without delays.</h2>
+              <p className="opacity-90">Join the platform to browse homes, post listings, and manage requests with ease.</p>
+              <div className="flex gap-2 mt-4 text-sm opacity-90">
+                <span className="bg-white bg-opacity-10 px-3 py-1 rounded">Quick signup</span>
+                <span className="bg-white bg-opacity-10 px-3 py-1 rounded">Role based</span>
+                <span className="bg-white bg-opacity-10 px-3 py-1 rounded">Secure access</span>
               </div>
-              <label className="register-consent">
-                <input type="checkbox" required />
-                <span>I agree to the terms and privacy policy.</span>
-              </label>
-              {message ? <p className="auth-error">{message}</p> : null}
-              <button type="submit">Create Account</button>
-            </form>
-            <p className="auth-switch register-switch">
-              Already have an account? <Link href="/login">Login here</Link>
-            </p>
+            </div>
           </div>
         </div>
       </div>

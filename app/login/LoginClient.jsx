@@ -49,55 +49,86 @@ export default function LoginClient() {
 // role is determined by the matched user, which is used to redirect to the appropriate dashboard after login
 
     
-    const role = matchedUser.role;
-
     setActiveUser(matchedUser);
+
+    if (matchedUser.role === "owner" && matchedUser.isApproved === false) {
+      router.push("/owner/pending-approval");
+      return;
+    }
+
+    const role = matchedUser.role;
 
     router.push(ROLE_REDIRECT[role] || "/");
   };
 
   return (
-    <section className="section-block auth-section login-section">
-      <div className="page-container auth-container login-container">
-        <div className="login-shell">
-          <aside className="login-aside" aria-hidden="true">
-            <span className="login-badge">Welcome back</span>
-            <h2>Find your next home in minutes.</h2>
-            <p>
-              Sign in to manage your saved houses, messages, and rental requests from one place.
-            </p>
-          </aside>
+    <section className="min-h-screen flex items-center justify-center bg-gray-50 py-12">
+      <div className="w-full max-w-6xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden grid grid-cols-1 md:grid-cols-2">
+        <div className="relative hidden md:block h-full" aria-hidden="true">
+          <img
+            src="https://images.unsplash.com/photo-1505691723518-36a5b7f1a1d5?auto=format&fit=crop&w=1400&q=80"
+            alt="Homes"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div className="h-full w-full bg-black bg-opacity-40 flex items-center justify-center p-8 relative z-10">
+            <div className="text-white max-w-xs">
+              <span className="inline-block bg-orange-500 text-xs uppercase px-3 py-1 rounded-full mb-4">Welcome back</span>
+              <h2 className="text-3xl font-bold mb-2">Find your next home in minutes.</h2>
+              <p className="opacity-90">Sign in to manage your saved houses, messages, and rental requests from one place.</p>
+              <div className="flex gap-2 mt-4 text-sm opacity-90">
+                <span className="bg-white bg-opacity-10 px-3 py-1 rounded">Saved homes</span>
+                <span className="bg-white bg-opacity-10 px-3 py-1 rounded">Fast access</span>
+                <span className="bg-white bg-opacity-10 px-3 py-1 rounded">Private inbox</span>
+              </div>
+            </div>
+          </div>
+        </div>
 
-          <div className="login-form-wrap">
-            <h1>Login</h1>
-            <p>Sign in with your registered email and password.</p>
-            <form className="auth-form login-form" onSubmit={handleSubmit}>
-              <label>
-                Email
+        <div className="p-8 md:p-12 flex items-center">
+          <div className="w-full max-w-md mx-auto">
+            <div className="bg-white rounded-lg shadow-lg p-6">
+            <h1 className="text-2xl font-semibold mb-2">Login</h1>
+            <p className="text-sm text-gray-600 mb-6">Sign in with your registered email and password.</p>
+
+            <form className="space-y-4" onSubmit={handleSubmit}>
+              <label className="block">
+                <span className="text-sm font-medium text-gray-700">Email</span>
                 <input
                   type="email"
                   placeholder="you@example.com"
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
                   required
+                  className="mt-1 block w-full rounded-lg border border-gray-200 px-4 py-3 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-orange-400 box-border"
                 />
               </label>
-              <label>
-                Password
+
+              <label className="block">
+                <span className="text-sm font-medium text-gray-700">Password</span>
                 <input
                   type="password"
                   placeholder="********"
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
                   required
+                  className="mt-1 block w-full rounded-lg border border-gray-200 px-4 py-3 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-orange-400 box-border"
                 />
               </label>
-              {error ? <p className="auth-error">{error}</p> : null}
-              <button type="submit">Login</button>
+
+              {error ? <p className="text-sm text-red-600">{error}</p> : null}
+
+              <button
+                type="submit"
+                className="w-full inline-flex items-center justify-center px-4 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded-lg font-medium"
+              >
+                Login
+              </button>
             </form>
-            <p className="auth-switch login-switch">
-              Don&apos;t have an account? <Link href="/register">Register here</Link>
+
+            <p className="mt-6 text-sm text-gray-600">
+              Don&apos;t have an account? <Link href="/register" className="text-orange-600 font-medium">Register here</Link>
             </p>
+            </div>
           </div>
         </div>
       </div>

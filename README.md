@@ -1,5 +1,7 @@
 # House Rental Management System (Frontend)
 
+> Jira: HS-52 — Tailwind consistency review; branch prep: feature/HS-51-create-all-routes
+
 ## Guide Documents
 
 Use these links to open the shared team docs directly:
