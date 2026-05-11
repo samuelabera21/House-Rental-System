@@ -1,22 +1,29 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { getActiveUser } from "../../../lib/auth";
 import { getOwnerListings, saveOwnerListings } from "../../../lib/ownerListings";
+import OwnerPageTabs from "../OwnerPageTabs";
 
-export default function NewListingClient() {
+export default function NewListingClient({ listingId = null }) {
   const router = useRouter();
   const [isAuthorizing, setIsAuthorizing] = useState(true);
   const [formError, setFormError] = useState("");
-  const [uploadedImageData, setUploadedImageData] = useState("");
-  const [uploadedImageName, setUploadedImageName] = useState("");
+  const [imageData, setImageData] = useState("");
+  const [imageName, setImageName] = useState("");
+  const [currentImage, setCurrentImage] = useState("");
   const [newListing, setNewListing] = useState({
     title: "",
     location: "",
     price: "",
     rooms: "",
     description: "",
+    propertyType: "",
+    size: "",
+    yearBuilt: "",
+    furnished: false,
+    amenities: [],
   });
 
   useEffect(() => {
@@ -27,20 +34,58 @@ export default function NewListingClient() {
       return;
     }
 
+    if (activeUser.isApproved === false) {
+      router.replace("/owner/pending-approval");
+      return;
+    }
+
+    if (listingId) {
+      const listing = getOwnerListings().find((item) => item.id === listingId);
+
+      if (listing) {
+        setNewListing({
+          title: listing.title || "",
+          location: listing.location || "",
+          price: listing.price ? String(listing.price) : "",
+          rooms: listing.rooms ? String(listing.rooms) : "",
+          description: listing.description || "",
+          propertyType: listing.propertyType || "",
+          size: listing.size ? String(listing.size) : "",
+          yearBuilt: listing.yearBuilt ? String(listing.yearBuilt) : "",
+          furnished: Boolean(listing.furnished),
+          amenities: Array.isArray(listing.amenities) ? listing.amenities : [],
+        });
+        setCurrentImage(listing.image || "");
+        setImageName(listing.image ? "Current image" : "");
+      }
+    }
+
     setIsAuthorizing(false);
-  }, [router]);
+  }, [listingId]);
 
   const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setNewListing((prev) => ({ ...prev, [name]: value }));
+    const { name, value, type, checked } = event.target;
+    setNewListing((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const handleAmenityChange = (amenity) => {
+    setNewListing((prev) => ({
+      ...prev,
+      amenities: prev.amenities.includes(amenity)
+        ? prev.amenities.filter((item) => item !== amenity)
+        : [...prev.amenities, amenity],
+    }));
   };
 
   const handleFileUpload = (event) => {
     const file = event.target.files?.[0];
 
     if (!file) {
-      setUploadedImageData("");
-      setUploadedImageName("");
+      setImageData("");
+      setImageName("");
       return;
     }
 
@@ -54,21 +99,11 @@ export default function NewListingClient() {
       return;
     }
 
-    const reader = new FileReader();
-
-    reader.onload = () => {
-      setUploadedImageData(String(reader.result || ""));
-      setUploadedImageName(file.name);
-      setFormError("");
-    };
-
-    reader.onerror = () => {
-      setFormError("Could not read this image. Please choose another file.");
-      setUploadedImageData("");
-      setUploadedImageName("");
-    };
-
-    reader.readAsDataURL(file);
+    // Instead of storing large base64 in localStorage, we use a placeholder URL
+    // In production, you'd upload to a server/CDN here
+    setImageData("https://images.unsplash.com/photo-1560184897-ae75f418493e?auto=format&fit=crop&w=900&q=80");
+    setImageName(file.name);
+    setFormError("");
   };
 
   const handleSaveListing = (event) => {
@@ -96,27 +131,46 @@ export default function NewListingClient() {
       return;
     }
 
-    if (!uploadedImageData) {
+    const imageToSave = imageData || currentImage;
+
+    if (!imageToSave) {
       setFormError("Please upload a house picture before saving.");
       return;
     }
 
-    const createdListing = {
-      id: `L-${Date.now()}`,
+    // Generate a unique ID with proper L- prefix for consistency with request system
+    const newId = listingId || `L-${Math.floor(Math.random() * 100000)}-${Date.now()}`;
+    
+    const listingToSave = {
+      id: newId,
       title,
       location,
       price,
       status: "Active",
       rooms,
       description,
-      image: uploadedImageData,
+      image: imageToSave || "https://images.unsplash.com/photo-1560184897-ae75f418493e?auto=format&fit=crop&w=900&q=80",
+      propertyType: newListing.propertyType,
+      size: newListing.size ? Number(newListing.size) : null,
+      yearBuilt: newListing.yearBuilt ? Number(newListing.yearBuilt) : null,
+      furnished: newListing.furnished,
+      amenities: newListing.amenities,
     };
 
-    const existingListings = getOwnerListings();
-    const nextListings = [createdListing, ...existingListings];
-    saveOwnerListings(nextListings);
+    try {
+      const existingListings = getOwnerListings();
+      const nextListings = listingId
+        ? existingListings.map((listing) =>
+            listing.id === listingId ? listingToSave : listing,
+          )
+        : [listingToSave, ...existingListings];
 
-    router.push("/owner");
+      saveOwnerListings(nextListings);
+      setFormError("");
+      router.push("/owner");
+    } catch (error) {
+      setFormError("Storage quota exceeded. Please clear browser data and try again.");
+    }
   };
 
   if (isAuthorizing) {
@@ -136,21 +190,16 @@ export default function NewListingClient() {
           <div className="owner-hero-copy">
             <span className="section-kicker">
               <span className="section-kicker-line" />
-              New Listing
+              {listingId ? "Edit Listing" : "New Listing"}
             </span>
-            <h1>Add a New Home Listing</h1>
+            <h1>{listingId ? "Update this listing" : "Create a new listing"}</h1>
             <p>
-              Fill in the property details and upload a clear picture, then save to return to
-              your dashboard.
+              {listingId
+                ? "Review the property details, adjust the information, and save your updates."
+                : "Fill in the property details, upload a clean photo, and publish the home to your dashboard."}
             </p>
+            <OwnerPageTabs activeHref={listingId ? "/owner" : "/owner/new-listing"} />
           </div>
-          <button
-            type="button"
-            className="owner-action-btn owner-secondary-btn"
-            onClick={() => router.push("/owner")}
-          >
-            Back to Dashboard
-          </button>
         </header>
 
         <form className="owner-add-form owner-add-page-form" onSubmit={handleSaveListing}>
@@ -199,6 +248,45 @@ export default function NewListingClient() {
                 required
               />
             </label>
+            <label>
+              Property Type
+              <select
+                name="propertyType"
+                value={newListing.propertyType}
+                onChange={handleInputChange}
+                required
+              >
+                <option value="">Select Type</option>
+                <option value="Apartment">Apartment</option>
+                <option value="House">House</option>
+                <option value="Villa">Villa</option>
+                <option value="Studio">Studio</option>
+                <option value="Condo">Condo</option>
+              </select>
+            </label>
+            <label>
+              Size (sq ft)
+              <input
+                type="number"
+                name="size"
+                value={newListing.size}
+                onChange={handleInputChange}
+                min="1"
+                placeholder="Optional"
+              />
+            </label>
+            <label>
+              Year Built
+              <input
+                type="number"
+                name="yearBuilt"
+                value={newListing.yearBuilt}
+                onChange={handleInputChange}
+                min="1900"
+                max={new Date().getFullYear()}
+                placeholder="Optional"
+              />
+            </label>
           </div>
 
           <label>
@@ -213,26 +301,83 @@ export default function NewListingClient() {
             />
           </label>
 
+          <div className="owner-form-section">
+            <h3>Amenities</h3>
+            <div className="amenities-grid">
+              {[
+                "WiFi",
+                "Parking",
+                "Air Conditioning",
+                "Heating",
+                "Balcony",
+                "Garden",
+                "Security",
+                "Elevator",
+                "Gym",
+                "Pool",
+              ].map((amenity) => (
+                <label key={amenity} className="amenity-checkbox">
+                  <input
+                    type="checkbox"
+                    checked={newListing.amenities.includes(amenity)}
+                    onChange={() => handleAmenityChange(amenity)}
+                  />
+                  {amenity}
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <label className="owner-checkbox-field">
+            <input
+              type="checkbox"
+              name="furnished"
+              checked={newListing.furnished}
+              onChange={handleInputChange}
+            />
+            Furnished
+          </label>
+
           <label className="owner-upload-field">
             House Picture
-            <input type="file" accept="image/*" onChange={handleFileUpload} required />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleFileUpload}
+              required={!listingId && !currentImage}
+            />
             <span className="owner-upload-hint">
-              {uploadedImageName || "Upload JPG, PNG, or WEBP (max 2MB)."}
+              {imageName || currentImage
+                ? imageName || "Current image"
+                : "Upload JPG, PNG, or WEBP (max 2MB)."}
             </span>
           </label>
 
-          {uploadedImageData ? (
-            <img
-              src={uploadedImageData}
-              alt="New listing preview"
-              className="owner-listing-thumb owner-preview-thumb"
-            />
-          ) : null}
+          {(imageData || currentImage) && (
+            <div className="image-preview-container">
+              <img
+                src={imageData || currentImage}
+                alt={listingId ? "Edit listing preview" : "New listing preview"}
+                className="owner-listing-thumb owner-preview-thumb"
+              />
+              <button
+                type="button"
+                className="remove-image-btn"
+                onClick={() => {
+                  setImageData("");
+                  setImageName("");
+                  setCurrentImage("");
+                }}
+              >
+                Remove Image
+              </button>
+            </div>
+          )}
 
           {formError ? <p className="auth-error">{formError}</p> : null}
 
           <div className="owner-add-form-actions">
-            <button type="submit">Save Listing</button>
+            <button type="submit">{listingId ? "Update Listing" : "Save Listing"}</button>
             <button
               type="button"
               className="owner-secondary-btn"

@@ -2,13 +2,13 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import RenterNotifications from "../../components/RenterNotifications";
 import RenterQuickSearch from "../../components/RenterQuickSearch";
 import RenterRecommendations from "../../components/RenterRecommendations";
+import SearchBar from "../../components/SearchBar";
 import { getActiveUser } from "../../lib/auth";
+import { addRenterRequest, getRenterRequests, getRequestListingKey } from "../../lib/renterRequests";
 import {
   renterListings,
-  renterNotifications,
   renterStats,
 } from "../../lib/renterData";
 
@@ -19,7 +19,7 @@ export default function RenterDashboardPage() {
   const [maxPrice, setMaxPrice] = useState("");
   const [rooms, setRooms] = useState("all");
   const [requestedListingIds, setRequestedListingIds] = useState([]);
-  const [notifications, setNotifications] = useState(renterNotifications);
+  const [activeUser, setActiveUser] = useState(null);
 
   // Form modal state
   const [showFormModal, setShowFormModal] = useState(false);
@@ -64,22 +64,42 @@ export default function RenterDashboardPage() {
     );
   }, [requestedListingIds]);
 
-  useEffect(() => {
-    const activeUser = getActiveUser();
+  const displayName =
+    (activeUser?.fullName || activeUser?.name || activeUser?.username || activeUser?.email?.split("@")[0] || "Guest")
+      .replace(/[._-]+/g, " ")
+      .replace(/\b\w/g, (letter) => letter.toUpperCase());
 
-    if (!activeUser || activeUser.role !== "renter") {
+  useEffect(() => {
+    const user = getActiveUser();
+
+    if (!user || user.role !== "renter") {
       router.replace("/login");
       return;
     }
 
+    // Set active user
+    setActiveUser(user);
+
     // Pre-fill form with user data if available
-    if (activeUser) {
+    if (user) {
       setFormData((prev) => ({
         ...prev,
-        name: activeUser.fullName || activeUser.name || "",
-        email: activeUser.email || "",
-        phone: activeUser.phone || "",
+        name: user.fullName || user.name || "",
+        email: user.email || "",
+        phone: user.phone || "",
       }));
+
+      // Get requests for this user from all listings
+      const requestedIds = getRenterRequests()
+        .filter(
+          (request) =>
+            request.renterEmail === (user.email || "") &&
+            request.status !== "rejected",
+        )
+        .map((request) => request.listingId)
+        .filter(Boolean);
+
+      setRequestedListingIds(requestedIds);
     }
 
     setIsAuthorizing(false);
@@ -99,6 +119,10 @@ export default function RenterDashboardPage() {
     setRequestError("");
     setSelectedListing(listing);
     setShowFormModal(true);
+  };
+
+  const handleBrowseSearch = (query) => {
+    setLocation(query);
   };
 
   const handleInputChange = (e) => {
@@ -132,20 +156,35 @@ export default function RenterDashboardPage() {
       return;
     }
 
-    // Here you would typically send the form data to your backend API
-    console.log("Request submitted for:", selectedListing);
-    console.log("Form data:", formData);
+    const listingKey = getRequestListingKey(selectedListing);
+    const duplicateRequest = getRenterRequests().some(
+      (request) =>
+        request.listingKey === listingKey &&
+        request.renterEmail === trimmedEmail &&
+        request.status !== "rejected",
+    );
+
+    if (duplicateRequest) {
+      setRequestError("You already sent a request for this listing.");
+      return;
+    }
+
+    addRenterRequest({
+      id: `REQ-${Date.now()}`,
+      listingId: selectedListing.id,
+      listingKey,
+      listingTitle: selectedListing.title || selectedListing.location,
+      listingLocation: selectedListing.location,
+      renterName: trimmedName,
+      renterEmail: trimmedEmail,
+      renterPhone: trimmedPhone,
+      moveInDate: trimmedDate,
+      message: formData.message.trim(),
+      status: "pending",
+      createdAt: new Date().toISOString(),
+    });
 
     setRequestedListingIds((prev) => [...prev, selectedListing.id]);
-    setNotifications((prev) => [
-      {
-        id: Date.now(),
-        title: "Request Sent",
-        detail: `Your request for ${selectedListing.location} has been sent to the owner. We'll notify you once they respond.`,
-        type: "info",
-      },
-      ...prev,
-    ]);
 
     // Close modal and reset form
     setShowFormModal(false);
@@ -167,46 +206,57 @@ export default function RenterDashboardPage() {
   return (
     <section className="section-block renter-section">
       <div className="page-container renter-dashboard-wrap renter-shell">
-        <header className="renter-hero">
-          <div className="renter-hero-copy">
-            <span className="section-kicker">
-              <span className="section-kicker-line" />
-              Renter Workspace
-            </span>
-          <h1>Welcome back, find your next home faster</h1>
-          <p>
-            Search houses, review recommendations, and track request updates
-            from one dashboard.
-          </p>
+        <header className="renter-hero-new">
+          <div className="renter-hero-content">
+            <h1 className="renter-welcome-title">
+              Welcome,{" "}
+              <span className="user-name">
+                {displayName}
+              </span>
+            </h1>
+            <p className="renter-welcome-subtitle">Find your perfect home today</p>
+            <button
+              className="renter-browse-btn"
+              onClick={() => {
+                document.getElementById("browse")?.scrollIntoView({
+                  behavior: "smooth",
+                  block: "start",
+                });
+              }}
+            >
+              Browse Listings
+            </button>
           </div>
         </header>
 
-        <div className="renter-stats-grid">
-          {statsWithLiveRequests.map((item) => (
-            <article key={item.id} className="renter-stat-card">
-              <p>{item.label}</p>
-              <strong>{item.value}</strong>
-            </article>
-          ))}
+        <div className="renter-dashboard-grid">
+          <main className="renter-dashboard-main">
+            <section className="renter-panel renter-browse-panel" id="browse">
+              <div className="section-head">
+                <h2>Browse</h2>
+              </div>
+
+              <SearchBar onSearch={handleBrowseSearch} />
+
+              <RenterQuickSearch
+                location={location}
+                setLocation={setLocation}
+                maxPrice={maxPrice}
+                setMaxPrice={setMaxPrice}
+                rooms={rooms}
+                setRooms={setRooms}
+              />
+
+              <RenterRecommendations
+                listings={visibleListings}
+                requestedListingIds={requestedListingIds}
+                onSendRequest={handleRequestClick}
+              />
+            </section>
+          </main>
         </div>
 
-        <RenterQuickSearch
-          location={location}
-          setLocation={setLocation}
-          maxPrice={maxPrice}
-          setMaxPrice={setMaxPrice}
-          rooms={rooms}
-          setRooms={setRooms}
-        />
-
-        <RenterRecommendations
-          listings={visibleListings}
-          requestedListingIds={requestedListingIds}
-          onSendRequest={handleRequestClick}
-        />
-        <RenterNotifications notifications={notifications} />
-
-        {/* now add requested form */}
+        {/* now add requested form  and ui*/}
 
         {/* Request Form Modal */}
         {showFormModal && (
@@ -228,7 +278,7 @@ export default function RenterDashboardPage() {
 
                 <form onSubmit={handleFormSubmit} className="request-form">
                   <div className="form-group">
-                    <label htmlFor="name">Full Name *</label>
+                    <label htmlFor="name">Name *</label>
                     <input
                       type="text"
                       id="name"
@@ -241,7 +291,7 @@ export default function RenterDashboardPage() {
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="email">Email Address *</label>
+                    <label htmlFor="email">Email *</label>
                     <input
                       type="email"
                       id="email"
@@ -254,7 +304,7 @@ export default function RenterDashboardPage() {
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="phone">Phone Number *</label>
+                    <label htmlFor="phone">Phone *</label>
                     <input
                       type="tel"
                       id="phone"
@@ -267,7 +317,7 @@ export default function RenterDashboardPage() {
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="moveInDate">Preferred Move-in Date *</label>
+                    <label htmlFor="moveInDate">Move-in Date *</label>
                     <input
                       type="date"
                       id="moveInDate"
@@ -280,7 +330,7 @@ export default function RenterDashboardPage() {
 
                   <div className="form-group">
                     <label htmlFor="preferredContactMethod">
-                      Preferred Contact Method
+                      Contact Method
                     </label>
                     <select
                       id="preferredContactMethod"
@@ -295,7 +345,7 @@ export default function RenterDashboardPage() {
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="message">Additional Message</label>
+                    <label htmlFor="message">Message</label>
                     <textarea
                       id="message"
                       name="message"
@@ -319,7 +369,9 @@ export default function RenterDashboardPage() {
                     </button>
                   </div>
 
-                  {requestError ? <p className="auth-error">{requestError}</p> : null}
+                  {requestError ? (
+                    <p className="auth-error">{requestError}</p>
+                  ) : null}
                 </form>
               </div>
             </div>
