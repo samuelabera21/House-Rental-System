@@ -179,12 +179,22 @@ export default function AdminDashboardClient() {
           </article>
         </section>
 
+        {adminMessage && (
+          <section className="admin-notification-banner">
+            <p>{adminMessage}</p>
+          </section>
+        )}
+
         <section className="admin-quick-actions-grid" aria-label="Admin quick actions">
           <article className="admin-summary-card admin-action-card">
             <p className="admin-summary-label">Quick Actions</p>
             <div className="admin-action-list">
-              <button type="button">Review flagged listings</button>
-              <button type="button">Send system announcement</button>
+              <button type="button" onClick={handleReviewFlaggedListings}>
+                Review flagged listings
+              </button>
+              <button type="button" onClick={handleSendAnnouncement}>
+                Send system announcement
+              </button>
             </div>
           </article>
           <article className="admin-summary-card admin-alert-card">
@@ -202,7 +212,7 @@ export default function AdminDashboardClient() {
               <p>{userRecords.length} users in this preview</p>
             </div>
             <div className="admin-list-grid">
-              {userRecords.map((user) => (
+              {users.map((user) => (
                 <div key={user.id} className="admin-record-card">
                   <div className="admin-list-row">
                     <h3>{user.fullName}</h3>
@@ -211,8 +221,16 @@ export default function AdminDashboardClient() {
                   <p className="admin-record-text">{user.email}</p>
                   <p className="admin-record-text">Role: {user.role}</p>
                   <div className="admin-record-actions">
-                    <button type="button">Block</button>
-                    <button type="button">Remove</button>
+                    <button
+                      type="button"
+                      onClick={() => handleBlockUser(user.id)}
+                      disabled={user.status === "Blocked"}
+                    >
+                      {user.status === "Blocked" ? "Blocked" : "Block"}
+                    </button>
+                    <button type="button" onClick={() => handleRemoveUser(user.id)}>
+                      Remove
+                    </button>
                   </div>
                 </div>
               ))}
@@ -225,7 +243,7 @@ export default function AdminDashboardClient() {
               <p>{listingRecords.length} listing records</p>
             </div>
             <div className="admin-list-grid">
-              {listingRecords.map((listing) => (
+              {listings.map((listing) => (
                 <div key={listing.id} className="admin-record-card">
                   <div className="admin-list-row">
                     <h3>{listing.title}</h3>
@@ -234,10 +252,18 @@ export default function AdminDashboardClient() {
                   <p className="admin-record-text">Owner: {listing.owner}</p>
                   <p className="admin-record-text">Location: {listing.location}</p>
                   <div className="admin-record-actions">
-                    <button type="button" className="admin-approve-btn">
+                    <button
+                      type="button"
+                      className="admin-approve-btn"
+                      onClick={() => handleApproveListing(listing.id)}
+                    >
                       Approve
                     </button>
-                    <button type="button" className="admin-remove-btn">
+                    <button
+                      type="button"
+                      className="admin-remove-btn"
+                      onClick={() => handleRemoveListing(listing.id)}
+                    >
                       Remove
                     </button>
                   </div>
